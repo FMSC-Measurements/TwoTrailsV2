@@ -1,0 +1,97 @@
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using TwoTrails.DataAccess;
+using TwoTrails.BusinessObjects;
+
+namespace TwoTrails.Forms
+{
+    public partial class Take5Form : Form
+    {
+        public Take5Form(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int currIndex)
+        {
+            if (Engine.Values.WideScreen)
+                InitializeComponentWide();
+            else
+                InitializeComponent();
+
+            Init(poly, dal, meta, currIndex);
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            btnOk_Click2(sender, e);
+        }
+
+        private void btnCapture_Click(object sender, EventArgs e)
+        {
+            btnCapture_Click2(sender, e);
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            btnCancel_Click2(sender, e);
+        }
+
+        private void Take5Form_Closing(object sender, CancelEventArgs e)
+        {
+            CloseForm();
+
+        }
+
+        private void btnBound_Click(object sender, EventArgs e)
+        {
+            btnBound_Click2(sender, e);
+        }
+
+        private void chkLocked_CheckStateChanged(object sender, EventArgs e)
+        {
+            chkLocked_CheckStateChanged2(sender, e);
+        }
+
+        private void txtPID_TextChanged(object sender, EventArgs e)
+        {
+            txtPID_TextChanged2(sender,e);
+        }
+
+        private void txtComment_TextChanged(object sender, EventArgs e)
+        {
+            txtComment_TextChanged2(sender, e);
+        }
+
+        private void btnSideshot_Click(object sender, EventArgs e)
+        {
+            btnSideshot_Click2(sender, e);
+        }
+
+        private void travInfoControl1_BAzTextChanged()
+        {
+            travInfoControl1_BAzTextChanged2();
+        }
+
+        private void travInfoControl1_FAzTextChanged()
+        {
+            travInfoControl1_FAzTextChanged2();
+        }
+
+        private void travInfoControl1_SlopeAngleTextChanged()
+        {
+            travInfoControl1_SlopeAngleTextChanged2();
+        }
+
+        private void travInfoControl1_SlopeDistTextChanged()
+        {
+            travInfoControl1_SlopeDistTextChanged2();
+        }
+
+        private void travInfoControl1_GotFocused()
+        {
+            travInfoControl1_GotFocused2();
+        }
+    }
+}

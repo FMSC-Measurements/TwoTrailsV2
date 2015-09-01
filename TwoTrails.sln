@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{F2A759C9-8321-43CB-AD7A-2E92EBB2354B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoTrailsWM5cf3_5", "TwoTrailsCF3_5\TwoTrailsWM5cf3_5.csproj", "{30A6702F-84AE-4353-B929-C78ABE434A59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoTrailsPC", "TwoTrailsPC\TwoTrailsPC.csproj", "{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{61FE1A62-E6CE-46C8-9387-F4AEEC6686E4}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		SmartDeviceTestRun.testrunConfig = SmartDeviceTestRun.testrunConfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2A759C9-8321-43CB-AD7A-2E92EBB2354B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2A759C9-8321-43CB-AD7A-2E92EBB2354B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F2A759C9-8321-43CB-AD7A-2E92EBB2354B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2A759C9-8321-43CB-AD7A-2E92EBB2354B}.Release|x86.ActiveCfg = Release|Any CPU
+		{30A6702F-84AE-4353-B929-C78ABE434A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30A6702F-84AE-4353-B929-C78ABE434A59}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{30A6702F-84AE-4353-B929-C78ABE434A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30A6702F-84AE-4353-B929-C78ABE434A59}.Release|x86.ActiveCfg = Release|Any CPU
+		{30A6702F-84AE-4353-B929-C78ABE434A59}.Release|x86.Build.0 = Release|Any CPU
+		{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}.Debug|x86.ActiveCfg = Debug|x86
+		{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}.Debug|x86.Build.0 = Debug|x86
+		{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}.Debug|x86.Deploy.0 = Debug|x86
+		{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}.Release|x86.ActiveCfg = Release|x86
+		{5F6C08E1-6938-4BD7-9E4C-DC21818F2CBF}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		BuildVersion_StartDate = 2014/8/21
+		BuildVersion_BuildVersioningStyle = None.None.Increment.TimeStamp
+		BuildVersion_UpdateFileVersion = False
+		BuildVersion_UpdateAssemblyVersion = False
+	EndGlobalSection
+EndGlobal

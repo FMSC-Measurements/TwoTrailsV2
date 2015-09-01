@@ -1,0 +1,3 @@
+[submodule "FMSC.Controls"]
+	path = FMSC.Controls
+	url = https://github.com/FMSC-Measurements/FMSC.Controls
