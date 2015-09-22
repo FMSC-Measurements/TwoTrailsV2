@@ -22,7 +22,6 @@ using TwoTrails.GpsAccess;
 using Microsoft.WindowsCE.Forms;
 #else
 using Microsoft.Win32;
-using TwoTrails.GpsAccess;
 #endif
 
 namespace TwoTrails.Utilities

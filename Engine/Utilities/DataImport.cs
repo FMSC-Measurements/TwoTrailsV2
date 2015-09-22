@@ -1266,11 +1266,22 @@ Check the error log for complete details.", "Import Error");
                 Dictionary<string, TtMetaData> metas = new Dictionary<string, TtMetaData>();
                 List<TtMetaData> tmpMeta = importDal.GetMetaData();
 
-                if (tmpMeta[0].Name == _Meta.Name)
-                    tmpMeta[0].Name += " (imported)";
+                foreach (TtMetaData meta in tmpMeta)
+                {
+                    meta.Name = String.Format("{0} {1}", meta.Name, "(Imported)");
+                }
 
                 Dictionary<string, TtMetaData> importedMetas = tmpMeta.ToDictionary(m => m.CN, m => m);
                 tmpMeta.Clear();
+
+                /*
+                 * Compare default meta from imported with default from current
+                 * if they are the same set the current meta to the value of the imported meta
+                 * 
+                 * importedMetas[EmptyGuid] = currentmeta
+                 * 
+                 * set all imported points with importedmeta to current meta
+                */
 
                 List<string> currPolyCNs = dal.GetPolygons().Select(p => p.CN).ToList();
                 _Polygons = new Dictionary<string, TtPolygon>();

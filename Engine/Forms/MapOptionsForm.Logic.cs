@@ -89,12 +89,12 @@ namespace TwoTrails.Forms
 
             lstPolygons.Columns.Add("Polygons", w / 4, HorizontalAlignment.Left);
             lstPolygons.Columns.Add("Points", w / 5,HorizontalAlignment.Left);
-            lstPolygons.Columns.Add("Area (Ha)", -1, HorizontalAlignment.Left);
+            lstPolygons.Columns.Add("Area (Ac)", -1, HorizontalAlignment.Left);
 
             /*
             lstPolygons.Columns.Add("Polygons", 100, HorizontalAlignment.Left);
             lstPolygons.Columns.Add("Points",50,HorizontalAlignment.Left);
-            lstPolygons.Columns.Add("Area (Ha)", 70, HorizontalAlignment.Left);
+            lstPolygons.Columns.Add("Area (Ac)", 70, HorizontalAlignment.Left);
             */
 
             if(dal != null)
@@ -111,7 +111,7 @@ namespace TwoTrails.Forms
                     ListViewItem l = new ListViewItem(poly.Name);
                     l.SubItems.Add(dal.GetPointCount(poly.CN).ToString());
                     //l.SubItems.Add((polys[i].Area / 1000).ToString());
-                    l.SubItems.Add(TtUtils.ConvertMeters2ToHa(poly.Area).ToString());
+                    l.SubItems.Add(TtUtils.ConvertMeters2ToAcres(poly.Area).ToString());
                     allPolyCNs.Add(poly.CN);
 
                     if (i % 2 == 1)

@@ -117,15 +117,18 @@ namespace TwoTrails.BusinessLogic
                     case OpType.Walk:
                     case OpType.Take5:
                         {
-                            if (seg.Count == 1 && startTypeFound) //Already have a point (and only 1), Segment is finished                            
-                            {                       
-                                finished = true;
-                            }
-                            else if (seg.Count == 1) //left over trav point from a sideshot
+                            if (seg.Count == 1)                         
                             {
-                                seg = new Segment();
-                                seg.Add(current);
-                                startTypeFound = true;
+                                if (startTypeFound) //Already have a point (and only 1), Segment is finished   
+                                {
+	                                finished = true; 
+                                }
+                                else //left over trav point from a sideshot
+                                {
+                                    seg = new Segment();
+                                    seg.Add(current);
+                                    startTypeFound = true;
+                                }
                             }
                             else if (travStarted) //Or we are at the closing end of a traverse
                             {
@@ -150,7 +153,7 @@ namespace TwoTrails.BusinessLogic
                                 
                                 prev.op == OpType.Quondam && ((QuondamPoint)prev).ParentOp == OpType.Traverse)
                             {
-                                finished = true;
+                                //finished = true;
                                 seg.Add(current);
 
                                 points.Remove(prev);
@@ -158,7 +161,8 @@ namespace TwoTrails.BusinessLogic
                             }
                             else
                             {
-                                //end added
+                            //end added
+
                                 seg.Add(current);
                                 if (startTypeFound)
                                     travStarted = true;
@@ -192,11 +196,6 @@ namespace TwoTrails.BusinessLogic
                                 SavePrev = true;
                                 index++;
                             }
-                            break;
-                        }
-                    case OpType.Quondam:
-                        {
-
                             break;
                         }
                 }

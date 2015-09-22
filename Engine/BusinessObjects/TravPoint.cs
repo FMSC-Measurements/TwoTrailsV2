@@ -150,10 +150,10 @@ namespace TwoTrails.BusinessObjects
                 double adjustedBackAz = 0;
                 if (ForwardAz != null && ForwardAz >= 0 && BackwardAz != null && BackwardAz >= 0)
                 {
-                    if (BackwardAz > ForwardAz)
+                    if (BackwardAz > ForwardAz && BackwardAz >= 180)
                         adjustedBackAz = (double)BackwardAz - 180;
                     else
-                        adjustedBackAz = (double)BackwardAz + 180;
+                        adjustedBackAz = (double)BackwardAz + 180.0;
                 }
                 else
                 {
@@ -184,10 +184,10 @@ namespace TwoTrails.BusinessObjects
 
         public override bool CalculatePoint(TtPoint pt)
         {
-            return CalcTravLocation(pt.UnAdjX, pt.UnAdjY, pt.UnAdjZ, Declination, true);
+            return CalcTravLocation(pt.UnAdjX, pt.UnAdjY, pt.UnAdjZ, true);
         }
 
-        protected bool CalcTravLocation(double startingX, double startingY, double startingZ, double declination, bool isUnadjusted)
+        protected bool CalcTravLocation(double startingX, double startingY, double startingZ, bool isUnadjusted)
         {
             //Must have a valid azimuth to proceed
             if (Azimuth == null || Azimuth < 0)
@@ -202,7 +202,7 @@ namespace TwoTrails.BusinessObjects
                 //Adjust by the declination
             /* Apply the magnetic declination */
             /* East declination is positve, west is negative */
-            azToUse += declination;
+            azToUse += Declination;
 
             /* azimuth conversion from north to mathematic postive X-axis */
             azToUse = 90 - azToUse;
@@ -249,7 +249,7 @@ namespace TwoTrails.BusinessObjects
 
         public override bool AdjustPoint(TtPoint source)
         {
-            return CalcTravLocation(source.UnAdjX, source.UnAdjY, source.UnAdjZ, Declination, false);
+            return CalcTravLocation(source.UnAdjX, source.UnAdjY, source.UnAdjZ, false);
         }
 
         public void SetAdjusted()

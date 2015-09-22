@@ -1480,10 +1480,10 @@ namespace TwoTrails.Utilities
                 AttributesTable attTable = new AttributesTable();
                 
                 attTable.AddAttribute("Poly Name", poly.Name);
-                attTable.AddAttribute("Description", poly.Description);
+                attTable.AddAttribute("Desc", poly.Description);
                 attTable.AddAttribute("Poly", "Navigation Adjusted"); 
                 attTable.AddAttribute("CN", poly.CN);
-                attTable.AddAttribute("Perimeter_M", poly.Perimeter);
+                attTable.AddAttribute("Perim_M", poly.Perimeter);
 
                 Feature feat = new Feature();
                 DbaseFileHeader dbh;

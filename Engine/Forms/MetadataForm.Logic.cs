@@ -726,8 +726,12 @@ namespace TwoTrails.Forms
                "Mesa",
                "Trimble Geo7X",
                "Trimble Geo 6000",
+               "Trimble Nomad G",
+               "Trimble R1",
                "Trimble XT",
-               "Trimble XM"
+               "Trimble XM",
+               "Trimble Yuma",
+               "Trimble Yuma 2"
             });
 
             using (Selection form = new Selection("GPS Receiver", items, 0))

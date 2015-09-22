@@ -5,6 +5,7 @@ using TwoTrails.BusinessObjects;
 using TwoTrails.DataAccess;
 using System.Linq;
 using TwoTrails.Utilities;
+using TwoTrails.Engine;
 
 namespace TwoTrails.BusinessLogic
 {
@@ -33,7 +34,7 @@ namespace TwoTrails.BusinessLogic
 
         public Segment()
         {
-            _calculated = true;
+            //_calculated = true;
             points = new List<TtPoint>();
         }
 
@@ -64,7 +65,6 @@ namespace TwoTrails.BusinessLogic
             }
             else
             {
-
                 int len = points.Count;
                 TtPoint starting = points[0];
 
@@ -79,16 +79,21 @@ namespace TwoTrails.BusinessLogic
                 {
                     if (!starting.Adjusted)
                     {
+                        _adjusted = false;
+
+                        /*
                         bool success = starting.AdjustPoint();
                         if (!success)
                         {
                             _adjusted = false;
                             return _adjusted;
                         }
+                        */
                     }
-
-                    _adjusted = AdjustSideShot();
-                    return _adjusted;
+                    else
+                    {
+                        _adjusted = AdjustSideShot();
+                    }
                 }
                 else if (points.Count > 2 && points[1].op == TwoTrails.Engine.OpType.Traverse)
                 {
@@ -96,9 +101,16 @@ namespace TwoTrails.BusinessLogic
                 }
                 else //is quondam or random points
                 {
+                    TtPoint tmp;
+
                     for (int i = 1; i < len; i++)
                     {
-                        points[i].AdjustPoint();
+                        tmp = points[i];
+
+                        if (!points[i].Adjusted)
+                        {
+                            points[i].AdjustPoint(); 
+                        }
                     }
                 }
             }
@@ -225,6 +237,7 @@ namespace TwoTrails.BusinessLogic
             {
                 return ss.AdjustPoint();
             }
+
             return ss.AdjustPoint(p1);
         }
 
@@ -235,75 +248,70 @@ namespace TwoTrails.BusinessLogic
                 _calculated = true;
                 return true;
             }
-            bool success = true;
-            TtPoint firstPoint = points[0];
-
-            success = firstPoint.Calculated;
-            switch (firstPoint.op)
+            else
             {
-                case TwoTrails.Engine.OpType.GPS:
-                case TwoTrails.Engine.OpType.WayPoint:
-                case TwoTrails.Engine.OpType.Take5:
-                case TwoTrails.Engine.OpType.Walk:
-                    {
-                        if (!success)
-                            success = firstPoint.CalculatePoint();
-                        break;
-                    }
-                case TwoTrails.Engine.OpType.Quondam:
-                    {
-                        if (!success)
-                            success = firstPoint.CalculatePoint();
-                        break;
-                    }
-                case TwoTrails.Engine.OpType.Traverse:
-                    {
-                        //Must be a trav with a SideShot off of it. Must already be calculated.
-                        if (!success)
-                            return false;
-                        break;
-                    }
-                default:
-                    {
-                        throw new Exception("Different optype " + firstPoint.op.ToString());
-                    }
-            }
+                bool success = true;
+                TtPoint firstPoint = points[0];
 
-            int index = 1;
-            while (index < points.Count)
-            {
-                TtPoint p = points[index];
-                switch (p.op)
+                success = firstPoint.Calculated;
+                switch (firstPoint.op)
                 {
                     case TwoTrails.Engine.OpType.GPS:
                     case TwoTrails.Engine.OpType.WayPoint:
-                    case TwoTrails.Engine.OpType.Walk:
                     case TwoTrails.Engine.OpType.Take5:
+                    case TwoTrails.Engine.OpType.Walk:
+                    case TwoTrails.Engine.OpType.Quondam:
                         {
-                            success = success && p.CalculatePoint();
+                            if (!success)
+                                success = firstPoint.CalculatePoint();
                             break;
                         }
                     case TwoTrails.Engine.OpType.Traverse:
-                    case TwoTrails.Engine.OpType.SideShot:
                         {
-                            success = success && p.CalculatePoint(points[index - 1]);
+                            //Must be a trav with a SideShot off of it. Must already be calculated.
+                            if (!success)
+                                return false;
                             break;
                         }
-                    case TwoTrails.Engine.OpType.Quondam:
+                    default: // no sideshots
                         {
-                            success = success && p.CalculatePoint();
-                            break;
-                        }
-                    default:
-                        {
-                            throw new NotImplementedException("Unknown optype in the Segment, can't calculate");
+                            throw new Exception("Different optype " + firstPoint.op.ToString());
                         }
                 }
-                index++;
+
+                int index = 1;
+                while (index < points.Count)
+                {
+                    TtPoint p = points[index];
+                    switch (p.op)
+                    {
+                        case TwoTrails.Engine.OpType.GPS:
+                        case TwoTrails.Engine.OpType.WayPoint:
+                        case TwoTrails.Engine.OpType.Walk:
+                        case TwoTrails.Engine.OpType.Take5:
+                        case TwoTrails.Engine.OpType.Quondam:
+                            {
+                                success &= p.CalculatePoint();
+                                break;
+                            }
+                        case TwoTrails.Engine.OpType.Traverse:
+                        case TwoTrails.Engine.OpType.SideShot:
+                            {
+                                success &= p.CalculatePoint(points[index - 1]);
+                                break;
+                            }
+                        default:
+                            {
+                                throw new NotImplementedException("Unknown optype in the Segment, can't calculate");
+                            }
+                    }
+                    index++;
+                }
+
+                _calculated = success;
             }
 
-            _calculated = success;
-            return success;
+            return _calculated;
         }
 
         /// <summary>
@@ -316,7 +324,7 @@ namespace TwoTrails.BusinessLogic
         {
             get
             {
-                if (_weight == -1)
+                if (_weight < 0)
                     _weight = CalculateWeight();
                 return _weight;
             }
@@ -326,6 +334,8 @@ namespace TwoTrails.BusinessLogic
             }
         }
 
+
+        /*
         private int CalculateWeight()
         {
             if (points.Count == 0)
@@ -360,10 +370,12 @@ namespace TwoTrails.BusinessLogic
                 TtPoint last = null;
                 if (points.AreAllQndmType())
                 {
-                    first = ((QuondamPoint)points[0]).ParentPoint;
-                    last = ((QuondamPoint)points[points.Count - 1]).ParentPoint;
+                    //first = ((QuondamPoint)points[0]).ParentPoint;
+                    //last = ((QuondamPoint)points[points.Count - 1]).ParentPoint;
 
-                    return 3;
+                    //return 3;
+
+                    return 2;
                 }
                 else
                 {
@@ -371,7 +383,7 @@ namespace TwoTrails.BusinessLogic
                     if (first.IsGpsType())
                     {
                         //If both the beginning and the end are GPS, then we can calculate the trav now
-                        if (last.IsGpsType())
+                        if (last.IsGpsType() || last.op == TwoTrails.Engine.OpType.Quondam && ((QuondamPoint)last).ParentPoint.IsGpsType())
                         {
                             return 10;
                         }
@@ -384,18 +396,85 @@ namespace TwoTrails.BusinessLogic
                     else
                     {
                         if (last.IsGpsType())
-                            return 5;
+                        {
+                            return 8;
+                        }
+                        else if (last.op == TwoTrails.Engine.OpType.Quondam && ((QuondamPoint)first).ParentPoint.IsGpsType())
+                        {
+                            return 7;
+                        }
                         else
                         {
                             if (last.IsTravType())
                                 return 3;
                             else
-                                return 4;   //is quondam
+                                return 4;  //is quondam
                         }
                     }
                 }
             }
             throw new Exception("???");
+        }
+        */
+
+        //optimized
+        private int CalculateWeight()
+        {
+            int count = points.Count;
+            TtPoint fPoint = points[0];
+
+            
+            if (count < 3)
+            {
+                if (fPoint.IsGpsType())
+                {
+                    return 10;
+                }
+                else if (fPoint.op == OpType.Quondam)
+                {
+                    if (((QuondamPoint)fPoint).ParentPoint.IsGpsType())
+                    {
+                        return 8;
+                    }
+
+                    return 4;
+                }
+
+                return 3;
+            }
+            else
+            {
+                if (points.AreAllQndmType())
+                {
+                    return 2;
+                }
+                else
+                {
+                    TtPoint lPoint = points[points.Count - 1];
+
+                    bool fGPS = fPoint.IsGpsType(), lGPS = lPoint.IsGpsType();
+
+                    if (fGPS && lGPS || fGPS && (lPoint.op == OpType.Quondam && ((QuondamPoint)lPoint).ParentCN == fPoint.CN))
+                    {
+                        return 9;
+                    }
+                    else if ((fGPS || (fPoint.op == TwoTrails.Engine.OpType.Quondam &&
+                        ((QuondamPoint)fPoint).ParentPoint.IsGpsType())) &&
+
+                        (lGPS || (lPoint.op == TwoTrails.Engine.OpType.Quondam &&
+                        ((QuondamPoint)lPoint).ParentPoint.IsGpsType())))
+                    {
+                        return 7;
+                    }
+                    else
+                    {
+                        if (lPoint.IsTravType())
+                            return 3;
+                        else
+                            return 4;   //is quondam
+                    }
+                }
+            }
         }
 
 

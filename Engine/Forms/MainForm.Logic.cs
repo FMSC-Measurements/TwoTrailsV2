@@ -536,6 +536,17 @@ namespace TwoTrails.Forms
                 _FileName = filename;
                 Values.CurrentTtFileName = _FileName;
 
+#if !(PocketPC || WindowsCE || Mobile)
+                FileAttributes attributes = File.GetAttributes(_FileName);
+
+                if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                {
+                    attributes = attributes & ~FileAttributes.ReadOnly;
+
+                    File.SetAttributes(_FileName, attributes);
+                }
+#endif
+
                 if (data != null && data.IsOpen)
                     data.CloseDB();
                 data = new DataAccessLayer(_FileName);

@@ -26,11 +26,13 @@ namespace TwoTrails.BusinessLogic
         {
             if (_list.Count == 0)
                 return null;
+
             if (!_sorted)
             {
                 _list.Sort(SortByWeight);
                 _sorted = true;
             }
+
             Segment current = _list[0];
             _list.Remove(current);
 
@@ -55,11 +57,11 @@ namespace TwoTrails.BusinessLogic
 
             if (a.Weight == b.Weight)
                 return 0;
+
             if (a.Weight > b.Weight)
                 return -1;
-            if (a.Weight < b.Weight)
+            else
                 return 1;
-            return 0;
         }
 
         public bool HasNext()
