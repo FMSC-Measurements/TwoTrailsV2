@@ -645,7 +645,7 @@ namespace TwoTrails.DataAccess
         public List<TtPoint> GetGpsPointsByMeta(string metaCN)
         {
             StringBuilder where = new StringBuilder();
-            where.AppendFormat("{0} = '{1}' and {2} = '{3}' or {2} = '{4}' or {2} = '{5} or {2} = '{6}",
+            where.AppendFormat("{0} = '{1}' and ({2} = '{3}' or {2} = '{4}' or {2} = '{5}' or {2} = '{6}')",
                 TwoTrailsSchema.PointSchema.MetaDataID,
                 metaCN,
                 TwoTrailsSchema.PointSchema.Operation,

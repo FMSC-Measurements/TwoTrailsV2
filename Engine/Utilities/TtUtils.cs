@@ -3157,6 +3157,30 @@ namespace TwoTrails.Utilities
             return str.Trim().Replace(",", ";");
         }
 
+        public static string ScrubFileName(this String str)
+        {
+            StringBuilder sb = new StringBuilder(str);
+
+            sb.Replace("/", "_");
+            sb.Replace(",", "");
+            sb.Replace("?", "");
+            sb.Replace("@", "");
+            sb.Replace("#", "");
+            sb.Replace("$", "");
+            sb.Replace("%", "");
+            sb.Replace("^", "");
+            sb.Replace("&", "");
+            sb.Replace("*", "");
+            sb.Replace(":", "");
+            sb.Replace("\"", "");
+            sb.Replace("\'", "");
+            sb.Replace("<", "");
+            sb.Replace(">", "");
+            sb.Replace("|", "");
+
+            return sb.ToString();
+        }
+
         private static readonly char[] trimChars = new char[] { ' ', '\0', '\r', '\n' };
 
         public static string TrimEx(this String str)

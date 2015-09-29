@@ -23,7 +23,7 @@ namespace TwoTrails.Forms
         private List<TtMetaData> MetaData;
         private List<string> _CNs;
 
-        int CurrIndex;
+        int CurrIndex, currZone = -1;
         TtMetaData _current;
         TtMetaData Current
         {
@@ -37,6 +37,7 @@ namespace TwoTrails.Forms
                     bindingSourceMeta.DataSource = _current;
                     LockLocks = false;
                     CurrIndex = _CNs.IndexOf(_current.CN);
+                    currZone = _current.Zone;
                 }
                 else
                 {
@@ -231,7 +232,7 @@ namespace TwoTrails.Forms
                 {
                     TtUtils.ShowWaitCursor();
 
-                    if (zoneChanged && MetaData[CurrIndex].Zone != Current.Zone)
+                    if (zoneChanged && currZone != Current.Zone)
                     {
 
                         List<TtPoint> points = DAL.GetGpsPointsByMeta(Current.CN);

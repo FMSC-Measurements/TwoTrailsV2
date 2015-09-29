@@ -1291,6 +1291,8 @@ namespace TwoTrails.Utilities
         #region Writers
         public bool WriteCsvFile(string filename, List<string> Columns, List<List<string>> data)
         {
+            filename = filename.ScrubFileName();
+
             if (data.Count > 0 && filename != null && filename != "" && Columns.Count > 0)
             {
                 if (Columns.Count == data[0].Count)
@@ -1416,8 +1418,8 @@ namespace TwoTrails.Utilities
 
             foreach (TtPolygon poly in polys)
             {
-                string _CurrDir = String.Format("{0}\\{1}\\", folder, poly.Name);
-                string _File = String.Format("{0}\\{1}\\{1}", folder, poly.Name);
+                string _CurrDir = String.Format("{0}\\{1}\\", folder, poly.Name.ScrubFileName());
+                string _File = String.Format("{0}\\{1}\\{1}", folder, poly.Name.ScrubFileName());
                 Directory.CreateDirectory(_CurrDir);
 
                 string CurrFileName = System.IO.Path.Combine(folder, poly.Name);
@@ -1479,7 +1481,7 @@ namespace TwoTrails.Utilities
                 ArrayList features = new ArrayList();
                 AttributesTable attTable = new AttributesTable();
                 
-                attTable.AddAttribute("Poly Name", poly.Name);
+                attTable.AddAttribute("Poly_Name", poly.Name);
                 attTable.AddAttribute("Desc", poly.Description);
                 attTable.AddAttribute("Poly", "Navigation Adjusted"); 
                 attTable.AddAttribute("CN", poly.CN);
