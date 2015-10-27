@@ -29,9 +29,9 @@ namespace TwoTrails.BusinessObjects
         public double? ManualAccuracy { get; private set; }
         public GroupType GroupType { get; set; }
         
-        private List<string> _PointCNs;
-        public List<string> PointCNs { get { return _PointCNs; } }
-        public int NumberOfPoints { get { return _PointCNs.Count; } }
+        //private List<string> _PointCNs;
+        //public List<string> PointCNs { get { return _PointCNs; } }
+        //public int NumberOfPoints { get { return _PointCNs.Count; } }
 
         /*
         protected Dictionary<string, TtPoint> _Points;
@@ -58,7 +58,7 @@ namespace TwoTrails.BusinessObjects
             ManualAccuracy = null;
             _Desc = String.Empty;
 
-            _PointCNs = new List<string>();
+            //_PointCNs = new List<string>();
 
             /*
             _Points = new Dictionary<string, TtPoint>();
@@ -85,7 +85,7 @@ namespace TwoTrails.BusinessObjects
             ManualAccuracy = null;
             _Desc = String.Empty;
 
-            _PointCNs = new List<string>();
+            //_PointCNs = new List<string>();
 
             /*
             _Points = new Dictionary<string, TtPoint>();
@@ -112,9 +112,9 @@ namespace TwoTrails.BusinessObjects
             GroupType = gt;
             _Desc = desc;
 
+            /*
             _PointCNs = new List<string>();
             
-            /*
             _Points = new Dictionary<string, TtPoint>();
 
             NumberOfPoints = 0;
@@ -140,7 +140,7 @@ namespace TwoTrails.BusinessObjects
             GroupType = ttgroup.GroupType;
             _Desc = ttgroup._Desc;
 
-            _PointCNs = ttgroup.PointCNs;
+            //_PointCNs = ttgroup.PointCNs;
 
             /*
             _Points = ttgroup._Points;
@@ -158,10 +158,12 @@ namespace TwoTrails.BusinessObjects
             */
         }
 
+        /*
         public void Init(List<string> cns)
         {
             _PointCNs = cns;
         }
+        */
 
         /// <summary>
         /// Sets Manual Accuracy to all Gps Type Points.
@@ -209,6 +211,7 @@ namespace TwoTrails.BusinessObjects
             dal.SavePoints(points, points);
         }
 
+        /*
         public void AddPointsToGroup(List<TtPoint> points)
         {
             for (int i = 0; i < points.Count; i++)
@@ -225,66 +228,6 @@ namespace TwoTrails.BusinessObjects
                 point.GroupName = Name;
                 _PointCNs.Add(point.CN);
             }
-
-            /*
-            if (!_Points.ContainsKey(point.CN))
-            {
-                point.GroupCN = CN;
-                point.GroupName = Name;
-
-                _Points.Add(point.CN, point);
-
-                NumberOfPoints++;
-
-                switch (point.op)
-                {
-                    case OpType.GPS:
-                        {
-                            NumOfGpsPoints++;
-                            NumOfGpsTypePoints++;
-                            break;
-                        }
-                    case OpType.WayPoint:
-                        {
-                            NumOfWayPoints++;
-                            NumOfGpsTypePoints++;
-                            break;
-                        }
-                    case OpType.Traverse:
-                        {
-                            NumOfTraversePoints++;
-                            break;
-                        }
-                    case OpType.SideShot:
-                        {
-                            NumOfSideShotPoints++;
-                            break;
-                        }
-                    case OpType.Quondam:
-                        {
-                            NumOfQndPoints++;
-                            break;
-                        }
-                    case OpType.Walk:
-                        {
-                            NumOfWalkPoints++;
-                            NumOfGpsTypePoints++;
-                            break;
-                        }
-                    case OpType.Take5:
-                        {
-                            NumOfTake5Points++;
-                            NumOfGpsTypePoints++;
-                            break;
-                        }
-                }
-
-                if (point.OnBnd)
-                    NumOfPointsOnBnd++;
-                else
-                    NumOfPointsOffBnd++;
-            }
-            */
         }
 
         public void RemovePointFromGroup(TtPoint point)
@@ -296,63 +239,8 @@ namespace TwoTrails.BusinessObjects
                 _PointCNs.Remove(point.CN);
             }
 
-            /*
-            if (_Points.ContainsKey(point.CN))
-            {
-                _Points.Remove(point.CN);
-
-                NumberOfPoints--;
-
-                switch (point.op)
-                {
-                    case OpType.GPS:
-                        {
-                            NumOfGpsPoints--;
-                            NumOfGpsTypePoints--;
-                            break;
-                        }
-                    case OpType.WayPoint:
-                        {
-                            NumOfWayPoints--;
-                            NumOfGpsTypePoints--;
-                            break;
-                        }
-                    case OpType.Traverse:
-                        {
-                            NumOfTraversePoints--;
-                            break;
-                        }
-                    case OpType.SideShot:
-                        {
-                            NumOfSideShotPoints--;
-                            break;
-                        }
-                    case OpType.Quondam:
-                        {
-                            NumOfQndPoints--;
-                            break;
-                        }
-                    case OpType.Walk:
-                        {
-                            NumOfWalkPoints--;
-                            NumOfGpsTypePoints--;
-                            break;
-                        }
-                    case OpType.Take5:
-                        {
-                            NumOfTake5Points--;
-                            NumOfGpsTypePoints--;
-                            break;
-                        }
-                }
-
-                if (point.OnBnd)
-                    NumOfPointsOnBnd--;
-                else
-                    NumOfPointsOffBnd--;
-            }
-            */
         }
+        */
 
         public override string ToString()
         {

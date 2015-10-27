@@ -831,7 +831,7 @@ namespace TwoTrails.Forms
                     pointEditForm.UpdateDAL(data);
                 #endif
 
-                Values.GroupManager.InitGroups(data);
+                //Values.GroupManager.InitGroups(data);
             }
         }
         #endregion
@@ -845,7 +845,7 @@ namespace TwoTrails.Forms
             Values.CurrentDbVersion = false;
             Values.Settings = new SettingsLogic();
             Values.DataExport = new DataOutput();
-            Values.GroupManager = new GroupManager();
+            //Values.GroupManager = new GroupManager();
             Values.GPSA = new TwoTrails.GpsAccess.GpsAccess();
 
             

@@ -370,6 +370,8 @@ namespace TwoTrails.Forms
                             way.ManualAccuracy = null;
                             way.Index = a;
                             way.Comment = "Generated Point";
+                            way.GroupCN = Values.MainGroup.CN;
+                            way.GroupName = Values.MainGroup.Name;
 
                             if (lastWay == null)
                                 way.PID = PointNaming.NameFirstPoint(newPoly);
@@ -384,7 +386,6 @@ namespace TwoTrails.Forms
                             lastWay = way;
                         }
 
-                        Values.GroupManager.Groups[Values.MainGroup.CN].AddPointsToGroup(_NewPoints);
                         DAL.SavePoints(null, _NewPoints, ref _killThread);
 
                         //return if canceled
@@ -513,11 +514,13 @@ namespace TwoTrails.Forms
                     tmpPoint.Index = i;
                     tmpPoint.PolyName = npoly.Name;
                     tmpPoint.PolyCN = npoly.CN;
+                    tmpPoint.GroupCN = Values.MainGroup.CN;
+                    tmpPoint.GroupName = Values.MainGroup.Name;
 
                     nPoints.Add(tmpPoint);
                 }
 
-                Values.GroupManager.Groups[Values.MainGroup.CN].AddPointsToGroup(nPoints);
+                //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointsToGroup(nPoints);
                 DAL.InsertPoints(nPoints);
 
                 MessageBox.Show(String.Format("{0} Plots Created.", nPoints.Count));

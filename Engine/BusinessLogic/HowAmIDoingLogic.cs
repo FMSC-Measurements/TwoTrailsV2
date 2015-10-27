@@ -107,7 +107,7 @@ namespace Engine.BusinessLogic
             _writer.Write("long between vertices where the boundary direction changes ");
             _writer.Write("by 90 degree angles where possible and changes at least ");
             _writer.WriteLine("more than 30 degrees most of the time. ****");
-            _writer.WriteLine("**** If the unit is totally a direction distance traverse. Use only the traverse contribution for area-error. ****");
+            _writer.WriteLine("**** If the unit is totally a direction distance-traverse. Use only the traverse contribution for area-error. ****");
             _writer.WriteLine("**** Points with asterisks are OFF boundary points. ****");
 
             polys = _options.Data.GetPolygons().ToDictionary(p => p.CN, p => p);
@@ -238,43 +238,6 @@ namespace Engine.BusinessLogic
                             if (traversing)
                             {
                                 closeTraverse(pt);
-                                /*
-                                double closeError = TtUtils.Distance(_LastPoint.X, _LastPoint.Y,
-                                    pt.UnAdjX, pt.UnAdjY);
-                                double travError = travLength / closeError;
-
-                                _PointOutput.AppendLine(String.Format("\tTraverse Total Segments: {0}", travSegs));
-                                _PointOutput.AppendLine(String.Format("\tTraverse Total Distance: {0:F4} feet.",
-                                    TtUtils.ConvertToFeetTenths(travLength, Unit.METERS)));
-                                _PointOutput.AppendLine(String.Format("\tTraverse Closing Distance: {0:F4} feet.",
-                                    TtUtils.ConvertToFeetTenths(closeError, Unit.METERS)));
-                                _PointOutput.AppendLine(String.Format("\tTraverse Close Error: 1 part in {0}.",
-                                    Math.Round(travError)));
-
-                                TotalTravError += (travLength * closeError / 2);
-
-                                traversing = false;
-
-                                _TravLegs.Add(new Leg(_LastTtPoint, pt, polys));
-
-                                if (_TravLegs.Count > 0)
-                                {
-                                    double travStartAcc = _TravLegs[0].Point1Acc;
-                                    double travEndAcc = _TravLegs[_TravLegs.Count - 1].Point2Acc;
-                                    double diff = travEndAcc - travStartAcc;
-                                    double sumLegLen = 0;
-                                    double legacc;
-
-                                    foreach (Leg leg in _TravLegs)
-                                    {
-                                        sumLegLen += leg.Distance;
-                                        legacc = (travStartAcc + Math.Abs((sumLegLen / travLength) * diff));
-                                        _travGpsError += leg.Distance * legacc;
-                                    }
-
-                                    TotalGpsError += _travGpsError;
-                                }
-                                */
                                 _LastTtPoint = pt;
                             }
                             else
@@ -285,7 +248,11 @@ namespace Engine.BusinessLogic
                                 }
                                 else
                                 {
-                                    _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                                    if (_LastTtPoint != null && _LastTtPoint.OnBnd)
+                                    {
+                                        _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                                    }
+
                                     _LastTtPoint = pt;
                                 }
                             }
@@ -331,13 +298,20 @@ namespace Engine.BusinessLogic
                                 }
 
                                 _TravLegs = new List<Leg>();
-                                _TravLegs.Add(new Leg(_LastTtPoint, pt, polys));
+                                if (_LastTtPoint != null && _LastTtPoint.OnBnd)
+                                {
+                                    _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                                }
                             }
                             else
                             {
                                 travLength += TtUtils.Distance(_LastPoint.X, _LastPoint.Y, pt.UnAdjX, pt.UnAdjY);
                                 _LastPoint = new DoublePoint(pt.UnAdjX, pt.UnAdjY);
-                                _TravLegs.Add(new Leg(_LastTtPoint, pt, polys));
+
+                                if (_LastTtPoint != null && _LastTtPoint.OnBnd)
+                                {
+                                    _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                                }
                             }
                         }
 
@@ -353,7 +327,7 @@ namespace Engine.BusinessLogic
                             _PointOutput.AppendLine(String.Format("Point {0}: {2} SideShot from Point {1}.", pt.PID, lastGpsPtName, pt.OnBnd ? " " : "*"));
                         }
 
-                        if (_LastTtPoint != null)
+                        if (_LastTtPoint != null && _LastTtPoint.OnBnd)
                         {
                             _Legs.Add(new Leg(_LastTtPoint, pt, polys));
                         }
@@ -376,7 +350,10 @@ namespace Engine.BusinessLogic
                             }
                             else
                             {
-                                _Legs.Add(new Leg(_LastTtPoint, qp.ParentPoint, polys));
+                                if (_LastTtPoint != null && _LastTtPoint.OnBnd)
+                                {
+                                    _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                                }
                                 _LastTtPoint = pt;
                             }
                         }
@@ -419,8 +396,8 @@ namespace Engine.BusinessLogic
                     TtUtils.ConvertMeters2ToHa(TotalError), TtUtils.ConvertMeters2ToAcres(TotalError),
                 _options.SaveReport ? "     " : ""));
 
-                _PolyOutput.AppendLine(String.Format("Ratio of area-error area to area: {1}{0:F2}%.",
-                    TotalError / p.Area * 100, _options.SaveReport ? "   " : ""));
+                _PolyOutput.AppendLine(String.Format("Ratio of area-error-area to area is: {0:F2}%.",
+                    TotalError / p.Area * 100));
             }
 
             if (TotalGpsError > 0)

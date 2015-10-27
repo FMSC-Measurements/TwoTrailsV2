@@ -16,12 +16,6 @@ namespace TwoTrails.BusinessLogic
             _sorted = false;
         }
 
-        public void AddRange(List<Segment> s)
-        {
-            _list.AddRange(s);
-            _sorted = false;
-        }
-
         public Segment Next()
         {
             if (_list.Count == 0)
@@ -50,8 +44,6 @@ namespace TwoTrails.BusinessLogic
 
             if (b == null)
             {
-                if (a == null)
-                    return 0;
                 return -1;
             }
 

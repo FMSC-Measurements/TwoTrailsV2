@@ -27,6 +27,7 @@ namespace TwoTrails.Forms
         private List<string> _PointCNs;
         private List<TtMetaData> _Meta;
         private List<string> _MetaCNs;
+        private Dictionary<string, TtGroup> _Groups;
 
         private int _NumOfPoly;
 
@@ -99,6 +100,7 @@ namespace TwoTrails.Forms
 
             _init = false;
 
+            _Groups = DAL.GetGroups().ToDictionary(g => g.CN, g => g);
             _Polygons = DAL.GetPolygons();
             _NumOfPoly = _Polygons.Count;
 
@@ -292,7 +294,9 @@ namespace TwoTrails.Forms
                             }
 
                             CurrPoint = TtUtils.CopyPoint(SavePoint);
-                            Values.GroupManager.Groups[CurrPoint.GroupCN].AddPointToGroup(CurrPoint);
+
+                            //Values.GroupManager.Groups[CurrPoint.GroupCN].AddPointToGroup(CurrPoint);
+                            
                             _saved = true;
                         }
                         else if (SavePoint.op == OpType.Quondam && ((QuondamPoint)SavePoint).ParentPoint != null)
@@ -330,7 +334,7 @@ namespace TwoTrails.Forms
 
                             CurrPoint = TtUtils.CopyPoint(SavePoint);
 
-                            Values.GroupManager.Groups[CurrPoint.GroupCN].AddPointToGroup(CurrPoint);
+                            //Values.GroupManager.Groups[CurrPoint.GroupCN].AddPointToGroup(CurrPoint);
 
                             _saved = true;
                         }
@@ -561,10 +565,12 @@ namespace TwoTrails.Forms
                     }
                 }
 
+                /*
                 if (!CurrPoint.GroupCN.IsEmpty())
                 {
                     Values.GroupManager.Groups[CurrPoint.GroupCN].RemovePointFromGroup(CurrPoint);
                 }
+                */
 
                 DAL.DeletePoint(CurrPoint);
 
@@ -653,6 +659,7 @@ namespace TwoTrails.Forms
                 {
                     bool movePoint = false;
 
+                    /* Point Can No Longer switch polys in PointEditForm
                     if (!pointInfoCtrl.ReadOnly && TtUtils.PointHasValue(UpdatedPoint))
                     {
                         if (MessageBox.Show("You are about to move this point into another polygon. Would you like to move the point?", "Move Point to new Polygon",
@@ -667,6 +674,7 @@ namespace TwoTrails.Forms
                         }
                     }
                     else
+                        */
                         SavePoint();
 
                     if (cn == null)
@@ -1599,18 +1607,23 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 {
                     TtGroup qg = new TtGroup();
                     qg.SetGroupName(String.Format("Quondams_{0}", qg.CN.Truncate(8)), null);
-                    Values.GroupManager.AddGroup(qg, DAL);
+
+                    DAL.InsertGroup(qg);
+                    //Values.GroupManager.AddGroup(qg, DAL);
 
                     foreach(TtPoint p in form.FinalPoints)
                     {
-                        qg.AddPointToGroup(p);
+
+                        p.GroupCN = qg.CN;
+                        p.GroupName = qg.Name;
+                        //qg.AddPointToGroup(p);
                         CreateNewPoint(OpType.Quondam, false, true);
 
                         ((QuondamPoint)_UpdatedPoint).ParentPoint = p;
                         _dirty = true;
                     }
 
-                    Values.GroupManager.SaveGroup(qg.CN, DAL);
+                    //Values.GroupManager.SaveGroup(qg.CN, DAL);
 
                     ChangePolygon();
                 }
@@ -1627,7 +1640,11 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                     MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     TtUtils.ShowWaitCursor();
-                    Values.GroupManager.DeleteGroup(UpdatedPoint.GroupCN, DAL, true);
+
+                    DAL.DeletePointsInGroup(UpdatedPoint.GroupCN);
+                    DAL.DeleteGroup(UpdatedPoint.GroupCN);
+                    //Values.GroupManager.DeleteGroup(UpdatedPoint.GroupCN, DAL, true);
+
                     ChangePolygon();
                     TtUtils.HideWaitCursor();
                     AutoClosingMessageBox.Show("Walk Deleted", "*__", 500);
@@ -1644,7 +1661,11 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
         {
             TtUtils.ShowWaitCursor();
             int index = CurrPointIndex;
-            Values.GroupManager.Groups[UpdatedPoint.GroupCN].SetGroupManualAccuracy(acc, DAL);
+
+
+            _Groups[UpdatedPoint.GroupCN].SetGroupManualAccuracy(acc, DAL);
+            //Values.GroupManager.Groups[UpdatedPoint.GroupCN].SetGroupManualAccuracy(acc, DAL);
+
             ChangePolygon();
             ChangePoint(CurrPointIndex);
             TtUtils.HideWaitCursor();
@@ -1656,9 +1677,10 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
 
             List<string> groups = new List<string>();
             List<string> gcns = new List<string>();
-            Values.GroupManager.Groups.Values.Select(group => group.Name);
+            //Values.GroupManager.Groups.Values.Select(group => group.Name);
 
-            foreach (TtGroup group in Values.GroupManager.Groups.Values)
+            //foreach (TtGroup group in Values.GroupManager.Groups.Values)
+            foreach (TtGroup group in _Groups.Values)
             {
                 groups.Add(group.Name);
                 gcns.Add(group.CN);

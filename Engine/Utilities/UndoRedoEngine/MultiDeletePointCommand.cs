@@ -43,7 +43,7 @@ namespace TwoTrails.Utilities
                 }
 
                 points.Remove(p.CN);
-                Engine.Values.GroupManager.Groups[p.GroupCN].RemovePointFromGroup(p);
+                //Engine.Values.GroupManager.Groups[p.GroupCN].RemovePointFromGroup(p);
             }
         }
 
@@ -52,7 +52,7 @@ namespace TwoTrails.Utilities
             foreach (TtPoint p in _OldPoints)
             {
                 points.Add(p.CN, p);
-                Engine.Values.GroupManager.Groups[p.GroupCN].AddPointToGroup(p);
+                //Engine.Values.GroupManager.Groups[p.GroupCN].AddPointToGroup(p);
 
                 if (p.HasQuondamLinks)
                 {

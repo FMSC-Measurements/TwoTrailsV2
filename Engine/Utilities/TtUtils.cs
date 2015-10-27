@@ -2647,10 +2647,20 @@ namespace TwoTrails.Utilities
                 point.GroupName = Values.MainGroup.Name;
                 point.GroupCN = Values.MainGroup.CN;
 
+                if (dal.GetGroupByCN(Values.MainGroup.CN) == null)
+                {
+                    dal.InsertGroup(Values.MainGroup);
+                }
+
+                /*
                 if (!Values.GroupManager.Groups.ContainsKey(Values.MainGroup.CN))
                     Values.GroupManager.AddGroup(Values.MainGroup, dal);
+                */
 
-                Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(point);
+                point.CN = Values.MainGroup.CN;
+                point.GroupName = Values.MainGroup.Name;
+
+                //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(point);
             }
 
             if (point.MetaDefCN.IsEmpty() && dal.GetMetadataCount() > 0)

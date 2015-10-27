@@ -141,7 +141,7 @@ namespace TwoTrails.Engine
         public static GpsAccess.GpsAccess GPSA;
         public static LaserAccess.LaserAccess LaserA;
         public static Utilities.DataOutput DataExport;
-        public static GroupManager GroupManager;
+        //public static GroupManager GroupManager;
 
 #if(PocketPC || WindowsCE || Mobile)
         public static readonly string DefaultSaveFolder = Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);

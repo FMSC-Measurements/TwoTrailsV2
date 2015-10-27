@@ -57,12 +57,18 @@ namespace TwoTrails.Controls
             if (TtUtils.PointHasValue(CurrentPoint))
             {
                 txtAcc.Text = CurrentPoint.ManualAccuracy.ToString();
+
+
+                lblWalkName.Text = CurrentPoint.GroupName;
+
+                /*
                 if (!CurrentPoint.GroupCN.IsEmpty())
                 {
                     lblWalkName.Text = Values.GroupManager.Groups[CurrentPoint.GroupCN].Name;
                 }
                 else
                     lblWalkName.Text = "???";
+                */
             }
             else
             {

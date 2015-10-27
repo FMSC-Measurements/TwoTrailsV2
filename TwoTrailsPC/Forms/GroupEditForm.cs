@@ -25,10 +25,12 @@ namespace TwoTrails.Forms
                 get { return Group.Name; }
             }
 
+            /*
             public int PointCount
             {
                 get { return Group.NumberOfPoints; }
             }
+            */
 
             public string Description
             {
@@ -76,7 +78,13 @@ namespace TwoTrails.Forms
             this.Icon = Properties.Resources.Map;
             Locked = true;
 
+            /*
             _DisplayGroups = new BindingList<GroupEdit>(Values.GroupManager.Groups.Values
+                .Where(g => g.CN != Values.MainGroup.CN)
+                .Select(g => new GroupEdit(g)).ToList());
+            */
+
+            _DisplayGroups = new BindingList<GroupEdit>(dal.GetGroups()
                 .Where(g => g.CN != Values.MainGroup.CN)
                 .Select(g => new GroupEdit(g)).ToList());
 
@@ -116,10 +124,11 @@ namespace TwoTrails.Forms
                         }
 
                         dal.SavePoints(points);
+                        dal.UpdateGroup(group.Group);
                     }
                 }
 
-                Values.GroupManager.SaveGroups(dal);
+                //Values.GroupManager.SaveGroups(dal);
             }
             catch (Exception ex)
             {
@@ -172,14 +181,19 @@ namespace TwoTrails.Forms
                     "Delete Group", MessageBoxButtons.YesNo, MessageBoxIcon.Hand,
                     MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    if (Current.PointCount > 0 && MessageBox.Show("Would you like to delete all the points in this group?",
+                    if (dal.GetPointCountFromGroup(Current.Group.CN) > 0 && MessageBox.Show("Would you like to delete all the points in this group?",
                         "", MessageBoxButtons.YesNo, MessageBoxIcon.Hand,
                         MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        Values.GroupManager.DeleteGroup(Current.Group.CN, dal, true);
+                        dal.DeletePointsInGroup(Current.Group.CN);
+                        dal.DeleteGroup(Current.Group.CN);
+                        //Values.GroupManager.DeleteGroup(Current.Group.CN, dal, true);
                     }
                     else
-                        Values.GroupManager.DeleteGroup(Current.Group.CN, dal);
+                    {
+                        dal.DeleteGroup(Current.Group.CN);
+                        //Values.GroupManager.DeleteGroup(Current.Group.CN, dal);
+                    }
                     _DisplayGroups.RemoveAt(index);
                 }
             }
@@ -188,7 +202,8 @@ namespace TwoTrails.Forms
         private void btnAdd_Click(object sender, EventArgs e)
         {
             TtGroup g = new TtGroup("group");
-            Values.GroupManager.AddGroup(g, dal);
+            dal.InsertGroup(g);
+            //Values.GroupManager.AddGroup(g, dal);
             _DisplayGroups.Insert(0, new GroupEdit(g));
         }
 

@@ -14,16 +14,57 @@ namespace TwoTrails.BusinessLogic
     public class SegmentFactory
     {
         private List<TtPoint> points;
-        private List<TtPoint> origPoints;
-        private DataAccessLayer _db;
-        Dictionary<string, TtMetaData> metas;
+        private Dictionary<string, TtPolygon> polys;
+        //private List<TtPoint> origPoints;
+        //private DataAccessLayer _db;
+        //Dictionary<string, TtMetaData> metas;
 
-        public SegmentFactory(DataAccessLayer l)
+        public SegmentFactory(DataAccessLayer dal)
         {
-            _db = l;
-            LoadPointsFromDb();
+            Dictionary<string, TtMetaData> meta = dal.GetMetaData().ToDictionary(m => m.CN, m => m);
+            polys = dal.GetPolygons().ToDictionary(p => p.CN, p => p);
+
+            List<TtPoint> tmpWayPoints = new List<TtPoint>();
+            Dictionary<string, TtPoint> tmpPoints = new Dictionary<string, TtPoint>();
+
+            foreach (TtPoint p in dal.GetPoints())
+            {
+                if (p.op == OpType.WayPoint)
+                {
+                    p.CalculatePoint();
+                    p.AdjustPoint();
+                    tmpWayPoints.Add(p);
+                }
+                else
+                {
+                    tmpPoints.Add(p.CN, p);
+
+                    if (p.IsTravType())
+                    {
+                        ((SideShotPoint)p).Declination = meta[p.MetaDefCN].magDec;
+                    }
+                }
+            }
+
+            if (tmpWayPoints.Count > 0)
+            {
+                dal.SavePoints(tmpWayPoints, tmpWayPoints);
+            }
+
+            QuondamPoint qp;
+            foreach (TtPoint p in tmpPoints.Values)
+            {
+                if (p.op == OpType.Quondam)
+                {
+                    qp = p as QuondamPoint;
+                    qp.ParentPoint = tmpPoints[qp.ParentCN];
+                }
+            }
+
+            points = tmpPoints.Values.ToList();
         }
 
+        /*
         private void LoadPointsFromDb()
         {
             List<TtPoint> tmpWayPoints = new List<TtPoint>();
@@ -61,6 +102,7 @@ namespace TwoTrails.BusinessLogic
 
             origPoints = new List<TtPoint>(points);
         }
+        */
 
         public bool HasNext()
         {
@@ -71,8 +113,9 @@ namespace TwoTrails.BusinessLogic
         {
             if (!HasNext())
                 return null;
+
             int index = 0;
-            Segment seg = new Segment();
+            Segment seg = new Segment(polys);
             TtPoint prev = points[index];
             index++;
 
@@ -82,6 +125,7 @@ namespace TwoTrails.BusinessLogic
             bool startTypeFound = (prev.IsGpsType() || (prev.op == OpType.Quondam &&
                 ((QuondamPoint)prev).ParentPoint.IsGpsType()));
             bool SavePrev = false;
+
             TtPoint current;
             string currentPolygon = prev.PolyCN;
             if (index == points.Count)
@@ -125,7 +169,7 @@ namespace TwoTrails.BusinessLogic
                                 }
                                 else //left over trav point from a sideshot
                                 {
-                                    seg = new Segment();
+                                    seg = new Segment(polys);
                                     seg.Add(current);
                                     startTypeFound = true;
                                 }
@@ -147,8 +191,6 @@ namespace TwoTrails.BusinessLogic
                         }
                     case OpType.Traverse:
                         {
-                            //added (fix for trav to trav)
-                            
                             if ( prev.op == OpType.Traverse ||
                                 
                                 prev.op == OpType.Quondam && ((QuondamPoint)prev).ParentOp == OpType.Traverse)
@@ -157,13 +199,11 @@ namespace TwoTrails.BusinessLogic
                                 seg.Add(current);
 
                                 points.Remove(prev);
-                                prev = current;
                             }
                             else
                             {
-                            //end added
-
                                 seg.Add(current);
+
                                 if (startTypeFound)
                                     travStarted = true;
 
@@ -178,9 +218,9 @@ namespace TwoTrails.BusinessLogic
                                     SavePrev = false;
                                     index++;
                                 }
-
-                                prev = current;
                             }
+
+                            prev = current;
                             break;
                         }
                     case OpType.SideShot:

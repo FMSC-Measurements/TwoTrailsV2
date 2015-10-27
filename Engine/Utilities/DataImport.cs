@@ -540,7 +540,10 @@ namespace TwoTrails.Utilities
                             p.OnBnd = true;
                         }
 
-                        Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(p);
+
+                        //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(p);
+                        p.GroupCN = Values.MainGroup.CN;
+                        p.GroupName = Values.MainGroup.Name;
 
                         _Points.Add(p);
                     }
@@ -662,6 +665,9 @@ Check the error log for complete details.", "Import Error");
 
                                                 point.OnBnd = true;
 
+                                                point.GroupCN = Values.MainGroup.CN;
+                                                point.GroupName = Values.MainGroup.Name;
+
                                                 TtUtils.LatLontoUTM(lat, lon, _Meta.Zone, out utmY, out utmX);
 
                                                 point.X = utmX;
@@ -706,7 +712,7 @@ Check the error log for complete details.", "Import Error");
                         }
                     }
 
-                    Values.GroupManager.Groups[Values.MainGroup.CN].AddPointsToGroup(_Points);
+                    //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointsToGroup(_Points);
 
                     foreach (TtPolygon p in polys)
                         dal.InsertPolygon(p);
@@ -977,6 +983,9 @@ Check the error log for complete details.", "Import Error");
                     point.PolyCN = _Poly.CN;
                     point.PolyName = _Poly.Name;
 
+                    point.GroupCN = Values.MainGroup.CN;
+                    point.GroupName = Values.MainGroup.Name;
+
                     tmpInt = metaKit.GetInt(viewId, i, 1);
                     if (tmpInt > 0)
                         point.PID = tmpInt;
@@ -1110,7 +1119,7 @@ Check the error log for complete details.", "Import Error");
 
                     point.Time = DateTime.Now;
 
-                    Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(point);
+                    //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(point);
                     _Points.Add(point);
                 }
 
@@ -1287,6 +1296,7 @@ Check the error log for complete details.", "Import Error");
                 _Polygons = new Dictionary<string, TtPolygon>();
                 _Points = new List<TtPoint>();
                 Dictionary<string, TtPoint> tmpPoints = new Dictionary<string, TtPoint>();
+                Dictionary<string, TtGroup> groups = dal.GetGroups().ToDictionary(g => g.CN, g => g);
 
                 List<TwoTrails.GpsAccess.NmeaBurst> nmea = new List<TwoTrails.GpsAccess.NmeaBurst>();
 
@@ -1300,21 +1310,35 @@ Check the error log for complete details.", "Import Error");
                     {
                         try
                         {
-                            if (Values.GroupManager.Groups.ContainsKey(ip.GroupCN))
-                                Values.GroupManager.Groups[ip.GroupCN].AddPointToGroup(ip);
+                            if (groups.ContainsKey(ip.GroupCN))
+                            {
+                                ip.GroupCN = ip.GroupCN;
+                                ip.GroupName = groups[ip.GroupCN].Name;
+                                //groups[ip.GroupCN].AddPointToGroup(ip);
+                            }
                             else
                             {
-                                Values.GroupManager.AddGroup(importDal.GetGroupByCN(ip.GroupCN), dal);
-                                Values.GroupManager.Groups[ip.GroupCN].AddPointToGroup(ip);
+                                dal.InsertGroup(importDal.GetGroupByCN(ip.GroupCN));
+                                ip.GroupCN = ip.GroupCN;
+                                ip.GroupName = groups[ip.GroupCN].Name;
+
+                                //Values.GroupManager.AddGroup(importDal.GetGroupByCN(ip.GroupCN), dal);
+                                //Values.GroupManager.Groups[ip.GroupCN].AddPointToGroup(ip);
                             }
                         }
                         catch
                         {
-                            Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(ip);
+                            ip.GroupCN = Values.MainGroup.CN;
+                            ip.GroupName = Values.MainGroup.Name;
+                            //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(ip);
                         }
                     }
                     else
-                        Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(ip);
+                    {
+                        ip.GroupCN = Values.MainGroup.CN;
+                        ip.GroupName = Values.MainGroup.Name;
+                        //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(ip);
+                    }
 
                     if (!metas.ContainsKey(ip.MetaDefCN))
                     {
@@ -1559,7 +1583,9 @@ Check the error log for complete details.", "Import Error");
                                 gps.PolyCN = _Poly.CN;
                                 gps.PolyName = _Poly.Name;
 
-                                Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(gps);
+                                gps.GroupCN = Values.MainGroup.CN;
+                                gps.GroupName = Values.MainGroup.Name;
+                                //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(gps);
 
                                 tmpPoints.Add(gps);
                             }
@@ -1677,7 +1703,9 @@ Check the error log for complete details.", "Import Error");
                                 gps.PolyCN = _Poly.CN;
                                 gps.PolyName = _Poly.Name;
 
-                                Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(gps);
+                                gps.GroupCN = Values.MainGroup.CN;
+                                gps.GroupName = Values.MainGroup.Name;
+                                //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(gps);
 
                                 tmpPoints.Add(gps);
                             }

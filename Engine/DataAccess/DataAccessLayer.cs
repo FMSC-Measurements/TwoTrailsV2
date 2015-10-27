@@ -285,11 +285,12 @@ namespace TwoTrails.DataAccess
                 TwoTrailsSchema.SharedSchema.CN,
                 TwoTrailsSchema.PointSchema.TableName,
                 TwoTrailsSchema.TravPointSchema.ForwardAz);
-            sqlCmd.AppendFormat("{0} REAL, {1} REAL, {2} REAL, {3} REAL, PRIMARY KEY ({4}))",
+            sqlCmd.AppendFormat("{0} REAL, {1} REAL, {2} REAL, {3} REAL, {4} REAL, PRIMARY KEY ({5}))",
                 TwoTrailsSchema.TravPointSchema.BackAz,
                 TwoTrailsSchema.TravPointSchema.SlopeDistance,
                 TwoTrailsSchema.TravPointSchema.VerticalAngle,
                 TwoTrailsSchema.TravPointSchema.HorizDistance,
+                TwoTrailsSchema.TravPointSchema.Accuracy,
                 TwoTrailsSchema.SharedSchema.CN);
 
             SQLiteCommand cmd = _dbConnection.CreateCommand();
@@ -972,11 +973,12 @@ namespace TwoTrails.DataAccess
         {
             SideShotPoint t = (SideShotPoint)pt;
             StringBuilder fields = new StringBuilder();
-            fields.AppendFormat("{0}, {1}, {2}, {3}",
+            fields.AppendFormat("{0}, {1}, {2}, {3}, {4}",
                 TwoTrailsSchema.TravPointSchema.BackAz,
                 TwoTrailsSchema.TravPointSchema.ForwardAz,
                 TwoTrailsSchema.TravPointSchema.SlopeDistance,
-                TwoTrailsSchema.TravPointSchema.VerticalAngle);
+                TwoTrailsSchema.TravPointSchema.VerticalAngle,
+                TwoTrailsSchema.TravPointSchema.Accuracy);
             StringBuilder query = new StringBuilder();
             query.AppendFormat("select {0} from {1} where {2} = '{3}'",
                 fields.ToString(),
@@ -1002,6 +1004,8 @@ namespace TwoTrails.DataAccess
                         t.SlopeDistance = reader.GetDouble(2);
                     if (!reader.IsDBNull(3))
                         t.SlopeAngle = reader.GetDouble(3);
+                    if (!reader.IsDBNull(4))
+                        t.Accuracy = reader.GetDouble(4);
                 }
             }
             catch (Exception ex)
@@ -1155,7 +1159,8 @@ namespace TwoTrails.DataAccess
             query.AppendFormat("{0} = {1},", TwoTrailsSchema.TravPointSchema.BackAz, (updatedPoint.BackwardAz == null) ? ("NULL") :
                 (String.Format("'{0}'", updatedPoint.BackwardAz.ToString())));
             query.AppendFormat("{0} = {1},", TwoTrailsSchema.TravPointSchema.SlopeDistance, updatedPoint.SlopeDistance);
-            query.AppendFormat("{0} = {1} ", TwoTrailsSchema.TravPointSchema.VerticalAngle, updatedPoint.SlopeAngle);
+            query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.TravPointSchema.VerticalAngle, updatedPoint.SlopeAngle);
+            query.AppendFormat("{0} = {1} ", TwoTrailsSchema.TravPointSchema.Accuracy, updatedPoint.Accuracy);
 
             query.AppendFormat("where {0} = '{1}';", TwoTrailsSchema.SharedSchema.CN, updatedPoint.CN);
 
@@ -1660,8 +1665,12 @@ namespace TwoTrails.DataAccess
             queryEnd.AppendFormat("'{0}',", travPoint.SlopeDistance);
 
             //Angle
-            queryBeginning.AppendFormat("{0}", TwoTrailsSchema.TravPointSchema.VerticalAngle);
-            queryEnd.AppendFormat("'{0}'", travPoint.SlopeAngle);
+            queryBeginning.AppendFormat("{0},", TwoTrailsSchema.TravPointSchema.VerticalAngle);
+            queryEnd.AppendFormat("'{0}',", travPoint.SlopeAngle);
+
+            //Accuracy
+            queryBeginning.AppendFormat("{0}", TwoTrailsSchema.TravPointSchema.Accuracy);
+            queryEnd.AppendFormat("'{0}'", travPoint.Accuracy);
 
             queryBeginning.Append(") values ");
             queryEnd.Append(");");
@@ -2540,7 +2549,7 @@ namespace TwoTrails.DataAccess
                         group.GroupType = (GroupType)Enum.Parse(typeof(GroupType), reader.GetString(4), true);
                     }
 
-                    group.Init(GetPointCNsInGroup(group.CN));
+                    //group.Init(GetPointCNsInGroup(group.CN));
 
                     groups.Add(group);
                     group = new TtGroup();
@@ -2560,6 +2569,11 @@ namespace TwoTrails.DataAccess
         #endregion
 
         #region Insert / Save
+        public void UpdateGroup(TtGroup currentGroup)
+        {
+            UpdateGroup(currentGroup, currentGroup);
+        }
+
         public void UpdateGroup(TtGroup currentGroup, TtGroup updatedGroup)
         {
             SQLiteTransaction trans = _dbConnection.BeginTransaction();
@@ -2732,6 +2746,21 @@ namespace TwoTrails.DataAccess
             {
                 cmd.Dispose();
                 trans.Dispose();
+            }
+
+            if (count > 0)
+            {
+                List<TtPoint> points = GetPointsInGroup(groupCN);
+                if (points.Count > 0)
+                {
+                    foreach (TtPoint p in points)
+                    {
+                        p.GroupName = Values.MainGroup.Name;
+                        p.GroupCN = Values.MainGroup.CN;
+                    }
+
+                    SavePoints(points);
+                }
             }
 
             return (count > 0);

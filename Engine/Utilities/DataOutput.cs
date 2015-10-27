@@ -581,7 +581,7 @@ namespace TwoTrails.Utilities
                     Columns.Add("Description");
                     Columns.Add("Manual Accuracy");
                     Columns.Add("Group Type");
-                    Columns.Add("Number Of Points");    //5
+                    //Columns.Add("Number Of Points");    //5
                     /*
                     Columns.Add("Num Of GpsType Points");
                     Columns.Add("Num Of Gps Points");
@@ -596,7 +596,8 @@ namespace TwoTrails.Utilities
                     */
                     #endregion
 
-                    foreach (TtGroup g in Values.GroupManager.Groups.Values)
+                    //foreach (TtGroup g in Values.GroupManager.Groups.Values)
+                    foreach (TtGroup g in DAL.GetGroups())
                     {
                         List<string> gl = new List<string>();
 
@@ -605,7 +606,7 @@ namespace TwoTrails.Utilities
                         gl.Add(g.Description.Scrub());
                         gl.Add(g.ManualAccuracy.ToString());
                         gl.Add(g.GroupType.ToString());
-                        gl.Add(g.NumberOfPoints.ToString());   //5
+                        //gl.Add(g.NumberOfPoints.ToString());   //5
                         /*
                         gl.Add(g.NumOfGpsTypePoints.ToString());
                         gl.Add(g.NumOfGpsPoints.ToString());

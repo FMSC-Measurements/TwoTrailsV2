@@ -17,8 +17,9 @@ namespace TwoTrails.DataAccess
         public static readonly TtDalVersion D0_9_2 = new TtDalVersion(0, 9, 2);
         public static readonly TtDalVersion D0_9_3 = new TtDalVersion(0, 9, 3);
         public static readonly TtDalVersion D0_9_4 = new TtDalVersion(0, 9, 4);
-        public static readonly TtDalVersion D0_1_0 = new TtDalVersion(1, 0, 0);
-        public static readonly TtDalVersion D0_1_1 = new TtDalVersion(1, 1, 0);
+        public static readonly TtDalVersion D1_0_0 = new TtDalVersion(1, 0, 0);
+        public static readonly TtDalVersion D1_1_0 = new TtDalVersion(1, 1, 0);
+        public static readonly TtDalVersion D1_2_0 = new TtDalVersion(1, 2, 0);
     }
 
     public partial class DataAccessLayer
@@ -119,11 +120,11 @@ namespace TwoTrails.DataAccess
                 TwoTrailsSchema.MetaDataSchema.Laser,   //7
                 TwoTrailsSchema.MetaDataSchema.MagDec,  //8
                 TwoTrailsSchema.MetaDataSchema.Receiver,    //9
-                (DalVersion < DbReleaseVersions.D0_1_1) ? "DistanceUOM" :
+                (DalVersion < DbReleaseVersions.D1_1_0) ? "DistanceUOM" :
                 TwoTrailsSchema.MetaDataSchema.UomDistance,     //10
-                (DalVersion < DbReleaseVersions.D0_1_1) ? "ElevationUOM" :
+                (DalVersion < DbReleaseVersions.D1_1_0) ? "ElevationUOM" :
                 TwoTrailsSchema.MetaDataSchema.UomElevation,    //11
-                (DalVersion < DbReleaseVersions.D0_1_1) ? "SlopeUOM" :
+                (DalVersion < DbReleaseVersions.D1_1_0) ? "SlopeUOM" :
                 TwoTrailsSchema.MetaDataSchema.UomSlope,        //12
                 TwoTrailsSchema.MetaDataSchema.UtmZone);         //13
 
@@ -894,7 +895,7 @@ namespace TwoTrails.DataAccess
                         case OpType.Traverse:
                         case OpType.SideShot:
                             {
-                                GetTravPointData(pt);
+                                GetOldTravPointData(pt);
                                 break;
                             }
                         case OpType.Quondam:
@@ -918,6 +919,56 @@ namespace TwoTrails.DataAccess
 
             return points;
         }
+
+
+        #region GetOldPointData
+
+        void GetOldTravPointData(TtPoint pt)
+        {
+            SideShotPoint t = (SideShotPoint)pt;
+            StringBuilder fields = new StringBuilder();
+            fields.AppendFormat("{0}, {1}, {2}, {3}",
+                TwoTrailsSchema.TravPointSchema.BackAz,
+                TwoTrailsSchema.TravPointSchema.ForwardAz,
+                TwoTrailsSchema.TravPointSchema.SlopeDistance,
+                TwoTrailsSchema.TravPointSchema.VerticalAngle);
+            StringBuilder query = new StringBuilder();
+            query.AppendFormat("select {0} from {1} where {2} = '{3}'",
+                fields.ToString(),
+                TwoTrailsSchema.TravPointSchema.TableName,
+                TwoTrailsSchema.SharedSchema.CN,
+                t.CN);
+
+            SQLiteCommand cmd = _dbConnection.CreateCommand();
+
+            try
+            {
+                cmd.CommandText = query.ToString();
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    if (!reader.IsDBNull(0))
+                        t.BackwardAz = reader.GetDouble(0);
+                    if (!reader.IsDBNull(1))
+                        t.ForwardAz = reader.GetDouble(1);
+                    if (!reader.IsDBNull(2))
+                        t.SlopeDistance = reader.GetDouble(2);
+                    if (!reader.IsDBNull(3))
+                        t.SlopeAngle = reader.GetDouble(3);
+                }
+            }
+            catch (Exception ex)
+            {
+                TtUtils.WriteError(ex.Message, "DataAccessLayer:GetTravPointData");
+            }
+            finally
+            {
+                cmd.Dispose();
+            }
+        }
+        #endregion
 
         private void InsertUpgradePoint(TtPoint newPoint, SQLiteTransaction trans)
         {
@@ -1109,7 +1160,7 @@ namespace TwoTrails.DataAccess
                         group.GroupType = (GroupType)Enum.Parse(typeof(GroupType), reader.GetString(4), true);
                     }
 
-                    group.Init(GetPointCNsInGroup(group.CN));
+                    //group.Init(GetPointCNsInGroup(group.CN));
 
                     groups.Add(group);
                     group = new TtGroup();

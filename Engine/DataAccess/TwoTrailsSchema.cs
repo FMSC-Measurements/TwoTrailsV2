@@ -7,7 +7,7 @@ namespace TwoTrails.DataAccess
     public class TwoTrailsSchema
     {
         //Schema Version
-        public static readonly TtDalVersion SchemaVersion = new TtDalVersion(1, 1, 0);
+        public static readonly TtDalVersion SchemaVersion = DbReleaseVersions.D1_2_0;
 
 
         #region Point Info Table
@@ -64,6 +64,7 @@ namespace TwoTrails.DataAccess
             public static string SlopeDistance = "SlopeDistance";
             public static string VerticalAngle = "VerticalAngle";
             public static string HorizDistance = "HorizontalDistance";
+            public static string Accuracy = "Accuracy";
         }
         #endregion
 

@@ -7,7 +7,7 @@ using TwoTrails.DataAccess;
 
 namespace TwoTrails.BusinessLogic
 {
-    public class GroupManager
+    public class GroupManager2
     {
         public static readonly string GCN = "00000000-0000-0000-0000-000000000000";
         public static readonly TtGroup MainGroup = new TtGroup() { Name = "No Group",
@@ -20,7 +20,7 @@ namespace TwoTrails.BusinessLogic
             set { _Groups = value; }
         }
 
-        public GroupManager()
+        public GroupManager2()
         {
             _Groups = new Dictionary<string, TtGroup>();
             _Groups.Add(MainGroup.CN, MainGroup);
@@ -106,7 +106,7 @@ namespace TwoTrails.BusinessLogic
                 points[i].GroupName = group1.Name;
             }
 
-            group1.AddPointsToGroup(points);
+            //group1.AddPointsToGroup(points);
 
             dal.SavePoints(points, points);
             return dal.DeleteGroup(group2.CN);

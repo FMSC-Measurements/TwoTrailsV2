@@ -193,7 +193,7 @@ namespace TwoTrails.BusinessObjects
             if (Azimuth == null || Azimuth < 0)
             {
                 _calculated = false;
-                return false;
+                throw new Exception("Invalid Azimuth");
             }
 
             //Try the average azimuth first

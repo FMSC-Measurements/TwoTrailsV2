@@ -80,7 +80,7 @@ namespace TwoTrails.BusinessLogic
 #if !(PocketPC || WindowsCE || Mobile)
                     Values.UpdateStatusText("Adjusting Polygons (Do NOT close Program)");
 #endif
-                    Values.GroupManager.SaveGroups(dal);
+                    //Values.GroupManager.SaveGroups(dal);
 
                     if (updateIndexes && Values.Settings.DeviceOptions.AutoUpdateIndex)
                     {
@@ -138,7 +138,7 @@ namespace TwoTrails.BusinessLogic
 #if !(PocketPC || WindowsCE || Mobile)
                 Values.UpdateStatusText("Adjusting Polygons (Do NOT close Program)");
 #endif
-                Values.GroupManager.SaveGroups(dal);
+                //Values.GroupManager.SaveGroups(dal);
                 bool result = CalculateSegmentsInOrderByWeight(dal);
 
 #if !(PocketPC || WindowsCE || Mobile)
@@ -233,6 +233,7 @@ namespace TwoTrails.BusinessLogic
                 }
             }
 
+            /*
             List<TtPoint> allPoints = points.Values.ToList();
 
             if(allPoints.Where(p => p.op == OpType.SideShot).Count() > 0)
@@ -253,8 +254,10 @@ namespace TwoTrails.BusinessLogic
                     lastPoint = currPoint;
                 }
             }
-
             dal.SavePoints(allPoints, ref Values.GlobalCancelToken);
+            */
+
+            dal.SavePoints(points.Values.ToList(), ref Values.GlobalCancelToken);
         }
 
         private static void CalculateAreaAndPerimeter(DataAccessLayer DAL)

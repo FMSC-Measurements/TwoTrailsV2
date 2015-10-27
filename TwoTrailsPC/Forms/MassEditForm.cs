@@ -2828,8 +2828,11 @@ namespace TwoTrails.Forms
                     {
                         if (CurrentPoint != null)
                         {
-                            Values.GroupManager.Groups[CurrentPoint.GroupCN].RemovePointFromGroup(CurrentPoint);
-                            Values.GroupManager.Groups[group.CN].AddPointToGroup(CurrentPoint);
+                            _CurrentPoint.GroupCN = group.CN;
+                            _CurrentPoint.GroupName = group.Name;
+
+                            //Values.GroupManager.Groups[CurrentPoint.GroupCN].RemovePointFromGroup(CurrentPoint);
+                            //Values.GroupManager.Groups[group.CN].AddPointToGroup(CurrentPoint);
 
                             urManager.EditPoint(_CurrentPoint, _EditPoints);
                             edited = true;
@@ -2845,8 +2848,11 @@ namespace TwoTrails.Forms
                         {
                             tmpPoint = _DisplayPoints[row.Index];
 
-                            Values.GroupManager.Groups[tmpPoint.GroupCN].RemovePointFromGroup(tmpPoint);
-                            Values.GroupManager.Groups[group.CN].AddPointToGroup(tmpPoint);
+                            tmpPoint.GroupCN = group.CN;
+                            tmpPoint.GroupName = group.Name;
+
+                            //Values.GroupManager.Groups[tmpPoint.GroupCN].RemovePointFromGroup(tmpPoint);
+                            //Values.GroupManager.Groups[group.CN].AddPointToGroup(tmpPoint);
 
                             points.Add(tmpPoint);
                         }
@@ -3464,6 +3470,17 @@ namespace TwoTrails.Forms
 
                     foreach (KeyValuePair<string,TtPoint> kvp in _EditPoints)
                     {
+                        //check valididty of Point
+                        if (kvp.Value.IsTravType())
+                        {
+                            if (((SideShotPoint)kvp.Value).Azimuth == null)
+                            {
+                                MessageBox.Show(String.Format("Point {0} has no Azimuth", kvp.Value.PID));
+
+                                return false;
+                            }
+                        }
+
                         if (!_OrigPoints.ContainsKey(kvp.Key))
                         {
                             addpoints.Add(kvp.Value);
@@ -3490,7 +3507,12 @@ namespace TwoTrails.Forms
                     DAL.SavePoints(origpoints, edPoints);
                     DAL.InsertPoints(addpoints);
 
-                    Values.GroupManager.SaveGroups(DAL);
+                    foreach (TtGroup g in _Groups.Values)
+                    {
+                        DAL.UpdateGroup(g);
+                    }
+
+                    //Values.GroupManager.SaveGroups(DAL);
 
                     foreach (TtPoint p in delpoints)
                     {
@@ -3506,7 +3528,8 @@ namespace TwoTrails.Forms
                         adjusted = true;
                     }
 
-                    Values.GroupManager.InitGroups(DAL);
+                    //no need to reset groups
+                    //Values.GroupManager.InitGroups(DAL);
 
                     if (!_closing)
                     {
@@ -4288,7 +4311,11 @@ namespace TwoTrails.Forms
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     ignoreControls = true;
-                    Values.GroupManager.AddGroup(form.Group, DAL);
+
+                    //Values.GroupManager.AddGroup(form.Group, DAL);
+                    _Groups.Add(form.Group.CN, form.Group);
+                    DAL.InsertGroup(form.Group);
+
                     chkLstGroupFilter.Items.Add(form.Group, true);
                     _Groups.Add(form.Group.CN, form.Group);
 
@@ -4303,8 +4330,11 @@ namespace TwoTrails.Forms
                     {
                         if (CurrentPoint != null)
                         {
-                            Values.GroupManager.Groups[CurrentPoint.GroupCN].RemovePointFromGroup(CurrentPoint);
-                            Values.GroupManager.Groups[form.Group.CN].AddPointToGroup(CurrentPoint);
+                            CurrentPoint.GroupCN = form.Group.CN;
+                            CurrentPoint.GroupName = form.Group.Name;
+
+                            //Values.GroupManager.Groups[CurrentPoint.GroupCN].RemovePointFromGroup(CurrentPoint);
+                            //Values.GroupManager.Groups[form.Group.CN].AddPointToGroup(CurrentPoint);
 
                             urManager.EditPoint(_CurrentPoint, _EditPoints);
                             edited = true;
@@ -4321,8 +4351,11 @@ namespace TwoTrails.Forms
                         {
                             tmpPoint = _DisplayPoints[row.Index];
 
-                            Values.GroupManager.Groups[tmpPoint.GroupCN].RemovePointFromGroup(tmpPoint);
-                            Values.GroupManager.Groups[form.Group.CN].AddPointToGroup(tmpPoint);
+                            tmpPoint.GroupCN = form.Group.CN;
+                            tmpPoint.GroupName = form.Group.Name;
+
+                            //Values.GroupManager.Groups[tmpPoint.GroupCN].RemovePointFromGroup(tmpPoint);
+                            //Values.GroupManager.Groups[form.Group.CN].AddPointToGroup(tmpPoint);
 
                             points.Add(tmpPoint);
                         }
