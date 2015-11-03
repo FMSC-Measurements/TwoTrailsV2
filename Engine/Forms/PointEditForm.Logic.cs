@@ -982,7 +982,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
 
                 int pos = -1;
                 TtMetaData metaFrom;
-                pos = _MetaCNs.IndexOf(CurrPoint.MetaDefCN);
+                pos = _MetaCNs.IndexOf(UpdatedPoint.MetaDefCN);
 
                 if (pos > -1)
                     metaFrom = _Meta[pos];

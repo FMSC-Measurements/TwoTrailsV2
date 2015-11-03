@@ -50,6 +50,21 @@ namespace TwoTrails.DataAccess
                             UpgradeGroups() &&
                             UpgradePoints() &&
                             UpgradeNmea();
+
+                        /*
+                        if (success && oldData.DalVersion < DbReleaseVersions.D1_2_0)
+                        {
+                            List<TtPoint> ssps = GetPoints().Where(p => p.IsTravType()).ToList();
+
+                            double angle;
+                            foreach (TtPoint p in ssps)
+                            {
+                                ((SideShotPoint)p).SlopeAngle /= 3.6;
+                            }
+
+                            SavePoints(ssps);
+                        }
+                        */
                     }
                 }
             }
@@ -957,6 +972,11 @@ namespace TwoTrails.DataAccess
                         t.SlopeDistance = reader.GetDouble(2);
                     if (!reader.IsDBNull(3))
                         t.SlopeAngle = reader.GetDouble(3);
+
+                    if (DalVersion < DbReleaseVersions.D1_2_0)
+                    {
+                        t.SlopeAngle /= 3.6;
+                    }
                 }
             }
             catch (Exception ex)

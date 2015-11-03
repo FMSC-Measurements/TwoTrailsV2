@@ -1074,9 +1074,14 @@ namespace TwoTrails.DataAccess
 
         public void SavePoint(TtPoint currentPoint, TtPoint updatedPoint)
         {
-
             if (updatedPoint == null)
                 return;
+
+            if (currentPoint == null)
+            {
+                InsertPoint(updatedPoint);
+                return;
+            }
 
             SQLiteTransaction trans = _dbConnection.BeginTransaction();
 
@@ -1124,12 +1129,6 @@ namespace TwoTrails.DataAccess
 
         protected void SavePoint(TtPoint currentPoint, GpsPoint updatedPoint, SQLiteTransaction trans)
         {
-            if (currentPoint == null)
-            {
-                InsertPoint(updatedPoint, trans);
-                return;
-            }
-
             StringBuilder query = new StringBuilder();
             query.AppendFormat("Update {0} set ", TwoTrailsSchema.GpsPointSchema.TableName);
 

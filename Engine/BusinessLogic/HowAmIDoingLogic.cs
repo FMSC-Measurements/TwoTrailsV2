@@ -98,7 +98,8 @@ namespace Engine.BusinessLogic
             if(!_options.ProjectDescription.IsEmpty())
                 _writer.WriteLine("Description: {0}", _options.ProjectDescription);
 
-            _writer.WriteLine("TtVersion: {0}", _options.Data.GetProjectTtStartVersion());
+            _writer.WriteLine("Created on: TT {0}", _options.Data.GetProjectTtStartVersion());
+            _writer.WriteLine("Running on: TT {0}", Values.TwoTrailsVersion);
 
             _writer.WriteLine();
 

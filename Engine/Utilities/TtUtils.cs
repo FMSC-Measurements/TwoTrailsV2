@@ -281,12 +281,12 @@ namespace TwoTrails.Utilities
 
         public static double DegreesToPercent(double d)
         {
-            return d / 3.6;
+            return Math.Tan(d * Math.PI / 180.0) * 100;
         }
 
         public static double PercentToDegrees(double d)
         {
-            return 360 * (d / 100.0);
+            return Math.Atan(d / 100.0) * 180.0 / Math.PI;
         }
 
         public static double DegreesToRadian(double d)
@@ -2652,15 +2652,8 @@ namespace TwoTrails.Utilities
                     dal.InsertGroup(Values.MainGroup);
                 }
 
-                /*
-                if (!Values.GroupManager.Groups.ContainsKey(Values.MainGroup.CN))
-                    Values.GroupManager.AddGroup(Values.MainGroup, dal);
-                */
-
                 point.CN = Values.MainGroup.CN;
                 point.GroupName = Values.MainGroup.Name;
-
-                //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointToGroup(point);
             }
 
             if (point.MetaDefCN.IsEmpty() && dal.GetMetadataCount() > 0)
@@ -3057,7 +3050,9 @@ namespace TwoTrails.Utilities
 
         public static bool IsInteger(this String str)
         {
-            if (str.IsEmpty() || str.Length > 9)
+            str = str.Replace("-", "");
+
+            if (str.IsEmpty())
                 return false;
 
             foreach (char c in str)
@@ -3070,13 +3065,12 @@ namespace TwoTrails.Utilities
 
         public static bool IsDouble(this String str)
         {
+            str = str.Replace("-", "").Replace(".", "");
+            
             if (str.IsEmpty())
                 return false;
 
             int dots = 0;
-
-            if (str[0] == '-')
-                str = str.Substring(1);
 
             foreach (char c in str)
             {
