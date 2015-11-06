@@ -60,15 +60,6 @@ namespace TwoTrails.Controls
 
 
                 lblWalkName.Text = CurrentPoint.GroupName;
-
-                /*
-                if (!CurrentPoint.GroupCN.IsEmpty())
-                {
-                    lblWalkName.Text = Values.GroupManager.Groups[CurrentPoint.GroupCN].Name;
-                }
-                else
-                    lblWalkName.Text = "???";
-                */
             }
             else
             {

@@ -80,8 +80,6 @@ namespace TwoTrails.BusinessLogic
 #if !(PocketPC || WindowsCE || Mobile)
                     Values.UpdateStatusText("Adjusting Polygons (Do NOT close Program)");
 #endif
-                    //Values.GroupManager.SaveGroups(dal);
-
                     if (updateIndexes && Values.Settings.DeviceOptions.AutoUpdateIndex)
                     {
                         List<TtPoint> iPoints = new List<TtPoint>();
@@ -138,7 +136,6 @@ namespace TwoTrails.BusinessLogic
 #if !(PocketPC || WindowsCE || Mobile)
                 Values.UpdateStatusText("Adjusting Polygons (Do NOT close Program)");
 #endif
-                //Values.GroupManager.SaveGroups(dal);
                 bool result = CalculateSegmentsInOrderByWeight(dal);
 
 #if !(PocketPC || WindowsCE || Mobile)

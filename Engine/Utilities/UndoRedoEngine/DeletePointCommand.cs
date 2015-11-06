@@ -36,14 +36,11 @@ namespace TwoTrails.Utilities
             }
 
             points.Remove(_OldPoint.CN);
-
-            //Engine.Values.GroupManager.Groups[_OldPoint.GroupCN].RemovePointFromGroup(_OldPoint);
-        }
+          }
 
         public override void UnExecute(IDictionary<string, TtPoint> points)
         {
             points.Add(_OldPoint.CN, _OldPoint);
-            //Engine.Values.GroupManager.Groups[_OldPoint.GroupCN].AddPointToGroup(_OldPoint);
 
             if (_OldPoint.HasQuondamLinks)
             {

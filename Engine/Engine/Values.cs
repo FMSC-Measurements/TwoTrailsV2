@@ -149,9 +149,9 @@ namespace TwoTrails.Engine
         public static readonly string DefaultSaveFolder = Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
 #endif
 
-        public static readonly string GCN = "00000000-0000-0000-0000-000000000000";
+        public static readonly string EmptyGuid = "00000000-0000-0000-0000-000000000000";
         public static readonly TtGroup MainGroup = new TtGroup()
-        { Name = "Main Group", CN = GCN, Description = String.Empty, GroupType = GroupType.General };
+        { Name = "Main Group", CN = EmptyGuid, Description = String.Empty, GroupType = GroupType.General };
 
         public static bool GlobalCancelToken = false;
         public static bool AdjustingPolygons = false;

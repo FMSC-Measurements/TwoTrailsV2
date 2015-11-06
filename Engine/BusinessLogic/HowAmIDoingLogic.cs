@@ -386,11 +386,12 @@ namespace Engine.BusinessLogic
             {
                 _PolyOutput.AppendLine();
                 _PolyOutput.AppendLine(String.Format("The polygon area is: {2}{0:F4} Ha ({1:F4} ac).",
-                    TtUtils.ConvertMeters2ToHa(p.Area), TtUtils.ConvertMeters2ToAcres(p.Area), _options.SaveReport ? "                " : ""));
-                _PolyOutput.AppendLine(String.Format("The polygon perimeter is: {2}{0:F4} M ({1:F4} ft).", p.Perimeter,
-                    TtUtils.ConvertToFeetTenths(p.Perimeter, Unit.METERS), _options.SaveReport ? "           " : ""));
+                    TtUtils.ConvertMeters2ToHa(p.Area), TtUtils.ConvertMeters2ToAcres(p.Area), _options.SaveReport ? "              " : ""));
+                _PolyOutput.AppendLine(String.Format("The polygon exterior perimeter is: {0:F4} M ({1:F4} ft).", p.Perimeter,
+                    TtUtils.ConvertToFeetTenths(p.Perimeter, Unit.METERS)));
             }
 
+            /*
             if (TotalError > 0)
             {
                 _PolyOutput.AppendLine(String.Format("The polygon area-error area is: {2}{0:F5} Ha ({1:F4} ac).",
@@ -400,16 +401,17 @@ namespace Engine.BusinessLogic
                 _PolyOutput.AppendLine(String.Format("Ratio of area-error-area to area is: {0:F2}%.",
                     TotalError / p.Area * 100));
             }
+            */
 
             if (TotalGpsError > 0)
             {
                 _PolyOutput.AppendLine();
                 _PolyOutput.AppendLine(String.Format("GPS Contribution to area-error area: {2}{0:F5} Ha ({1:F4} ac).",
                     TtUtils.ConvertMeters2ToHa(TotalGpsError), TtUtils.ConvertMeters2ToAcres(TotalGpsError),
-                    _options.SaveReport ? "                 " : ""));
+                    _options.SaveReport ? "              " : ""));
 
                 _PolyOutput.AppendLine(String.Format("GPS Contribution Ratio of area-error to area: {1}{0:F2}%.",
-                    TotalGpsError / p.Area * 100, _options.SaveReport ? "        " : ""));
+                    TotalGpsError / p.Area * 100, _options.SaveReport ? "     " : ""));
             }
 
             if (TotalTravError > 0)
@@ -417,10 +419,10 @@ namespace Engine.BusinessLogic
                 _PolyOutput.AppendLine(" ");
                 _PolyOutput.AppendLine(String.Format("Traverse Contribution to area-error area: {2}{0:F5} Ha ({1:F4} ac).",
                     TtUtils.ConvertMeters2ToHa(TotalTravError), TtUtils.ConvertMeters2ToAcres(TotalTravError),
-                    _options.SaveReport ? "            " : ""));
+                    _options.SaveReport ? "         " : ""));
 
                 _PolyOutput.AppendLine(String.Format("Traverse Contribution Ratio of area-error to area: {1}{0:F2}%.",
-                    TotalTravError / p.Area * 100, _options.SaveReport ? "   " : ""));
+                    TotalTravError / p.Area * 100, _options.SaveReport ? "" : ""));
             }
         }
     }

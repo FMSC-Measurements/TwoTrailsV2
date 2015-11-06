@@ -191,8 +191,6 @@ namespace TwoTrails.Forms
                 p.GroupName = Values.MainGroup.Name;
                 p.GroupCN = Values.MainGroup.CN;
             }
-
-            //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointsToGroup(newPoints);
                 
             dal.InsertPolygon(_NewPoly);
             dal.InsertPoints(newPoints);

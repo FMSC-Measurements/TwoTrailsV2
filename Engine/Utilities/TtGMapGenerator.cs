@@ -134,7 +134,7 @@ namespace TwoTrails.Utilities
                         TtPoint tmpPoint;
                         double lat, lon;
 
-                        TtMetaData meta = DAL.GetMetaDataById(points[0].MetaDefCN);
+                        TtMetaData meta = DAL.GetMetaDataByCN(points[0].MetaDefCN);
                         if (meta == null)
                             meta = DAL.GetMetaData()[0];
 

@@ -189,10 +189,8 @@ namespace TwoTrails.Forms
                         WalkGroup.SetGroupName(String.Format("Walk_{0}", WalkGroup.CN.Truncate(8)), null);
 
                         DAL.InsertGroup(WalkGroup);
-                        //Values.GroupManager.AddGroup(WalkGroup, DAL);
                     }
 
-                    //Values.GroupManager.Groups[WalkGroup.CN].AddPointToGroup(CurrentPoint);
                     DAL.InsertPoint(CurrentPoint);
                     DAL.SaveNmeaBurst(CurrentNmea, CurrentPoint.CN);
 
@@ -394,7 +392,6 @@ namespace TwoTrails.Forms
             {
                 if (CurrentPoint != null)
                 {
-                    //Values.GroupManager.Groups[WalkGroup.CN].AddPointToGroup(CurrentPoint);
                     DAL.InsertPoint(CurrentPoint);
                     DAL.SaveNmeaBurst(CurrentNmea, CurrentPoint.CN);
 

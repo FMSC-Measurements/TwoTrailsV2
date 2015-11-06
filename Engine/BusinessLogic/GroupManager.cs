@@ -7,7 +7,7 @@ using TwoTrails.DataAccess;
 
 namespace TwoTrails.BusinessLogic
 {
-    public class GroupManager2
+    public class GroupManager
     {
         public static readonly string GCN = "00000000-0000-0000-0000-000000000000";
         public static readonly TtGroup MainGroup = new TtGroup() { Name = "No Group",
@@ -20,7 +20,7 @@ namespace TwoTrails.BusinessLogic
             set { _Groups = value; }
         }
 
-        public GroupManager2()
+        public GroupManager()
         {
             _Groups = new Dictionary<string, TtGroup>();
             _Groups.Add(MainGroup.CN, MainGroup);

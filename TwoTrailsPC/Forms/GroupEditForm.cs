@@ -78,12 +78,6 @@ namespace TwoTrails.Forms
             this.Icon = Properties.Resources.Map;
             Locked = true;
 
-            /*
-            _DisplayGroups = new BindingList<GroupEdit>(Values.GroupManager.Groups.Values
-                .Where(g => g.CN != Values.MainGroup.CN)
-                .Select(g => new GroupEdit(g)).ToList());
-            */
-
             _DisplayGroups = new BindingList<GroupEdit>(dal.GetGroups()
                 .Where(g => g.CN != Values.MainGroup.CN)
                 .Select(g => new GroupEdit(g)).ToList());
@@ -127,8 +121,6 @@ namespace TwoTrails.Forms
                         dal.UpdateGroup(group.Group);
                     }
                 }
-
-                //Values.GroupManager.SaveGroups(dal);
             }
             catch (Exception ex)
             {
@@ -187,12 +179,10 @@ namespace TwoTrails.Forms
                     {
                         dal.DeletePointsInGroup(Current.Group.CN);
                         dal.DeleteGroup(Current.Group.CN);
-                        //Values.GroupManager.DeleteGroup(Current.Group.CN, dal, true);
                     }
                     else
                     {
                         dal.DeleteGroup(Current.Group.CN);
-                        //Values.GroupManager.DeleteGroup(Current.Group.CN, dal);
                     }
                     _DisplayGroups.RemoveAt(index);
                 }
@@ -203,7 +193,6 @@ namespace TwoTrails.Forms
         {
             TtGroup g = new TtGroup("group");
             dal.InsertGroup(g);
-            //Values.GroupManager.AddGroup(g, dal);
             _DisplayGroups.Insert(0, new GroupEdit(g));
         }
 

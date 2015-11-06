@@ -41,8 +41,6 @@ namespace TwoTrails.Utilities
                     points[p.CN] = p;
                 else
                     points.Add(p.CN, p);
-
-                //Values.GroupManager.Groups[p.GroupCN].AddPointToGroup(p);
             }
         }
 
@@ -54,7 +52,6 @@ namespace TwoTrails.Utilities
             {
                 tmpPoint = points[cn];
                 points[cn] = null;
-                //Values.GroupManager.Groups[tmpPoint.GroupCN].RemovePointFromGroup(tmpPoint);
             }
         }
     }

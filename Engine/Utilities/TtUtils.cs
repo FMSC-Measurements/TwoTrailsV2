@@ -407,20 +407,12 @@ namespace TwoTrails.Utilities
 
             if (to == UomSlope.Degrees)
             {
-                if (from == UomSlope.Percent)
-                {
-                    return PercentToDegrees(d);
-                }
+                return PercentToDegrees(d);
             }
             else
             {
-                if (from == UomSlope.Degrees)
-                {
-                    return DegreesToPercent(d);
-                }
+                return DegreesToPercent(d);
             }
-
-            return d;
         }
 
         public static Unit UomDistanceToUnit(UomDistance uom)
@@ -2622,6 +2614,7 @@ namespace TwoTrails.Utilities
 
         #region Fix Points
 
+        /*
         public static bool HasErrors(this TtPoint point)
         {
             if (point.GroupName.IsEmpty() || point.GroupCN.IsEmpty())
@@ -2639,25 +2632,49 @@ namespace TwoTrails.Utilities
 
             return false;
         }
+        */
 
-        public static TtPoint Fix(this TtPoint point, DataAccess.DataAccessLayer dal)
+        public static bool HasErrors(this TtPoint point, Dictionary<string, TtMetaData> metadata, Dictionary<string, TtGroup> groups)
         {
-            if (point.GroupName.IsEmpty() || point.GroupCN.IsEmpty())
+            if (point.GroupName.IsEmpty() || point.GroupCN.IsEmpty() || !groups.ContainsKey(point.GroupCN))
+                return true;
+
+            if (point.MetaDefCN.IsEmpty() || !metadata.ContainsKey(point.MetaDefCN))
+                return true;
+
+            if (point.op == OpType.Quondam)
+            {
+                QuondamPoint p = (QuondamPoint)point;
+                if (p.ParentPoint != null && p.ParentPoint.op == OpType.Quondam)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static TtPoint Fix(this TtPoint point, DataAccess.DataAccessLayer dal, Dictionary<string, TtMetaData> metadata, Dictionary<string, TtGroup> groups)
+        {
+            if (dal.GetGroupByCN(Values.EmptyGuid) == null)
+            {
+                dal.InsertGroup(Values.MainGroup);
+            }
+
+            if (dal.GetMetaDataByCN(Values.EmptyGuid) == null)
+            {
+                dal.InsertMetaData(dal.CreateDefaultMetaData());
+            }
+
+            if (point.GroupName.IsEmpty() || point.GroupCN.IsEmpty() || !groups.ContainsKey(point.GroupCN))
             {
                 point.GroupName = Values.MainGroup.Name;
                 point.GroupCN = Values.MainGroup.CN;
-
-                if (dal.GetGroupByCN(Values.MainGroup.CN) == null)
-                {
-                    dal.InsertGroup(Values.MainGroup);
-                }
 
                 point.CN = Values.MainGroup.CN;
                 point.GroupName = Values.MainGroup.Name;
             }
 
-            if (point.MetaDefCN.IsEmpty() && dal.GetMetadataCount() > 0)
-                point.MetaDefCN = dal.GetMetaData()[0].CN;
+            if (point.MetaDefCN.IsEmpty() || !metadata.ContainsKey(point.MetaDefCN))
+                point.MetaDefCN = Values.EmptyGuid;
 
             if (point.op == OpType.Quondam)
             {
@@ -2686,6 +2703,9 @@ namespace TwoTrails.Utilities
             try
             {
                 DataAccessLayer dal = new DataAccessLayer(filename);
+                Dictionary<string, TtGroup> _Groups = dal.GetGroups().ToDictionary(g => g.CN, g => g);
+                Dictionary<string, TtMetaData> _MetaData = dal.GetMetaData().ToDictionary(m => m.CN, m => m);
+
 
                 if (dal.GetGroupCount() < 1)
                     dal.InsertGroup(Values.MainGroup);
@@ -2705,7 +2725,7 @@ namespace TwoTrails.Utilities
 
                 foreach (TtPoint point in dal.GetPoints())
                 {
-                    point.Fix(dal);
+                    point.Fix(dal, _MetaData, _Groups);
                 }
             }
             catch (Exception ex)

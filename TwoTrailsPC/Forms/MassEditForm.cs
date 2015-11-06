@@ -3512,8 +3512,6 @@ namespace TwoTrails.Forms
                         DAL.UpdateGroup(g);
                     }
 
-                    //Values.GroupManager.SaveGroups(DAL);
-
                     foreach (TtPoint p in delpoints)
                     {
                         DAL.DeletePoint(p);
@@ -3527,9 +3525,6 @@ namespace TwoTrails.Forms
                         PolygonAdjuster.Adjust(DAL, true);
                         adjusted = true;
                     }
-
-                    //no need to reset groups
-                    //Values.GroupManager.InitGroups(DAL);
 
                     if (!_closing)
                     {
@@ -4015,8 +4010,8 @@ namespace TwoTrails.Forms
 
                 foreach (KeyValuePair<string, TtPoint> kvp in _EditPoints)
                 {
-                    if (kvp.Value.HasErrors())
-                        fixedPoints.Add(kvp.Value.Fix(DAL));
+                    if (kvp.Value.HasErrors(_MetaData, _Groups))
+                        fixedPoints.Add(kvp.Value.Fix(DAL, _MetaData, _Groups));
                 }
 
                 urManager.EditPoints(fixedPoints, _EditPoints);
@@ -4041,9 +4036,9 @@ namespace TwoTrails.Forms
                 {
                     foreach (TtPoint point in DAL.GetPoints())
                     {
-                        if (point.HasErrors())
+                        if (point.HasErrors(_MetaData, _Groups))
                         {
-                            DAL.SavePoint(point, point.Fix(DAL));
+                            DAL.SavePoint(point, point.Fix(DAL, _MetaData, _Groups));
                         }
                     }
 
@@ -4312,7 +4307,6 @@ namespace TwoTrails.Forms
                 {
                     ignoreControls = true;
 
-                    //Values.GroupManager.AddGroup(form.Group, DAL);
                     _Groups.Add(form.Group.CN, form.Group);
                     DAL.InsertGroup(form.Group);
 
@@ -4333,9 +4327,6 @@ namespace TwoTrails.Forms
                             CurrentPoint.GroupCN = form.Group.CN;
                             CurrentPoint.GroupName = form.Group.Name;
 
-                            //Values.GroupManager.Groups[CurrentPoint.GroupCN].RemovePointFromGroup(CurrentPoint);
-                            //Values.GroupManager.Groups[form.Group.CN].AddPointToGroup(CurrentPoint);
-
                             urManager.EditPoint(_CurrentPoint, _EditPoints);
                             edited = true;
                             UpdateRow(CurrentPoint.CN);
@@ -4353,9 +4344,6 @@ namespace TwoTrails.Forms
 
                             tmpPoint.GroupCN = form.Group.CN;
                             tmpPoint.GroupName = form.Group.Name;
-
-                            //Values.GroupManager.Groups[tmpPoint.GroupCN].RemovePointFromGroup(tmpPoint);
-                            //Values.GroupManager.Groups[form.Group.CN].AddPointToGroup(tmpPoint);
 
                             points.Add(tmpPoint);
                         }

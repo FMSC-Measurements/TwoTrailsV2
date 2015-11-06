@@ -137,8 +137,6 @@ namespace TwoTrails.Forms
                     DAL.InsertGroup(T5Group);
                     point.GroupCN = T5Group.CN;
                     point.GroupName = T5Group.Name;
-                    //Values.GroupManager.AddGroup(T5Group, DAL);
-                    //Values.GroupManager.Groups[T5Group.CN].AddPointToGroup(point);
 
                     point = TtUtils.SaveConversion(point, CurrMeta);
                     DAL.InsertPoint(point);

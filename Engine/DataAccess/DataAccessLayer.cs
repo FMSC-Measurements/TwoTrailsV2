@@ -75,15 +75,14 @@ namespace TwoTrails.DataAccess
             CreateTtnmeaTable();
             CreateGroupTable();
 
-            TtMetaData md = Engine.Values.Settings.ReadMetaSettings();
+            TtMetaData md = CreateDefaultMetaData();
 
             SetupProjInfo();
             DalVersion = TwoTrailsSchema.SchemaVersion;
 
             if (md == null)
             {
-                md = CreateDefaultMetaData();
-                Engine.Values.Settings.WriteMetaSettings(md);
+                throw new Exception("Invalid metadata.");
             }
             else
             {
@@ -1153,13 +1152,14 @@ namespace TwoTrails.DataAccess
             query.AppendFormat("Update {0} set ", TwoTrailsSchema.TravPointSchema.TableName);
             UpdateBasePoint(currentPoint, updatedPoint, trans);
 
-            query.AppendFormat("{0} = {1},", TwoTrailsSchema.TravPointSchema.ForwardAz, (updatedPoint.ForwardAz == null) ? ("NULL") :
+            query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.TravPointSchema.ForwardAz, (updatedPoint.ForwardAz == null) ? ("NULL") :
                 (String.Format("'{0}'", updatedPoint.ForwardAz.ToString())));
-            query.AppendFormat("{0} = {1},", TwoTrailsSchema.TravPointSchema.BackAz, (updatedPoint.BackwardAz == null) ? ("NULL") :
+            query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.TravPointSchema.BackAz, (updatedPoint.BackwardAz == null) ? ("NULL") :
                 (String.Format("'{0}'", updatedPoint.BackwardAz.ToString())));
-            query.AppendFormat("{0} = {1},", TwoTrailsSchema.TravPointSchema.SlopeDistance, updatedPoint.SlopeDistance);
+            query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.TravPointSchema.SlopeDistance, updatedPoint.SlopeDistance);
             query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.TravPointSchema.VerticalAngle, updatedPoint.SlopeAngle);
-            query.AppendFormat("{0} = {1} ", TwoTrailsSchema.TravPointSchema.Accuracy, updatedPoint.Accuracy);
+            query.AppendFormat("{0} = {1} ", TwoTrailsSchema.TravPointSchema.Accuracy, (updatedPoint.Accuracy == null) ? ("NULL") :
+                (String.Format("'{0}'", updatedPoint.Accuracy.ToString())));
 
             query.AppendFormat("where {0} = '{1}';", TwoTrailsSchema.SharedSchema.CN, updatedPoint.CN);
 
@@ -3781,7 +3781,7 @@ namespace TwoTrails.DataAccess
             return count;
         }
 
-        public TtMetaData GetMetaDataById(string CN)
+        public TtMetaData GetMetaDataByCN(string CN)
         {
             List<TtMetaData> data = GetMetaData(String.Format("where {0} = '{1}'", TwoTrailsSchema.MetaDataSchema.CN, CN));
 
@@ -4293,17 +4293,24 @@ namespace TwoTrails.DataAccess
 
         public TtMetaData CreateDefaultMetaData()
         {
-            TtMetaData md = new TtMetaData();
-            md.CN = Guid.NewGuid().ToString();
-            md.Name = "Meta1";
-            md.magDec = 0;
-            md.decType = DeclinationType.MagDec;
-            md.Zone = 13;
-            md.uomSlope = UomSlope.Percent;
-            md.uomElevation = UomElevation.Feet;
-            md.uomDistance = UomDistance.FeetTenths;
-            md.datum = Datum.NAD83;   
-            InsertMetaData(md);
+            TtMetaData md = Engine.Values.Settings.ReadMetaSettings();
+
+            if (md == null)
+            {
+                md = new TtMetaData();
+                md.Name = "Meta1";
+                md.magDec = 0;
+                md.decType = DeclinationType.MagDec;
+                md.Zone = 13;
+                md.uomSlope = UomSlope.Percent;
+                md.uomElevation = UomElevation.Feet;
+                md.uomDistance = UomDistance.FeetTenths;
+                md.datum = Datum.NAD83;
+                InsertMetaData(md);
+            }
+
+            md.CN = Values.EmptyGuid;
+
             return md;
         }
 

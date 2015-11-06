@@ -198,7 +198,7 @@ namespace TwoTrails.Forms
 
             if (Points.Count > 2)
             {
-                TtMetaData meta = DAL.GetMetaDataById(Points.First().Value.MetaDefCN);
+                TtMetaData meta = DAL.GetMetaDataByCN(Points.First().Value.MetaDefCN);
                 if (meta == null)
                 {
                     throw new Exception("No Meta Data");
@@ -520,7 +520,6 @@ namespace TwoTrails.Forms
                     nPoints.Add(tmpPoint);
                 }
 
-                //Values.GroupManager.Groups[Values.MainGroup.CN].AddPointsToGroup(nPoints);
                 DAL.InsertPoints(nPoints);
 
                 MessageBox.Show(String.Format("{0} Plots Created.", nPoints.Count));

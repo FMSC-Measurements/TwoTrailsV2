@@ -382,13 +382,6 @@ namespace TwoTrails.Forms
                                 point.CN = Values.MainGroup.CN;
                                 point.GroupName = Values.MainGroup.Name;
 
-                                /*
-                                if (!point.GroupCN.IsEmpty())
-                                {
-                                    Values.GroupManager.Groups[point.GroupCN].RemovePointFromGroup(point);
-                                }
-                                */
-
                                 DAL.DeletePoint(point);
                             }
                         }

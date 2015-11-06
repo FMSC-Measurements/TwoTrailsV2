@@ -596,7 +596,6 @@ namespace TwoTrails.Utilities
                     */
                     #endregion
 
-                    //foreach (TtGroup g in Values.GroupManager.Groups.Values)
                     foreach (TtGroup g in DAL.GetGroups())
                     {
                         List<string> gl = new List<string>();
@@ -926,7 +925,7 @@ namespace TwoTrails.Utilities
 
                 if (points.Count > 0)
                 {
-                    md = DAL.GetMetaDataById(points[0].MetaDefCN);
+                    md = DAL.GetMetaDataByCN(points[0].MetaDefCN);
 
                     if (md == null)
                         throw new Exception("Meta Data is null. Cant obtain UTM Zone");
@@ -1216,7 +1215,7 @@ namespace TwoTrails.Utilities
 
                 if (points.Count > 0)
                 {
-                    md = DAL.GetMetaDataById(points[0].MetaDefCN);
+                    md = DAL.GetMetaDataByCN(points[0].MetaDefCN);
 
                     if (md == null)
                         throw new Exception("Meta Data is null.  Cant obtain UTM Zone");
@@ -1413,6 +1412,7 @@ namespace TwoTrails.Utilities
         {
         #if !(PocketPC || WindowsCE || Mobile)
             List<TtPolygon> polys = DAL.GetPolygons();
+            Dictionary<string, TtMetaData> metas = DAL.GetMetaData().ToDictionary(m => m.CN, m => m);
 
             string folder = SelectedPath + "\\GIS";
             Directory.CreateDirectory(folder);
@@ -1435,9 +1435,9 @@ namespace TwoTrails.Utilities
                 if (points.Count > 0 || wayPoints.Count > 0)
                 {
                     if (points.Count > 0)
-                        md = DAL.GetMetaDataById(points[0].MetaDefCN);
+                        md = DAL.GetMetaDataByCN(points[0].MetaDefCN);
                     else
-                        md = DAL.GetMetaDataById(wayPoints[0].MetaDefCN);
+                        md = DAL.GetMetaDataByCN(wayPoints[0].MetaDefCN);
                     if (md == null)
                         continue;
                 }
@@ -1456,6 +1456,8 @@ namespace TwoTrails.Utilities
                 CoordinateList NavAdjCoords = new CoordinateList();
                 CoordinateList NavUnAdjCoords = new CoordinateList();
 
+                bool hasWayPoints = false;
+
                 foreach (TtPoint point in points)
                 {
                     if (point.IsNavPoint())
@@ -1468,6 +1470,11 @@ namespace TwoTrails.Utilities
                     {
                         BAdjCoords.Add(new Coordinate(point.AdjX, point.AdjY, point.AdjZ));
                         BUnAdjCoords.Add(new Coordinate(point.UnAdjX, point.UnAdjY, point.UnAdjZ));
+                    }
+
+                    if (point.op == OpType.WayPoint)
+                    {
+                        hasWayPoints = true;
                     }
                 }
 
@@ -1514,7 +1521,7 @@ namespace TwoTrails.Utilities
                     features = new ArrayList();
                     attTable["Poly"] = "Navigation Adjusted Points";
 
-                    features = GetPointFeatures(points.Where(p => p.IsNavPoint()), true, DAL);
+                    features = GetPointFeatures(points.Where(p => p.IsNavPoint()), true, DAL, metas);
 
                     if (features.Count > 0)
                     {
@@ -1553,7 +1560,7 @@ namespace TwoTrails.Utilities
                     features = new ArrayList();
                     attTable["Poly"] = "Navigation UnAdjusted Points";
 
-                    features = GetPointFeatures(points.Where(p => p.IsNavPoint()), false, DAL);
+                    features = GetPointFeatures(points.Where(p => p.IsNavPoint()), false, DAL, metas);
 
                     if (features.Count > 0)
                     {
@@ -1642,7 +1649,7 @@ namespace TwoTrails.Utilities
                     features = new ArrayList();
                     attTable["Poly"] = "Boundary Adjusted Points";
 
-                    features = GetPointFeatures(points.Where(p => p.IsBndPoint()), true, DAL);
+                    features = GetPointFeatures(points.Where(p => p.IsBndPoint()), true, DAL, metas);
 
                     if (features.Count > 0)
                     {
@@ -1684,7 +1691,29 @@ namespace TwoTrails.Utilities
                     features = new ArrayList();
                     attTable["Poly"] = "Boundary UnAdjusted Points";
 
-                    features = GetPointFeatures(points.Where(p => p.IsBndPoint()), false, DAL);
+                    features = GetPointFeatures(points.Where(p => p.IsBndPoint()), false, DAL, metas);
+
+                    if (features.Count > 0)
+                    {
+                        dbh = ShapefileDataWriter.GetHeader((Feature)features[0], features.Count);
+                        sdw.Header = dbh;
+                        sdw.Write(features);
+                        WriteProjection(FileName, md.Zone);
+                    }
+                }
+                #endregion
+
+                #region WayPoints
+                if (hasWayPoints)
+                {
+                    //points
+                    FileName = _File + "_WayPoints";
+                    geoFac = new GeometryFactory();
+                    sdw = new ShapefileDataWriter(FileName, geoFac);
+                    features = new ArrayList();
+                    attTable["Poly"] = "WayPoints";
+
+                    features = GetPointFeatures(points.Where(p => p.op == OpType.WayPoint), false, DAL, metas);
 
                     if (features.Count > 0)
                     {
@@ -1701,14 +1730,13 @@ namespace TwoTrails.Utilities
         }
 
 #if !(PocketPC || WindowsCE || Mobile)
-        private ArrayList GetPointFeatures(IEnumerable<TtPoint> points, bool adjusted, DataAccessLayer DAL)
+        private ArrayList GetPointFeatures(IEnumerable<TtPoint> points, bool adjusted, DataAccessLayer DAL, Dictionary<string, TtMetaData> metas)
         {
             ArrayList features = new ArrayList();
             Feature feat;
 
             
             AttributesTable attPointTable = new AttributesTable();
-            Dictionary<string, TtMetaData> metas = DAL.GetMetaData().ToDictionary(m => m.CN, m => m);
 
             foreach (TtPoint p in points)
             {

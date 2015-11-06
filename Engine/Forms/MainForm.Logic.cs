@@ -810,6 +810,11 @@ namespace TwoTrails.Forms
                     oldData.CloseDB();
                 if (data != null && data.IsOpen)
                     data.CloseDB();
+
+                MessageBox.Show("An error has occured. Please see error log for details.");
+#if !(PocketPC || WindowsCE || Mobile)
+                Values.UpdateStatusText("Upgrade Error.");
+#endif
             }
             finally
             {
@@ -830,8 +835,6 @@ namespace TwoTrails.Forms
                 if (pointEditForm != null)
                     pointEditForm.UpdateDAL(data);
                 #endif
-
-                //Values.GroupManager.InitGroups(data);
             }
         }
         #endregion

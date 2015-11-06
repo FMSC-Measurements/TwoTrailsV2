@@ -295,8 +295,6 @@ namespace TwoTrails.Forms
 
                             CurrPoint = TtUtils.CopyPoint(SavePoint);
 
-                            //Values.GroupManager.Groups[CurrPoint.GroupCN].AddPointToGroup(CurrPoint);
-                            
                             _saved = true;
                         }
                         else if (SavePoint.op == OpType.Quondam && ((QuondamPoint)SavePoint).ParentPoint != null)
@@ -333,8 +331,6 @@ namespace TwoTrails.Forms
                                 _Points[CurrPointIndex] = TtUtils.CopyPoint(SavePoint);
 
                             CurrPoint = TtUtils.CopyPoint(SavePoint);
-
-                            //Values.GroupManager.Groups[CurrPoint.GroupCN].AddPointToGroup(CurrPoint);
 
                             _saved = true;
                         }
@@ -564,13 +560,6 @@ namespace TwoTrails.Forms
                         return;
                     }
                 }
-
-                /*
-                if (!CurrPoint.GroupCN.IsEmpty())
-                {
-                    Values.GroupManager.Groups[CurrPoint.GroupCN].RemovePointFromGroup(CurrPoint);
-                }
-                */
 
                 DAL.DeletePoint(CurrPoint);
 
