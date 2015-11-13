@@ -206,6 +206,14 @@ namespace TwoTrails.DataAccess
                     InsertMetaData(meta);
                 }
 
+                if (GetCount(String.Format("select count(*) from {0} where {1} = '{2}';",
+                    TwoTrailsSchema.MetaDataSchema.TableName,
+                    TwoTrailsSchema.MetaDataSchema.CN,
+                    Values.EmptyGuid)) < 1)
+                {
+                    InsertMetaData(CreateDefaultMetaData());
+                }
+
 #if !(PocketPC || WindowsCE || Mobile)
                 Values.UpdateStatusProgress();
 #endif
@@ -1119,8 +1127,20 @@ namespace TwoTrails.DataAccess
 
             try
             {
+                Dictionary<string, TtMetaData> meta = GetMetaData().ToDictionary(m => m.CN, m => m);
+                Dictionary<string, TtGroup> groups = GetGroups().ToDictionary(g => g.CN, g => g);
+
                 foreach (TtPoint point in _upgradeData.GetUpgradePoints())
                 {
+                    if (!meta.ContainsKey(point.MetaDefCN))
+                        point.MetaDefCN = Values.EmptyGuid;
+
+                    if (!groups.ContainsKey(point.GroupCN))
+                    {
+                        point.GroupCN = Values.MainGroup.CN;
+                        point.GroupName = Values.MainGroup.Name;
+                    }
+
                     InsertUpgradePoint(point, trans);
                 }
 

@@ -1544,7 +1544,7 @@ Check the error log for complete details.", "Import Error");
                                     double x,y;
 
                                     TtUtils.LatLontoUTM(coord.Y, coord.X, _Meta.Zone, out y, out x);
-
+                                    
                                     gps.X = x;
                                     gps.Y = y;
                                 }
@@ -1568,6 +1568,10 @@ Check the error log for complete details.", "Import Error");
                                 }
                                 else
                                     gps.Z = 0;
+
+                                gps.UnAdjX = gps.X;
+                                gps.UnAdjY = gps.Y;
+                                gps.UnAdjZ = gps.Z;
 
                                 gps.PolyCN = _Poly.CN;
                                 gps.PolyName = _Poly.Name;
@@ -1687,6 +1691,11 @@ Check the error log for complete details.", "Import Error");
                                 }
                                 else
                                     gps.UnAdjZ = 0;
+
+
+                                gps.UnAdjX = gps.X;
+                                gps.UnAdjY = gps.Y;
+                                gps.UnAdjZ = gps.Z;
 
                                 gps.PolyCN = _Poly.CN;
                                 gps.PolyName = _Poly.Name;
