@@ -93,5 +93,25 @@ namespace TwoTrails.Forms
         {
             travInfoControl1_GotFocused2();
         }
+
+        private void txtPID_GotFocus(object sender, EventArgs e)
+        {
+            txtPID_GotFocus2(sender, e);
+        }
+
+        private void txtComment_GotFocus(object sender, EventArgs e)
+        {
+            txtComment_GotFocus2(sender, e);
+        }
+
+        private void txtPID_LostFocus(object sender, EventArgs e)
+        {
+            txtPID_LostFocus2(sender, e);
+        }
+
+        private void txtComment_LostFocus(object sender, EventArgs e)
+        {
+            txtComment_LostFocus2(sender, e);
+        }
     }
 }

@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fortest Management Service Center")]
 [assembly: AssemblyProduct("TwoTrails V2 Mobile")]
-[assembly: AssemblyCopyright("Copyright © USDA Forest Service 2014")]
+[assembly: AssemblyCopyright("Copyright © USDA Forest Service 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.3.52.1112")]
+[assembly: AssemblyVersion("1.3.61.1117")]
 
 // Below attribute is to suppress FxCop warning "CA2232 : Microsoft.Usage : Add STAThreadAttribute to assembly"
 // as Device app does not support STA thread.

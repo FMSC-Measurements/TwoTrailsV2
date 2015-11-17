@@ -305,7 +305,7 @@ namespace TwoTrails.Controls
             {
                 _ReadOnly = value;
 
-                if (chkLocked == null)
+                if (chkLocked == null || chkLocked.IsDisposed)
                     return;
 
                 chkLocked.Checked = _ReadOnly;

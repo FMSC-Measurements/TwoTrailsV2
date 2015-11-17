@@ -132,6 +132,8 @@
             this.txtPID.Size = new System.Drawing.Size(88, 21);
             this.txtPID.TabIndex = 8;
             this.txtPID.TextChanged += new System.EventHandler(this.txtPID_TextChanged);
+            this.txtPID.GotFocus += new System.EventHandler(this.txtPID_GotFocus);
+            this.txtPID.LostFocus += new System.EventHandler(this.txtPID_LostFocus);
             // 
             // label3
             // 
@@ -165,6 +167,8 @@
             this.txtComment.Size = new System.Drawing.Size(202, 21);
             this.txtComment.TabIndex = 8;
             this.txtComment.TextChanged += new System.EventHandler(this.txtComment_TextChanged);
+            this.txtComment.GotFocus += new System.EventHandler(this.txtComment_GotFocus);
+            this.txtComment.LostFocus += new System.EventHandler(this.txtComment_LostFocus);
             // 
             // chkLocked
             // 
@@ -370,6 +374,8 @@
             this.txtPID.Size = new System.Drawing.Size(46, 21);
             this.txtPID.TabIndex = 8;
             this.txtPID.TextChanged += new System.EventHandler(this.txtPID_TextChanged);
+            this.txtPID.GotFocus += new System.EventHandler(this.txtPID_GotFocus);
+            this.txtPID.LostFocus += new System.EventHandler(this.txtPID_LostFocus);
             // 
             // label3
             // 
@@ -403,6 +409,8 @@
             this.txtComment.Size = new System.Drawing.Size(116, 21);
             this.txtComment.TabIndex = 8;
             this.txtComment.TextChanged += new System.EventHandler(this.txtComment_TextChanged);
+            this.txtComment.GotFocus += new System.EventHandler(this.txtComment_GotFocus);
+            this.txtComment.LostFocus += new System.EventHandler(this.txtComment_LostFocus);
             // 
             // chkLocked
             // 

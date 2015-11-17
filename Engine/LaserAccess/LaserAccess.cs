@@ -97,7 +97,8 @@ namespace TwoTrails.LaserAccess
 
         private void CloseLaserPort()
         {
-            _port.Close();
+            if (_port != null)
+                _port.Close();
             _busy = false;
         }
 

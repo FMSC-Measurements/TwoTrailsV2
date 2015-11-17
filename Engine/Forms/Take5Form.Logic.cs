@@ -658,6 +658,27 @@ namespace TwoTrails.Forms
         }
 
 
+        private void txtPID_GotFocus2(object sender, EventArgs e)
+        {
+            Kb.ShowNumeric(this, txtPID);
+        }
+
+        private void txtComment_GotFocus2(object sender, EventArgs e)
+        {
+            Kb.ShowRegular(this, txtComment);
+        }
+
+        private void txtPID_LostFocus2(object sender, EventArgs e)
+        {
+            Kb.Hide(this);
+        }
+
+        private void txtComment_LostFocus2(object sender, EventArgs e)
+        {
+            Kb.Hide(this);
+        }
+
+
         private void btnSideshot_Click2(object sender, EventArgs e)
         {
             if (!logging)

@@ -31,10 +31,6 @@ namespace TwoTrails.Forms
 
     public partial class MainForm
     {
-        //pre created forms
-#if (PocketPC || WindowsCE || Mobile)
-        PointEditForm pointEditForm;
-#endif
 
         private DataAccessLayer data;
         string _FileName;
@@ -120,7 +116,6 @@ namespace TwoTrails.Forms
             LoadSettings();
 
 #if (PocketPC || WindowsCE || Mobile)
-            pointEditForm = new PointEditForm(data);
             TtUtils.WriteEvent("TwoTrails (Mobile): Loaded", true);
 
             if (!Directory.Exists(Values.DefaultSaveFolder))
@@ -190,21 +185,23 @@ namespace TwoTrails.Forms
                 {
                     if (data != null)
                     {
-                    #if (PocketPC || WindowsCE || Mobile)
-                        pointEditForm.ShowDialog();
-                    #else
                         using (PointEditForm form = new PointEditForm(data))
                         {
                             form.ShowDialog();
+
+                        #if !(PocketPC || WindowsCE || Mobile)
                             UpdateInfo();
+                        #endif
                         }
-                    #endif
                     }
+
+                    TtUtils.HideWaitCursor();
                 }
                 catch (Exception ex)
                 {
                     TtUtils.HideWaitCursor();
                     TtUtils.WriteError(ex.Message, "MainFormLogic:btnPoint:PointFormInteralError", ex.StackTrace);
+                    MessageBox.Show("Point Edit Failed to Load");
                 }
             }
             catch (Exception ex)
@@ -503,8 +500,6 @@ namespace TwoTrails.Forms
                         tbTtFileName.Text = System.IO.Path.GetFileName(fileName);
 #endif
 
-                    UpdateDALsInForms();
-
                     using (ProjectInfoForm form = new ProjectInfoForm(data))
                     {
                         form.ShowDialog();
@@ -601,8 +596,6 @@ namespace TwoTrails.Forms
                     else
                     {
                         Values.CurrentDbVersion = true;
-
-                        UpdateDALsInForms();
 
                     #if !(PocketPC || WindowsCE || Mobile)
                         Values.UpdateStatusText(String.Format("File {0} Loaded.", Path.GetFileName(_FileName)));
@@ -769,8 +762,6 @@ namespace TwoTrails.Forms
                     tabControl1.SelectedIndex = 1;
                     Values.Settings.ProjectOptions.AddToRecent(filename, data.GetProjectID());
 
-                    UpdateDALsInForms();
-
 #if !(PocketPC || WindowsCE || Mobile)
                     UpdateInfo(File.GetCreationTime(_FileName));
                     Values.UpdateStatusText(String.Format("File {0} Upgraded.", Path.GetFileName(_FileName)));
@@ -825,17 +816,6 @@ namespace TwoTrails.Forms
 #endif
             }
 
-        }
-
-        private void UpdateDALsInForms()
-        {
-            if (data != null)
-            {
-                #if (PocketPC || WindowsCE || Mobile)
-                if (pointEditForm != null)
-                    pointEditForm.UpdateDAL(data);
-                #endif
-            }
         }
         #endregion
 
@@ -1115,25 +1095,7 @@ namespace TwoTrails.Forms
 
             if (dr == DialogResult.No)
             {
-                /*
-                while (true)
-                {
-                    if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                    {
-                        sb.Append(openFileDialog1.FileName + "|");
-                    }
-                    else
-                        break;
-
-                    if (MessageBox.Show("Would you like to add another file?", "Add TwoTrails File", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
-                    {
-                        break;
-                    }
-                }
-
-                if (sb.Length > 0)
-                    sb.Remove(sb.Length - 1, 1);
-                */
+                //
             }
             else if (dr == DialogResult.Yes)
             {
