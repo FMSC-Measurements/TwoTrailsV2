@@ -195,7 +195,7 @@ namespace TwoTrails.BusinessLogic
         {
             ProjectName = "1";
             Description = "My Project";
-            Region = 13;
+            //Region = 13;
             Forest = "WOD";
             District = "FMSC";
             Year = DateTime.Now.Year.ToString();
@@ -209,7 +209,7 @@ namespace TwoTrails.BusinessLogic
 
         public string ProjectName { get; set; }
         public string Description { get; set; }
-        public int Region { get; set; }
+        public string Region { get; set; }
         public string Forest { get; set; }
         public string District { get; set; }
         public string Year { get; set; }

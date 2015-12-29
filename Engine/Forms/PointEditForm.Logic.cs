@@ -987,7 +987,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 }
                 else if (CurrPoint.IsGpsType())
                 {
-                    _UpdatedPoint = TtUtils.RecalcPoint(UpdatedPoint, CurrMeta.Zone, DAL);
+                    _UpdatedPoint = TtUtils.RecalcPoint(UpdatedPoint, CurrMeta.Zone, metaFrom.Zone, DAL);
                     gpsInfoControl1.CurrentPoint = (GpsPoint)UpdatedPoint;
                 }
 

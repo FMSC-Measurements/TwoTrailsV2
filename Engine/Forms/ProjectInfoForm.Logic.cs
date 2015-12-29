@@ -25,48 +25,58 @@ namespace TwoTrails.Forms
 
             //Name/ID
             string val = _data.GetProjectID();
+            /*
             if (val.IsEmpty())
             {
                 val = Values.Settings.ProjectOptions.ProjectName;
                 _data.SetProjectID(val);
             }
+            */
             textBoxProjName.Text = val;
 
             //Description
             val = _data.GetProjectDescription();
+            /*
             if (val.IsEmpty())
             {
                 val = Values.Settings.ProjectOptions.Description;
                 _data.SetProjectDescription(val);
             }
+            */
             textBoxProjDescription.Text = val;
 
 
             //Region
-            val = _data.GetProjectRegion().ToString();
+            val = _data.GetProjectRegion();
+            /*
             if (val.IsEmpty())
             {
                 val = Values.Settings.ProjectOptions.Region.ToString();
                 _data.SetProjectRegion(Values.Settings.ProjectOptions.Region);
             }
+            */
             textBoxRegion.Text = val;
 
             //Forest
             val = _data.GetProjectForest();
+            /*
             if (val.IsEmpty())
             {
                 val = Values.Settings.ProjectOptions.Forest;
                 _data.SetProjectForest(val);
             }
+            */
             textBoxForest.Text = val;
 
             //District
             val = _data.GetProjectDistrict();
+            /*
             if (val.IsEmpty())
             {
                 val = Values.Settings.ProjectOptions.District;
                 _data.SetProjectDistrict(val);
             }
+            */
             textBoxDistrict.Text = val;
 
             //Year
@@ -96,6 +106,7 @@ namespace TwoTrails.Forms
             _data.SetProjectID(textBoxProjName.Text);
             _data.SetProjectDescription(textBoxProjDescription.Text);
 
+            /*
             int r;
 #if (PocketPC || WindowsCE || Mobile)
             if (TtUtils.IntTryParse(textBoxRegion.Text.Trim(), out r))
@@ -103,9 +114,13 @@ namespace TwoTrails.Forms
             if (Int32.TryParse(textBoxRegion.Text.Trim(), out r))
 #endif
             {
-                _data.SetProjectRegion(r);
+                _data.SetProjectRegion(r.ToString());
                 Values.Settings.ProjectOptions.Region = r;
             }
+            */
+
+            _data.SetProjectRegion(textBoxRegion.Text.Trim());
+            Values.Settings.ProjectOptions.Region = textBoxRegion.Text.Trim();
 
             _data.SetProjectForest(textBoxForest.Text);
             Values.Settings.ProjectOptions.Forest = textBoxForest.Text;

@@ -2773,9 +2773,11 @@ namespace TwoTrails.Forms
                             CurrentPoint = TtUtils.SaveConversion(CurrentPoint, _MetaData[CurrentPoint.MetaDefCN]);
                             CurrentPoint = TtUtils.GetConversion(CurrentPoint, meta);
 
-                            if (CurrentPoint.IsGpsType())
+                            int oldZone = _MetaData[CurrentPoint.MetaDefCN].Zone;
+
+                            if (oldZone != meta.Zone && CurrentPoint.IsGpsType())
                             {
-                                CurrentPoint = TtUtils.RecalcPoint(CurrentPoint, meta.Zone, DAL);
+                                CurrentPoint = TtUtils.RecalcPoint(CurrentPoint, meta.Zone, oldZone, DAL);
                             }
                             
                             CurrentPoint.MetaDefCN = meta.CN;
@@ -2789,17 +2791,19 @@ namespace TwoTrails.Forms
                     {
                         List<TtPoint> points = new List<TtPoint>();
                         TtPoint tmpPoint;
+                        TtMetaData tmpMeta;
 
                         foreach (DataGridViewRow row in dgvPoints.SelectedRows)
                         {
                             tmpPoint = _DisplayPoints[row.Index];
+                            tmpMeta = _MetaData[tmpPoint.MetaDefCN];
 
-                            tmpPoint = TtUtils.SaveConversion(tmpPoint, _MetaData[tmpPoint.MetaDefCN]);
+                            tmpPoint = TtUtils.SaveConversion(tmpPoint, tmpMeta);
                             tmpPoint = TtUtils.GetConversion(tmpPoint, meta);
 
-                            if (tmpPoint.IsGpsType())
+                            if (tmpMeta.Zone != meta.Zone && tmpPoint.IsGpsType())
                             {
-                                tmpPoint = TtUtils.RecalcPoint(tmpPoint, meta.Zone, DAL);
+                                tmpPoint = TtUtils.RecalcPoint(tmpPoint, meta.Zone, tmpMeta.Zone, DAL);
                             }
 
                             tmpPoint.MetaDefCN = meta.CN;

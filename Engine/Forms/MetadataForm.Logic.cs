@@ -23,7 +23,7 @@ namespace TwoTrails.Forms
         private List<TtMetaData> MetaData;
         private List<string> _CNs;
 
-        int CurrIndex, currZone = -1;
+        int CurrIndex, currZone = -1, oldZone = -1;
         TtMetaData _current;
         TtMetaData Current
         {
@@ -38,6 +38,7 @@ namespace TwoTrails.Forms
                     LockLocks = false;
                     CurrIndex = _CNs.IndexOf(_current.CN);
                     currZone = _current.Zone;
+                    oldZone = _current.Zone;
                 }
                 else
                 {
@@ -51,6 +52,8 @@ namespace TwoTrails.Forms
                     txtName.Text = "";
                     txtZone.Text = "";
                     CurrIndex = -1;
+                    currZone = -1;
+                    oldZone = -1;
                 }
 
                 zoneChanged = false;
@@ -242,7 +245,7 @@ namespace TwoTrails.Forms
                         for (int i = 0; i < points.Count; i++)
                         {
                             point = points[i];
-                            updatePoints.Add(TtUtils.RecalcPoint(point, Current.Zone, DAL));
+                            updatePoints.Add(TtUtils.RecalcPoint(point, Current.Zone, oldZone, DAL));
                         }
 
                         if (updatePoints.Count > 0)

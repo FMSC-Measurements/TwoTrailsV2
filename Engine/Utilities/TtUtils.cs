@@ -1204,7 +1204,7 @@ namespace TwoTrails.Utilities
         }
 
 
-        public static TtPoint RecalcPoint(TtPoint point, int newZone, DataAccessLayer dal)
+        public static TtPoint RecalcPoint(TtPoint point, int newZone, int oldZone, DataAccessLayer dal)
         {
             double RMSE95_COEF = 1.7308;
 
@@ -1266,8 +1266,17 @@ namespace TwoTrails.Utilities
                     dRMSEr : Values.Settings.DeviceOptions.DEFAULT_POINT_ACCURACY;
 
                     dal.UpdateNmeaBursts(bursts, point.CN);
+                    return gps;
                 }
             }
+
+            double lat, lon, utmX, utmY;
+
+            UTMtoLatLon(point.UnAdjX, point.UnAdjY, oldZone, out lat, out lon);
+            LatLontoUTM(lat, lon, newZone, out utmY, out utmX);
+
+            point.UnAdjX = utmX; 
+            point.UnAdjY = utmY;
 
             return point;
         }

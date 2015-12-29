@@ -317,7 +317,7 @@ namespace TwoTrails.Utilities
                 List<string> info = new List<string>();
                 info.Add(Values.Settings.ProjectOptions.ProjectName.Scrub());
                 info.Add(Values.Settings.ProjectOptions.Description.Scrub());
-                info.Add(Values.Settings.ProjectOptions.Region.ToString());
+                info.Add(Values.Settings.ProjectOptions.Region.Scrub());
                 info.Add(Values.Settings.ProjectOptions.Forest.Scrub());
                 info.Add(Values.Settings.ProjectOptions.District.Scrub());
                 info.Add(Values.Settings.ProjectOptions.Year);

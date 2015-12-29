@@ -28,21 +28,21 @@ namespace TwoTrails.Forms
 
             cboPID.Items.AddRange(columns);
             if (gPID > -1)
-                cboPID.SelectedIndex = gPID;
+                cboPID.SelectedIndex = gPID + 1;
             else
                 cboPID.SelectedIndex = 0;
                 
 
             cboX.Items.AddRange(columns);
             if (gX > -1)
-                cboX.SelectedIndex = gX;
+                cboX.SelectedIndex = gX + 1;
             else
                 cboX.SelectedIndex = 0;
 
 
             cboY.Items.AddRange(columns);
             if (gY > -1)
-                cboY.SelectedIndex = gY;
+                cboY.SelectedIndex = gY + 1;
             else
                 cboY.SelectedIndex = 0;
 
@@ -50,7 +50,7 @@ namespace TwoTrails.Forms
             cboZ.Items.AddRange(columns);
 
             if (gZ > -1)
-                cboZ.SelectedIndex = gZ;
+                cboZ.SelectedIndex = gZ + 1;
             else
                 cboZ.SelectedIndex = 0;
 
@@ -58,7 +58,7 @@ namespace TwoTrails.Forms
             cboCmt.Items.AddRange(columns);
 
             if (gComment > -1)
-                cboCmt.SelectedIndex = gComment;
+                cboCmt.SelectedIndex = gComment + 1;
             else
                 cboCmt.Enabled = false;
 
@@ -66,7 +66,7 @@ namespace TwoTrails.Forms
             cboPoly.Items.AddRange(columns);
 
             if (gPoly > -1)
-                cboPoly.SelectedIndex = gPoly;
+                cboPoly.SelectedIndex = gPoly + 1;
             else
                 cboPoly.SelectedIndex = 0;
 
@@ -74,7 +74,7 @@ namespace TwoTrails.Forms
             cboOnBnd.Items.AddRange(columns);
 
             if (gBound > -1)
-                cboOnBnd.SelectedIndex = gBound;
+                cboOnBnd.SelectedIndex = gBound + 1;
             else
                 cboOnBnd.SelectedIndex = 0;
 
@@ -82,7 +82,7 @@ namespace TwoTrails.Forms
             cboIndex.Items.AddRange(columns);
 
             if (gIndex > -1)
-                cboIndex.SelectedIndex = gIndex;
+                cboIndex.SelectedIndex = gIndex + 1;
             else
                 cboIndex.SelectedIndex = 0;
         }

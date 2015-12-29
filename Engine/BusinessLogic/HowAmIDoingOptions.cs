@@ -37,7 +37,7 @@ namespace Engine.BusinessLogic
         {
             ProjectName = _data.GetProjectID();
             ProjectDescription = _data.GetProjectDescription();
-            Region = _data.GetProjectRegion().ToString();
+            Region = _data.GetProjectRegion();
             Forest = _data.GetProjectForest();
             District = _data.GetProjectDistrict();
             Year = _data.GetProjectYear();

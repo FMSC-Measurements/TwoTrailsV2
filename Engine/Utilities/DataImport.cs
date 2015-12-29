@@ -1397,7 +1397,7 @@ Check the error log for complete details.", "Import Error");
 
                 if (zone < 0)
                 {
-                    MessageBox.Show(String.Format("File: {0} is not formated in NAD83.", basename), "Incorrect file formatting.");
+                    MessageBox.Show(String.Format("File: {0} is not formated in NAD83. Shapefile needs to have correct coordinate system for your defined UTM zone.", basename), "Incorrect file formatting.");
                     return false;
                 }
                 else if (zone != _Meta.Zone)
@@ -1569,10 +1569,6 @@ Check the error log for complete details.", "Import Error");
                                 else
                                     gps.Z = 0;
 
-                                gps.UnAdjX = gps.X;
-                                gps.UnAdjY = gps.Y;
-                                gps.UnAdjZ = gps.Z;
-
                                 gps.PolyCN = _Poly.CN;
                                 gps.PolyName = _Poly.Name;
 
@@ -1691,11 +1687,6 @@ Check the error log for complete details.", "Import Error");
                                 }
                                 else
                                     gps.UnAdjZ = 0;
-
-
-                                gps.UnAdjX = gps.X;
-                                gps.UnAdjY = gps.Y;
-                                gps.UnAdjZ = gps.Z;
 
                                 gps.PolyCN = _Poly.CN;
                                 gps.PolyName = _Poly.Name;

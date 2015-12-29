@@ -3917,10 +3917,9 @@ namespace TwoTrails.DataAccess
             return GetProjectInfoField(TwoTrailsSchema.ProjectInfoSchema.Description);
         }
 
-        public int GetProjectRegion()
+        public string GetProjectRegion()
         {
-            string r = (GetProjectInfoField(TwoTrailsSchema.ProjectInfoSchema.Region));
-            return Int32.Parse(r);
+            return GetProjectInfoField(TwoTrailsSchema.ProjectInfoSchema.Region);
         }
 
         public string GetProjectForest()
@@ -4001,8 +4000,8 @@ namespace TwoTrails.DataAccess
             queryBeginning.AppendFormat("{0},", TwoTrailsSchema.ProjectInfoSchema.Round);
             queryEnd.AppendFormat("'{0}',", Values.Settings.ProjectOptions.Round);
 
-            queryBeginning.AppendFormat("{0},", TwoTrailsSchema.ProjectInfoSchema.Region);
-            queryEnd.AppendFormat("'{0}',", Values.Settings.ProjectOptions.Region);
+            //queryBeginning.AppendFormat("{0},", TwoTrailsSchema.ProjectInfoSchema.Region);
+            //queryEnd.AppendFormat("'{0}',", Values.Settings.ProjectOptions.Region);
 
             queryBeginning.AppendFormat("{0},", TwoTrailsSchema.ProjectInfoSchema.ID);
             queryEnd.AppendFormat("'{0}',", Values.Settings.ProjectOptions.ProjectName);
@@ -4056,9 +4055,11 @@ namespace TwoTrails.DataAccess
             SetProjectInfoField(TwoTrailsSchema.ProjectInfoSchema.Description, description);
         }
 
-        public void SetProjectRegion(int region)
+        public void SetProjectRegion(string region)
         {
-            SetProjectInfoField(TwoTrailsSchema.ProjectInfoSchema.Region, region.ToString());
+            if (region == null)
+                region = String.Empty;
+            SetProjectInfoField(TwoTrailsSchema.ProjectInfoSchema.Region, region);
         }
 
         public void SetProjectForest(string forest)

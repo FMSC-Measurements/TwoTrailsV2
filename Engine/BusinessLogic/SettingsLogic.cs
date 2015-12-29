@@ -552,7 +552,7 @@ namespace TwoTrails.BusinessLogic
                 textWriter.WriteStartElement("ProjectSettings");
 
                 textWriter.WriteStartElement(REGION); //Region
-                textWriter.WriteValue(ProjectOptions.Region);
+                textWriter.WriteValue(ProjectOptions.Region == null ? String.Empty : ProjectOptions.Region);
                 textWriter.WriteEndElement();
 
                 textWriter.WriteStartElement(FOREST); //Forest
@@ -608,7 +608,7 @@ namespace TwoTrails.BusinessLogic
                                 {
                                     case REGION:
                                         {
-                                            ProjectOptions.Region = textReader.ReadContentAsInt();
+                                            ProjectOptions.Region = textReader.ReadString();
                                             break;
                                         }
                                     case FOREST:

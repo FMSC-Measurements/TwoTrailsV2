@@ -262,9 +262,11 @@ namespace TwoTrails.GpsAccess
             return new BuisnessObjects.UTMCoord(_X, _Y);
         }
 
-        public void CalcRealZone()
+        public int CalcRealZone()
         {
             TtUtils.LatLontoUTMwZone(_latitude, (_longDir == EastWest.West) ? (_longitude * -1) : (_longitude), out _Y, out _X, out _utm_zone);
+
+            return _utm_zone;
         }
     }
 }

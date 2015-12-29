@@ -20,8 +20,8 @@ namespace TwoTrails.Forms
         #region Variables
 
         private const double RMSE95_COEF = 1.7308;
-        private bool logging, _locked;
-        private int logged, _index;
+        private bool logging, _locked, checkMeta;
+        private int logged, _index, currentZone;
 
         private DataAccessLayer DAL;
 
@@ -104,6 +104,11 @@ namespace TwoTrails.Forms
             if(!Values.GPSA.IsBusy)
                 Values.GPSA.OpenGps(Values.Settings.DeviceOptions.GpsComPort, Values.Settings.DeviceOptions.GpsBaud);
             TtUtils.HideWaitCursor();
+
+            if (dal.GetPointCount(poly.CN) < 1)
+            {
+                checkMeta = true;
+            }
         }
 
         public void CloseForm()
@@ -377,6 +382,17 @@ namespace TwoTrails.Forms
         #region GPS Functions
         private void GPSA_BurstReceived(GpsAccess.NmeaBurst b)
         {
+            if (checkMeta && b.IsValid)
+            {
+                if (b.CalcRealZone() != CurrMeta.Zone)
+                {
+                    MessageBox.Show("The current UTM zone does not match the set metadata zone.",
+                        "Zone mismatch", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                }
+
+                checkMeta = false;
+            }
+
             if (logging)
             {
                 if (logged < Values.Settings.DeviceOptions.Take5NmeaAmount &&

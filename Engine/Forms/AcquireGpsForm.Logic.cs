@@ -18,7 +18,7 @@ namespace TwoTrails.Forms
         private int logged, recieved, currentZone;
         private bool bLogBtn;
         private bool logging;
-        private bool _data, calculated, _init;
+        private bool _data, calculated, _init, checkMeta;
         private int pointName;
         private string pointCN;
         private GpsPoint _Point;
@@ -48,6 +48,11 @@ namespace TwoTrails.Forms
             logging = bLogBtn = _data = calculated = false;
 
             NmeaData = new List<NmeaBurst>();
+
+            if (dal.GetPointCount(p.PolyCN) < 1)
+            {
+                checkMeta = true;
+            }
         }
 
         private void AcquireGpsForm_Load2(object sender, EventArgs e)
@@ -112,6 +117,17 @@ namespace TwoTrails.Forms
 
         private void GPSA_BurstReceived(NmeaBurst b)
         {
+            if (checkMeta && b.IsValid)
+            {
+                if (b.CalcRealZone() != currentZone)
+                {
+                    MessageBox.Show("The current UTM zone does not match the set metadata zone.",
+                        "Zone mismatch", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                }
+
+                checkMeta = false;
+            }
+
             if (logging)
             {
                 logged++;
