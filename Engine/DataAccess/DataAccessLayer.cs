@@ -1437,6 +1437,25 @@ namespace TwoTrails.DataAccess
                 trans.Dispose();
             }
         }
+
+        public void InsertPoints(List<GpsPoint> newPoints)
+        {
+            SQLiteTransaction trans = _dbConnection.BeginTransaction();
+            try
+            {
+                foreach (TtPoint p in newPoints)
+                    InsertPoint(p, trans);
+                trans.Commit();
+            }
+            catch (Exception ex)
+            {
+                TtUtils.WriteError(ex.Message, "DataAccessLayer:InsertPoints");
+            }
+            finally
+            {
+                trans.Dispose();
+            }
+        }
         
         public void InsertPoint(TtPoint newPoint)
         {

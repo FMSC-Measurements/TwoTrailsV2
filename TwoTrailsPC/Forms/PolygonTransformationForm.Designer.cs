@@ -34,12 +34,6 @@
             this.btnDraw = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cboSclType = new System.Windows.Forms.ComboBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.radSclBR = new System.Windows.Forms.RadioButton();
-            this.radSclBL = new System.Windows.Forms.RadioButton();
-            this.radSclCenter = new System.Windows.Forms.RadioButton();
-            this.radSclTR = new System.Windows.Forms.RadioButton();
-            this.radSclTL = new System.Windows.Forms.RadioButton();
             this.chkScale = new System.Windows.Forms.CheckBox();
             this.txtSclWidth = new System.Windows.Forms.TextBox();
             this.txtSclHeight = new System.Windows.Forms.TextBox();
@@ -63,7 +57,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.radRotAdj = new System.Windows.Forms.RadioButton();
             this.radRotRef = new System.Windows.Forms.RadioButton();
-            this.radRotVertex = new System.Windows.Forms.RadioButton();
             this.txtRotAngle = new System.Windows.Forms.TextBox();
             this.chkRotate = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -116,7 +109,6 @@
             this.radOptTrans1 = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabPage3.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -168,7 +160,6 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.cboSclType);
-            this.tabPage3.Controls.Add(this.panel4);
             this.tabPage3.Controls.Add(this.chkScale);
             this.tabPage3.Controls.Add(this.txtSclWidth);
             this.tabPage3.Controls.Add(this.txtSclHeight);
@@ -208,80 +199,6 @@
             this.cboSclType.Size = new System.Drawing.Size(50, 21);
             this.cboSclType.TabIndex = 7;
             this.cboSclType.TabStop = false;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.radSclBR);
-            this.panel4.Controls.Add(this.radSclBL);
-            this.panel4.Controls.Add(this.radSclCenter);
-            this.panel4.Controls.Add(this.radSclTR);
-            this.panel4.Controls.Add(this.radSclTL);
-            this.panel4.Location = new System.Drawing.Point(0, 158);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(263, 39);
-            this.panel4.TabIndex = 6;
-            // 
-            // radSclBR
-            // 
-            this.radSclBR.AutoSize = true;
-            this.radSclBR.Enabled = false;
-            this.radSclBR.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radSclBR.Location = new System.Drawing.Point(104, 22);
-            this.radSclBR.Name = "radSclBR";
-            this.radSclBR.Size = new System.Drawing.Size(98, 17);
-            this.radSclBR.TabIndex = 3;
-            this.radSclBR.Text = "Bottom Right";
-            this.radSclBR.UseVisualStyleBackColor = true;
-            // 
-            // radSclBL
-            // 
-            this.radSclBL.AutoSize = true;
-            this.radSclBL.Enabled = false;
-            this.radSclBL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radSclBL.Location = new System.Drawing.Point(8, 22);
-            this.radSclBL.Name = "radSclBL";
-            this.radSclBL.Size = new System.Drawing.Size(90, 17);
-            this.radSclBL.TabIndex = 3;
-            this.radSclBL.Text = "Bottom Left";
-            this.radSclBL.UseVisualStyleBackColor = true;
-            // 
-            // radSclCenter
-            // 
-            this.radSclCenter.AutoSize = true;
-            this.radSclCenter.Checked = true;
-            this.radSclCenter.Enabled = false;
-            this.radSclCenter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radSclCenter.Location = new System.Drawing.Point(8, 4);
-            this.radSclCenter.Name = "radSclCenter";
-            this.radSclCenter.Size = new System.Drawing.Size(62, 17);
-            this.radSclCenter.TabIndex = 3;
-            this.radSclCenter.TabStop = true;
-            this.radSclCenter.Text = "Center";
-            this.radSclCenter.UseVisualStyleBackColor = true;
-            // 
-            // radSclTR
-            // 
-            this.radSclTR.AutoSize = true;
-            this.radSclTR.Enabled = false;
-            this.radSclTR.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radSclTR.Location = new System.Drawing.Point(157, 4);
-            this.radSclTR.Name = "radSclTR";
-            this.radSclTR.Size = new System.Drawing.Size(81, 17);
-            this.radSclTR.TabIndex = 3;
-            this.radSclTR.Text = "Top Right";
-            this.radSclTR.UseVisualStyleBackColor = true;
-            // 
-            // radSclTL
-            // 
-            this.radSclTL.AutoSize = true;
-            this.radSclTL.Enabled = false;
-            this.radSclTL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radSclTL.Location = new System.Drawing.Point(76, 4);
-            this.radSclTL.Name = "radSclTL";
-            this.radSclTL.Size = new System.Drawing.Size(73, 17);
-            this.radSclTL.TabIndex = 3;
-            this.radSclTL.Text = "Top Left";
-            this.radSclTL.UseVisualStyleBackColor = true;
             // 
             // chkScale
             // 
@@ -323,6 +240,7 @@
             this.cboSclRefPoly.Size = new System.Drawing.Size(121, 21);
             this.cboSclRefPoly.TabIndex = 0;
             this.cboSclRefPoly.TabStop = false;
+            this.cboSclRefPoly.SelectedIndexChanged += new System.EventHandler(this.cboSclRefPoly_SelectedIndexChanged);
             // 
             // cboSclRefPoint1
             // 
@@ -355,6 +273,7 @@
             this.cboSclAdjPoly.Size = new System.Drawing.Size(121, 21);
             this.cboSclAdjPoly.TabIndex = 0;
             this.cboSclAdjPoly.TabStop = false;
+            this.cboSclAdjPoly.SelectedIndexChanged += new System.EventHandler(this.cboSclAdjPoly_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -519,7 +438,6 @@
             // 
             this.panel1.Controls.Add(this.radRotAdj);
             this.panel1.Controls.Add(this.radRotRef);
-            this.panel1.Controls.Add(this.radRotVertex);
             this.panel1.Location = new System.Drawing.Point(3, 133);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(266, 23);
@@ -530,7 +448,7 @@
             this.radRotAdj.AutoSize = true;
             this.radRotAdj.Enabled = false;
             this.radRotAdj.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radRotAdj.Location = new System.Drawing.Point(158, 3);
+            this.radRotAdj.Location = new System.Drawing.Point(89, 2);
             this.radRotAdj.Name = "radRotAdj";
             this.radRotAdj.Size = new System.Drawing.Size(76, 17);
             this.radRotAdj.TabIndex = 3;
@@ -544,7 +462,7 @@
             this.radRotRef.AutoSize = true;
             this.radRotRef.Enabled = false;
             this.radRotRef.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radRotRef.Location = new System.Drawing.Point(74, 3);
+            this.radRotRef.Location = new System.Drawing.Point(5, 2);
             this.radRotRef.Name = "radRotRef";
             this.radRotRef.Size = new System.Drawing.Size(78, 17);
             this.radRotRef.TabIndex = 3;
@@ -552,23 +470,6 @@
             this.toolTip1.SetToolTip(this.radRotRef, "Adj Polygon rotates around the Ref Point.");
             this.radRotRef.UseVisualStyleBackColor = true;
             this.radRotRef.CheckedChanged += new System.EventHandler(this.radRotRef_CheckedChanged);
-            // 
-            // radRotVertex
-            // 
-            this.radRotVertex.AutoSize = true;
-            this.radRotVertex.Checked = true;
-            this.radRotVertex.Enabled = false;
-            this.radRotVertex.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radRotVertex.Location = new System.Drawing.Point(7, 3);
-            this.radRotVertex.Name = "radRotVertex";
-            this.radRotVertex.Size = new System.Drawing.Size(61, 17);
-            this.radRotVertex.TabIndex = 3;
-            this.radRotVertex.TabStop = true;
-            this.radRotVertex.Text = "Vertex";
-            this.toolTip1.SetToolTip(this.radRotVertex, "Adj Polygon rotates around vertex of the lines created from the Ref Points and Ad" +
-                    "j Points.");
-            this.radRotVertex.UseVisualStyleBackColor = true;
-            this.radRotVertex.CheckedChanged += new System.EventHandler(this.radRotVertex_CheckedChanged);
             // 
             // txtRotAngle
             // 
@@ -641,6 +542,7 @@
             this.cboRotRefPoly.Size = new System.Drawing.Size(121, 21);
             this.cboRotRefPoly.TabIndex = 0;
             this.cboRotRefPoly.TabStop = false;
+            this.cboRotRefPoly.SelectedIndexChanged += new System.EventHandler(this.cboRotRefPoly_SelectedIndexChanged);
             // 
             // cboRotAdjPoint1
             // 
@@ -721,6 +623,7 @@
             this.cboRotAdjPoly.Size = new System.Drawing.Size(121, 21);
             this.cboRotAdjPoly.TabIndex = 0;
             this.cboRotAdjPoly.TabStop = false;
+            this.cboRotAdjPoly.SelectedIndexChanged += new System.EventHandler(this.cboRotAdjPoly_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -879,6 +782,7 @@
             this.cboTransAdjPoly.Size = new System.Drawing.Size(121, 21);
             this.cboTransAdjPoly.TabIndex = 0;
             this.cboTransAdjPoly.TabStop = false;
+            this.cboTransAdjPoly.SelectedIndexChanged += new System.EventHandler(this.cboTransAdjPoly_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -932,6 +836,7 @@
             this.cboTransRefPoly.Size = new System.Drawing.Size(121, 21);
             this.cboTransRefPoly.TabIndex = 0;
             this.cboTransRefPoly.TabStop = false;
+            this.cboTransRefPoly.SelectedIndexChanged += new System.EventHandler(this.cboTransRefPoly_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -1015,11 +920,13 @@
             // radOptScale3
             // 
             this.radOptScale3.AutoSize = true;
+            this.radOptScale3.Checked = true;
             this.radOptScale3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radOptScale3.Location = new System.Drawing.Point(3, 3);
+            this.radOptScale3.Location = new System.Drawing.Point(3, 49);
             this.radOptScale3.Name = "radOptScale3";
             this.radOptScale3.Size = new System.Drawing.Size(57, 17);
             this.radOptScale3.TabIndex = 0;
+            this.radOptScale3.TabStop = true;
             this.radOptScale3.Text = "Scale";
             this.radOptScale3.UseVisualStyleBackColor = true;
             this.radOptScale3.CheckedChanged += new System.EventHandler(this.radOptScale3_CheckedChanged);
@@ -1039,13 +946,11 @@
             // radOptTrans3
             // 
             this.radOptTrans3.AutoSize = true;
-            this.radOptTrans3.Checked = true;
             this.radOptTrans3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radOptTrans3.Location = new System.Drawing.Point(3, 49);
+            this.radOptTrans3.Location = new System.Drawing.Point(3, 3);
             this.radOptTrans3.Name = "radOptTrans3";
             this.radOptTrans3.Size = new System.Drawing.Size(78, 17);
             this.radOptTrans3.TabIndex = 0;
-            this.radOptTrans3.TabStop = true;
             this.radOptTrans3.Text = "Translate";
             this.radOptTrans3.UseVisualStyleBackColor = true;
             this.radOptTrans3.CheckedChanged += new System.EventHandler(this.radOptTrans3_CheckedChanged);
@@ -1064,7 +969,7 @@
             // 
             this.radOptScale2.AutoSize = true;
             this.radOptScale2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radOptScale2.Location = new System.Drawing.Point(3, 3);
+            this.radOptScale2.Location = new System.Drawing.Point(3, 49);
             this.radOptScale2.Name = "radOptScale2";
             this.radOptScale2.Size = new System.Drawing.Size(57, 17);
             this.radOptScale2.TabIndex = 0;
@@ -1090,7 +995,7 @@
             // 
             this.radOptTrans2.AutoSize = true;
             this.radOptTrans2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radOptTrans2.Location = new System.Drawing.Point(3, 49);
+            this.radOptTrans2.Location = new System.Drawing.Point(3, 3);
             this.radOptTrans2.Name = "radOptTrans2";
             this.radOptTrans2.Size = new System.Drawing.Size(78, 17);
             this.radOptTrans2.TabIndex = 0;
@@ -1111,13 +1016,11 @@
             // radOptScale1
             // 
             this.radOptScale1.AutoSize = true;
-            this.radOptScale1.Checked = true;
             this.radOptScale1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radOptScale1.Location = new System.Drawing.Point(3, 3);
+            this.radOptScale1.Location = new System.Drawing.Point(3, 49);
             this.radOptScale1.Name = "radOptScale1";
             this.radOptScale1.Size = new System.Drawing.Size(57, 17);
             this.radOptScale1.TabIndex = 0;
-            this.radOptScale1.TabStop = true;
             this.radOptScale1.Text = "Scale";
             this.radOptScale1.UseVisualStyleBackColor = true;
             this.radOptScale1.CheckedChanged += new System.EventHandler(this.radOptScale1_CheckedChanged);
@@ -1137,11 +1040,13 @@
             // radOptTrans1
             // 
             this.radOptTrans1.AutoSize = true;
+            this.radOptTrans1.Checked = true;
             this.radOptTrans1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radOptTrans1.Location = new System.Drawing.Point(3, 49);
+            this.radOptTrans1.Location = new System.Drawing.Point(3, 3);
             this.radOptTrans1.Name = "radOptTrans1";
             this.radOptTrans1.Size = new System.Drawing.Size(78, 17);
             this.radOptTrans1.TabIndex = 0;
+            this.radOptTrans1.TabStop = true;
             this.radOptTrans1.Text = "Translate";
             this.radOptTrans1.UseVisualStyleBackColor = true;
             this.radOptTrans1.CheckedChanged += new System.EventHandler(this.radOptTrans1_CheckedChanged);
@@ -1164,8 +1069,6 @@
             this.Load += new System.EventHandler(this.PolygonTransformationForm_Load);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1193,11 +1096,6 @@
         private System.Windows.Forms.Button btnTransform;
         private System.Windows.Forms.Button btnDraw;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.RadioButton radSclBR;
-        private System.Windows.Forms.RadioButton radSclBL;
-        private System.Windows.Forms.RadioButton radSclTR;
-        private System.Windows.Forms.RadioButton radSclTL;
         private System.Windows.Forms.CheckBox chkScale;
         private System.Windows.Forms.TextBox txtSclWidth;
         private System.Windows.Forms.TextBox txtSclHeight;
@@ -1251,10 +1149,8 @@
         private System.Windows.Forms.ComboBox cboTransRefPoly;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.RadioButton radSclCenter;
         private System.Windows.Forms.ComboBox cboSclType;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radRotVertex;
         private System.Windows.Forms.RadioButton radRotAdj;
         private System.Windows.Forms.RadioButton radRotRef;
         private System.Windows.Forms.ToolTip toolTip1;

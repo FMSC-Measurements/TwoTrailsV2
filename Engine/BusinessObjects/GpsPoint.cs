@@ -162,6 +162,12 @@ namespace TwoTrails.BusinessObjects
             this.X = p.X;
             this.Y = p.Y;
             this.Z = p.Z;
+            this.AdjX = p.AdjX;
+            this.AdjY = p.AdjY;
+            this.AdjZ = p.AdjZ;
+            this.UnAdjX = p.UnAdjX;
+            this.UnAdjY = p.UnAdjY;
+            this.UnAdjZ = p.UnAdjZ;
         }
 
         public GpsPoint(double x, double y, double z) : base (x, y, z)

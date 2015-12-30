@@ -217,6 +217,10 @@ namespace TwoTrails.Forms
             using (PolyEditForm form = new PolyEditForm(data))
             {
                 form.ShowDialog();
+
+#if !(PocketPC || WindowsCE || Mobile)
+                UpdateInfo();
+#endif
             }
         }
 

@@ -38,7 +38,7 @@ namespace TwoTrails.Utilities
         }
 
         #region Consts
-        public const double MinPointAccuracy = 0.0001;
+        public const double MinPointAccuracy = 0.00001;
         #endregion
 
 
@@ -113,6 +113,28 @@ namespace TwoTrails.Utilities
                 azimuth += 360;
 
             return azimuth;
+        }
+
+        public static double AzimuthOfPoint(double x1, double y1, double x2, double y2)
+        {
+            double Xcord = x2 - x1;
+            double Ycord = y2 - y1;
+
+            double azimuth = Math.Atan2(Xcord, Ycord) * (180 / Math.PI);
+
+            if (azimuth < 0)
+                azimuth += 360;
+
+            return azimuth;
+        }
+
+        public static double AzimuthDiff(TtPoint l1p1, TtPoint l1p2, TtPoint l2p1, TtPoint l2p2)
+        {
+            double a1 = AzimuthOfPoint(l1p1.UnAdjX, l1p1.UnAdjY, l1p2.UnAdjX, l1p2.UnAdjY);
+            double a2 = AzimuthOfPoint(l2p1.UnAdjX, l2p1.UnAdjY, l2p2.UnAdjX, l2p2.UnAdjY);
+
+            return a1 - a2;
+            //return (a1 - a2 + 360) % 360;
         }
         #endregion
 
@@ -893,16 +915,28 @@ namespace TwoTrails.Utilities
 
         public static DoublePoint RotatePoint(double x, double y, double angle, double rX, double rY)
         {
+            double ca = Math.Cos(angle * Degrees2Radians_Coeff);
+            double sa = Math.Sin(angle * Degrees2Radians_Coeff);
+
+            double dx = x - rX;
+            double dy = y - rY;
+
             return new DoublePoint(
-                (Math.Cos(angle) * (x - rX) - Math.Sin(angle) * (y - rY) + rX),
-                (Math.Sin(angle) * (x - rX) + Math.Cos(angle) * (y - rY) + rY));
+                (ca * dx - sa * dy + rX),
+                (sa * dx + ca * dy + rY));
         }
 
         public static Point RotatePoint(int x, int y, double angle, int rX, int rY)
         {
-            return new System.Drawing.Point(
-                (int)(Math.Cos(angle) * (x - rX) - Math.Sin(angle) * (y - rY) + rX),
-                (int)(Math.Sin(angle) * (x - rX) + Math.Cos(angle) * (y - rY) + rY));
+            double ca = Math.Cos(angle * Degrees2Radians_Coeff);
+            double sa = Math.Sin(angle * Degrees2Radians_Coeff);
+
+            double dx = x - rX;
+            double dy = y - rY;
+
+            return new Point(
+                (int)(ca * dx - sa * dy + rX),
+                (int)(sa * dx + ca * dy + rY));
         }
         #endregion
 
@@ -1687,6 +1721,17 @@ namespace TwoTrails.Utilities
             float s = q / d;
 
             if (r < 0 || r > 1 || s < 0 || s > 1)
+                return false;
+
+            return true;
+        }
+
+        public static bool LineIntersectsLineInfinite(TtPoint l1p1, TtPoint l1p2, TtPoint l2p1, TtPoint l2p2)
+        {
+            double a1 = AzimuthOfPoint(l1p1.UnAdjX, l1p1.UnAdjY, l1p2.UnAdjX, l1p2.UnAdjY);
+            double a2 = AzimuthOfPoint(l2p1.UnAdjX, l2p1.UnAdjY, l2p2.UnAdjX, l2p2.UnAdjY);
+
+            if (Math.Abs(a1 - a2) < 0.01)
                 return false;
 
             return true;

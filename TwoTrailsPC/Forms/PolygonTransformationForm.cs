@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -156,17 +157,16 @@ namespace TwoTrails.Forms
                 return;
             }
 
-            bool makeCopy = false;
-
             if (!CheckControls())
                 return;
 
+            /*
             foreach (TtPoint p in _AdjPoints)
             {
                 if (!p.IsGpsType())
                 {
-                    if (MessageBox.Show("The Adjusting Polygon has none GPS type points in it. You will need to make a copy of the polygon in order to transform it. Do you want to Copy and Transform now?",
-                        "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.OK)
+                    if (MessageBox.Show("The Adjusting Polygon has non GPS type points in it. You will need to make a copy of the polygon in order to transform it. Do you want to Copy and Transform now?",
+                        "", MessageBoxButtons.UnAdjYesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.OK)
                     {
                         makeCopy = true;
                     }
@@ -175,36 +175,63 @@ namespace TwoTrails.Forms
                     break;
                 }
             }
+            */
 
             TtPolygon newPoly = new TtPolygon();
+            TtPolygon transPoly = cboTransAdjPoly.SelectedItem as TtPolygon;
 
-            if (makeCopy)
+            string polyName = String.Format("{0} (Transformed)", transPoly.Name);
+
+            bool renaming = true;
+            int inc = 2;
+            while (renaming)
             {
-                _TransformedPoints = new List<GpsPoint>();
-                int index = 0;
-                GpsPoint tmpPoint;
-
-                foreach (GpsPoint p in _AdjPoints)
+                renaming = false;
+                foreach (TtPolygon poly in dal.GetPolygons())
                 {
-                    if (p.IsGpsType())
+                    if (poly.Name.Equals(polyName, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        tmpPoint = TtUtils.ClonePoint(p) as GpsPoint;
-                        tmpPoint.Index = index;
-                        index++;
-                        _TransformedPoints.Add(tmpPoint);
+                        polyName = String.Format("{0} (Transformed {1})", transPoly.Name, inc);
+                        inc++;
+                        renaming = true;
+                        break;
                     }
                 }
             }
-            else
-                _TransformedPoints = _AdjPoints.Cast<GpsPoint>().ToList();
+
+            newPoly.Name = polyName;
+            newPoly.PointStartIndex = (int)(dal.GetPolyCount() + 1010);
+
+            _TransformedPoints = new List<GpsPoint>();
+            int index = 0;
+            GpsPoint tmpPoint;
+
+            foreach (GpsPoint p in _AdjPoints)
+            {
+                if (p.IsGpsType())
+                {
+                    tmpPoint = TtUtils.ClonePoint(p) as GpsPoint;
+                    tmpPoint.Index = index;
+                    tmpPoint.PolyCN = newPoly.CN;
+                    tmpPoint.PolyName = newPoly.Name;
+                    index++;
+                    _TransformedPoints.Add(tmpPoint);
+                }
+            }
+            
 
             TransformDelegate del = new TransformDelegate(DoTransform);
             del.BeginInvoke(null, null);
+
+            dal.InsertPolygon(newPoly);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+
+            PolygonAdjuster.Adjust(dal, true, this);
+
             this.Close();
         }
 
@@ -298,7 +325,7 @@ namespace TwoTrails.Forms
 
                     if (Transform())
                     {
-                        dal.SavePoints(_TransformedPoints);
+                        dal.InsertPoints(_TransformedPoints);
                         PolygonAdjuster.Adjust(dal, null);
                         MessageBox.Show("Polygon Transformed.");
                     }
@@ -382,8 +409,8 @@ namespace TwoTrails.Forms
                     GpsPoint refp = cboTransRefPoint.SelectedItem as GpsPoint;
                     GpsPoint transp = _TransformedPoints[cboSclAdjPoint1.SelectedIndex] as GpsPoint;
 
-                    adjX = refp.UnAdjX - transp.X;
-                    adjY = refp.UnAdjY - transp.Y;
+                    adjX = refp.UnAdjX - transp.UnAdjX;
+                    adjY = refp.UnAdjY - transp.UnAdjY;
                 }
                 else
                 {
@@ -402,8 +429,8 @@ namespace TwoTrails.Forms
 
                 for (int i = 0; i < _TransformedPoints.Count; i++)
                 {
-                    _TransformedPoints[i].X += adjX;
-                    _TransformedPoints[i].Y += adjY;
+                    _TransformedPoints[i].UnAdjX += adjX;
+                    _TransformedPoints[i].UnAdjY += adjY;
                 }
             }
             else
@@ -413,7 +440,7 @@ namespace TwoTrails.Forms
         private bool Rotate()
         {
             GpsPoint centerPoint, tempPoint;
-            DoublePoint dpCenter = new DoublePoint(), p1, p3, tempDP;
+            DoublePoint dpCenter = new DoublePoint(), tempDP;
             bool doRotate = true;
             double angle = 0;
 
@@ -431,11 +458,11 @@ namespace TwoTrails.Forms
             adj1 = cboRotAdjPoint1.SelectedItem as TtPoint;
             adj2 = cboRotAdjPoint2.SelectedItem as TtPoint;
 
-            if (radRotVertex.Checked)
+            if (radRotPoint.Checked)
             {
-                if (TtUtils.LineIntersectsLine(ref1, ref2, adj1, adj2) || TtUtils.LineIntersectsLine(adj1, adj2, ref1, ref2))
+                if (TtUtils.LineIntersectsLineInfinite(ref1, ref2, adj1, adj2) || TtUtils.LineIntersectsLineInfinite(adj1, adj2, ref1, ref2))
                 {
-                    dpCenter = TtUtils.LineIntersectionPoint(ref1, ref2, adj1, adj2);
+                    dpCenter = new DoublePoint(adj1.UnAdjX, adj1.UnAdjY);
                 }
                 else
                 {
@@ -443,25 +470,26 @@ namespace TwoTrails.Forms
                     return false;
                 }
             }
-            else if (radRotRef.Checked)
+            else
             {
-                centerPoint = cboRotRefPoint1.SelectedItem as GpsPoint;
-                dpCenter = new DoublePoint(centerPoint.UnAdjX, centerPoint.UnAdjY);
-            }
-            else if (radRotAdj.Checked)
-            {
-                centerPoint = cboRotAdjPoint1.SelectedItem as GpsPoint;
-                dpCenter = new DoublePoint(centerPoint.UnAdjX, centerPoint.UnAdjY);
+                if (radRotRef.Checked)
+                {
+                    centerPoint = cboRotRefPoint1.SelectedItem as GpsPoint;
+                    dpCenter = new DoublePoint(centerPoint.UnAdjX, centerPoint.UnAdjY);
+                }
+                else
+                {
+                    centerPoint = cboRotAdjPoint1.SelectedItem as GpsPoint;
+                    dpCenter = new DoublePoint(centerPoint.UnAdjX, centerPoint.UnAdjY);
+                }
             }
 
             if (doRotate)
             {
                 if (radRotPoint.Checked)
                 {
-                    p1 = new DoublePoint(ref1.UnAdjX, ref1.UnAdjY);
-                    p3 = new DoublePoint(adj1.UnAdjX, adj1.UnAdjY);
-
-                    angle = Math.Atan2(dpCenter.Y - p1.Y, dpCenter.X - p1.X) - Math.Atan2(dpCenter.Y - p3.Y, dpCenter.X - p3.X);
+                    //get clockwire rotation angle
+                    angle = -TtUtils.AzimuthDiff(ref1, ref2, adj1, adj2);
 
                     if (double.IsNaN(angle) || double.IsInfinity(angle))
                         doRotate = false;
@@ -477,8 +505,8 @@ namespace TwoTrails.Forms
                     {
                         tempPoint = _TransformedPoints[i];
                         tempDP = TtUtils.RotatePoint(tempPoint.UnAdjX, tempPoint.UnAdjY, angle, dpCenter.X, dpCenter.Y);
-                        tempPoint.X = tempDP.X;
-                        tempPoint.Y = tempDP.Y;
+                        tempPoint.UnAdjX = tempDP.X;
+                        tempPoint.UnAdjY = tempDP.Y;
                         _TransformedPoints[i] = tempPoint;
                     }
                 }
@@ -495,7 +523,7 @@ namespace TwoTrails.Forms
 
             DoublePoint adjCenter = new DoublePoint((left + right) / 2, (top + bottom) / 2);
 
-            double scaleDist, scaleDistX = 1, scaleDistY = 1, offXL = 0, offXR = 0, offYT = 0, offYB = 0;
+            double scaleDist, scaleDistX = 1, scaleDistY = 1;
 
             if (radSclPoints.Checked)
             {
@@ -513,11 +541,7 @@ namespace TwoTrails.Forms
                 if (double.IsInfinity(scaleDist))
                     throw new Exception("Infinity scale error");
 
-                if (scaleDist > 1)
-                    scaleDist /= 2;
-                else if (scaleDist < 1)
-                    scaleDist /= -2;
-                else return;
+                adjCenter = new DoublePoint(adjp1.UnAdjX, adjp1.UnAdjY);
 
                 scaleDistX = scaleDistY = scaleDist;
             }
@@ -546,57 +570,69 @@ namespace TwoTrails.Forms
                 }
             }
 
-            if (!chkTranslate.Checked && !radSclCenter.Checked)
-            {
-                if (radSclTR.Checked)
-                {
-                    offXR = ((adjCenter.X - right) * scaleDistX);
-                    offXL = ((left - adjCenter.X) * scaleDistX);
-
-                    offYT = ((adjCenter.Y - top) * scaleDistY);
-                    offYB = ((bottom - adjCenter.Y) * scaleDistY);
-                }
-                else if (radSclTL.Checked)
-                {
-                    offXR = ((right - adjCenter.X) * scaleDistX);
-                    offXL = ((adjCenter.X - left) * scaleDistX);
-
-                    offYT = ((adjCenter.Y - top) * scaleDistY);
-                    offYB = ((bottom - adjCenter.Y) * scaleDistY);
-                }
-                else if (radSclBR.Checked)
-                {
-                    offXR = ((adjCenter.X - right) * scaleDistX);
-                    offXL = ((left - adjCenter.X) * scaleDistX);
-
-                    offYT = ((top - adjCenter.Y) * scaleDistY);
-                    offYB = ((adjCenter.Y - bottom) * scaleDistY);
-                }
-                else if (radSclBL.Checked)
-                {
-                    offXR = ((right - adjCenter.X) * scaleDistX);
-                    offXL = ((adjCenter.X - left) * scaleDistX);
-
-                    offYT = ((top - adjCenter.Y) * scaleDistY);
-                    offYB = ((adjCenter.Y - bottom) * scaleDistY);
-                }
-            }
-
             for (int i = 0; i < _TransformedPoints.Count; i++)
             {
                 GpsPoint p = _TransformedPoints[i];
 
-                if (p.UnAdjX > adjCenter.X)
-                    _TransformedPoints[i].X += (p.UnAdjX - adjCenter.X) * scaleDistX + offXR;
-                else
-                    _TransformedPoints[i].X += (p.UnAdjX - adjCenter.X) * scaleDistX + offXL;
+                DoublePoint dp = new DoublePoint(p.UnAdjX, p.UnAdjY);
 
-                if (p.UnAdjY > adjCenter.Y)
-                    _TransformedPoints[i].Y += (p.UnAdjY - adjCenter.Y) * scaleDistY + offYT;
-                else
-                    _TransformedPoints[i].Y += (p.UnAdjY - adjCenter.Y) * scaleDistY + offYB;
+                double dist = TtUtils.Distance(dp, adjCenter);
+
+                if (dist <= 0)
+                    continue;
+
+                double theta = Math.Asin((dp.Y - adjCenter.Y) / dist);
+
+                p.UnAdjX = adjCenter.X + ((dist * scaleDistX) * Math.Cos(theta));
+                p.UnAdjY = adjCenter.Y + ((dist * scaleDistY) * Math.Sin(theta));
             }
         }
+
+
+        void updateLists()
+        {
+            if (_AdjPoints != null)
+            {
+                TtPolygon adjPoly = cboTransAdjPoly.SelectedItem as TtPolygon;
+
+                if (adjPoly.CN != _AdjPoints[0].PolyCN)
+                {
+                    _AdjPoints = dal.GetPointsInPolygon(adjPoly.CN);
+
+                    AdjPoints1 = new BindingList<TtPoint>(_AdjPoints);
+                    AdjPoints2 = new BindingList<TtPoint>(_AdjPoints);
+
+                    cboTransAdjPoint.DataSource = AdjPoints1;
+
+                    cboRotAdjPoint1.DataSource = AdjPoints1;
+                    cboRotAdjPoint2.DataSource = AdjPoints2;
+
+                    cboSclAdjPoint1.DataSource = AdjPoints1;
+                    cboSclAdjPoint2.DataSource = AdjPoints2;
+
+                }
+
+                TtPolygon refPoly = cboTransRefPoly.SelectedItem as TtPolygon;
+
+                if (refPoly.CN != _RefPoints[0].PolyCN)
+                {
+                    _RefPoints = dal.GetPointsInPolygon(refPoly.CN);
+
+                    RefPoints1 = new BindingList<TtPoint>(_RefPoints);
+                    RefPoints2 = new BindingList<TtPoint>(_RefPoints);
+
+                    cboTransRefPoint.DataSource = RefPoints1;
+
+                    cboRotRefPoint1.DataSource = RefPoints1;
+                    cboRotRefPoint2.DataSource = RefPoints2;
+
+                    cboSclRefPoint1.DataSource = RefPoints1;
+                    cboSclRefPoint2.DataSource = RefPoints2;
+                } 
+            }
+        }
+
+
 
 
         #region Controls
@@ -684,31 +720,20 @@ namespace TwoTrails.Forms
                 {
                     radRotPoint.Enabled = true;
                     radRotAngle.Enabled = true;
-                    radRotVertex.Enabled = true;
 
                     if (radRotPoint.Checked)
                     {
-                        radRotVertex.Checked = true;
+                        cboRotAdjPoint1.Enabled = true;
+                        cboRotAdjPoint2.Enabled = true;
+                        cboRotAdjPoly.Enabled = true;
 
-                        if (radRotVertex.Checked)
-                        {
-                            cboRotAdjPoint1.Enabled = true;
-                            cboRotAdjPoint2.Enabled = true;
-                            cboRotAdjPoly.Enabled = true;
-                            cboRotRefPoint1.Enabled = true;
-                            cboRotRefPoint2.Enabled = true;
-                            cboRotRefPoly.Enabled = true;
-                        }
-                        else if (radRotAdj.Checked)
-                        {
-                            cboRotAdjPoint1.Enabled = true;
-                            cboRotAdjPoly.Enabled = true;
-                        }
-                        else
-                        {
-                            cboRotRefPoint1.Enabled = true;
-                            cboRotRefPoly.Enabled = true;
-                        }
+                        cboRotRefPoint1.Enabled = true;
+                        cboRotRefPoint2.Enabled = true;
+                        cboRotRefPoly.Enabled = true;
+
+                        txtRotAngle.Enabled = false;
+                        radRotAdj.Enabled = false;
+                        radRotRef.Enabled = false;
                     }
                     else
                     {
@@ -726,23 +751,24 @@ namespace TwoTrails.Forms
                         radRotAdj.Enabled = true;
                         radRotRef.Enabled = true;
 
-                        if (radRotVertex.Checked)
+                        if (radRotAdj.Checked)
                         {
                             cboRotAdjPoint1.Enabled = true;
-                            cboRotAdjPoint2.Enabled = true;
+                            cboRotAdjPoint2.Enabled = false;
                             cboRotAdjPoly.Enabled = true;
-                            cboRotRefPoint1.Enabled = true;
-                            cboRotRefPoint2.Enabled = true;
+
+                            cboRotRefPoint1.Enabled = false;
+                            cboRotRefPoint2.Enabled = false;
                             cboRotRefPoly.Enabled = true;
-                        }
-                        else if (radRotAdj.Checked)
-                        {
-                            cboRotAdjPoint1.Enabled = true;
-                            cboRotAdjPoly.Enabled = true;
                         }
                         else
                         {
+                            cboRotAdjPoint1.Enabled = false;
+                            cboRotAdjPoint2.Enabled = false;
+                            cboRotAdjPoly.Enabled = false;
+
                             cboRotRefPoint1.Enabled = true;
+                            cboRotRefPoint2.Enabled = false;
                             cboRotRefPoly.Enabled = true;
                         }
                     }
@@ -763,7 +789,6 @@ namespace TwoTrails.Forms
 
                 radRotAdj.Enabled = false;
                 radRotRef.Enabled = false;
-                radRotVertex.Enabled = false;
             }
 
             EnableTransform();
@@ -803,23 +828,11 @@ namespace TwoTrails.Forms
                         cboSclType.Enabled = true;
                     }
                 }
-
-                radSclBL.Enabled = true;
-                radSclBR.Enabled = true;
-                radSclTL.Enabled = true;
-                radSclTR.Enabled = true;
-                radSclCenter.Enabled = true;
             }
             else
             {
                 radSclPoints.Enabled = false;
                 radSclManual.Enabled = false;
-
-                radSclBL.Enabled = false;
-                radSclBR.Enabled = false;
-                radSclTL.Enabled = false;
-                radSclTR.Enabled = false;
-                radSclCenter.Enabled = false;
 
                 cboSclAdjPoint1.Enabled = false;
                 cboSclAdjPoint2.Enabled = false;
@@ -843,7 +856,6 @@ namespace TwoTrails.Forms
             {
                 txtRotAngle.Enabled = false;
 
-                radRotVertex.Checked = true;
                 radRotAdj.Enabled = false;
                 radRotRef.Enabled = false;
 
@@ -860,6 +872,7 @@ namespace TwoTrails.Forms
                 radRotAdj.Enabled = true;
                 radRotRef.Enabled = true;
 
+                /*
                 if (radRotVertex.Checked)
                 {
                     cboRotAdjPoint1.Enabled = true;
@@ -869,21 +882,32 @@ namespace TwoTrails.Forms
                     cboRotRefPoint2.Enabled = true;
                     cboRotRefPoly.Enabled = true;
                 }
-                else if (radRotAdj.Checked)
+                else 
+                    */
+                if (radRotAdj.Checked)
                 {
                     cboRotAdjPoint1.Enabled = true;
+                    cboRotAdjPoint2.Enabled = false;
                     cboRotAdjPoly.Enabled = true;
+
+                    cboRotRefPoint1.Enabled = false;
+                    cboRotRefPoint2.Enabled = false;
+                    cboRotRefPoly.Enabled = true;
                 }
                 else
                 {
+                    cboRotAdjPoint1.Enabled = false;
+                    cboRotAdjPoint2.Enabled = false;
+                    cboRotAdjPoly.Enabled = false;
+
                     cboRotRefPoint1.Enabled = true;
+                    cboRotRefPoint2.Enabled = false;
                     cboRotRefPoly.Enabled = true;
                 }
             }
-
-            
         }
 
+        /*
         private void radRotVertex_CheckedChanged(object sender, EventArgs e)
         {
             cboRotAdjPoint1.Enabled = true;
@@ -893,6 +917,7 @@ namespace TwoTrails.Forms
             cboRotRefPoint2.Enabled = true;
             cboRotRefPoly.Enabled = true;
         }
+        */
 
         private void radRotRef_CheckedChanged(object sender, EventArgs e)
         {
@@ -1059,6 +1084,36 @@ namespace TwoTrails.Forms
                 changeOpt(2, TransOpt.Translate);
         }
         #endregion
+
+        private void cboTransRefPoly_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateLists();
+        }
+
+        private void cboTransAdjPoly_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateLists();
+        }
+
+        private void cboRotRefPoly_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateLists();
+        }
+
+        private void cboRotAdjPoly_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateLists();
+        }
+
+        private void cboSclRefPoly_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateLists();
+        }
+
+        private void cboSclAdjPoly_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateLists();
+        }
 
 
     }

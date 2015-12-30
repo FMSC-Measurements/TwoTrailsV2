@@ -63,6 +63,8 @@
             this.tsmiEveryOther = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSelectGPS = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSelectSideShots = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeselectPoints = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSelectInverse = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiClose = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPointsHaveErrors = new System.Windows.Forms.ToolStripMenuItem();
@@ -223,8 +225,6 @@
             this.tabQndm = new System.Windows.Forms.TabPage();
             this.chkPointsWLinks = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tsmiDeselectPoints = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiSelectInverse = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.pnlfilter.SuspendLayout();
@@ -525,6 +525,23 @@
             this.tsmiSelectSideShots.Size = new System.Drawing.Size(234, 22);
             this.tsmiSelectSideShots.Text = "Select SideShots";
             this.tsmiSelectSideShots.Click += new System.EventHandler(this.tsmiSelectSideShots_Click);
+            // 
+            // tsmiDeselectPoints
+            // 
+            this.tsmiDeselectPoints.Name = "tsmiDeselectPoints";
+            this.tsmiDeselectPoints.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.tsmiDeselectPoints.Size = new System.Drawing.Size(234, 22);
+            this.tsmiDeselectPoints.Text = "Deselect Points";
+            this.tsmiDeselectPoints.Visible = false;
+            this.tsmiDeselectPoints.Click += new System.EventHandler(this.tsmiDeselectPoints_Click);
+            // 
+            // tsmiSelectInverse
+            // 
+            this.tsmiSelectInverse.Name = "tsmiSelectInverse";
+            this.tsmiSelectInverse.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.tsmiSelectInverse.Size = new System.Drawing.Size(234, 22);
+            this.tsmiSelectInverse.Text = "Select Inverse Points";
+            this.tsmiSelectInverse.Click += new System.EventHandler(this.tsmiSelectInverse_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -2307,23 +2324,6 @@
             this.toolTip1.SetToolTip(this.chkPointsWLinks, "The point has one or more Quondams attached to it.");
             this.chkPointsWLinks.UseVisualStyleBackColor = true;
             this.chkPointsWLinks.CheckedChanged += new System.EventHandler(this.chkPointsWLinks_CheckedChanged);
-            // 
-            // tsmiDeselectPoints
-            // 
-            this.tsmiDeselectPoints.Name = "tsmiDeselectPoints";
-            this.tsmiDeselectPoints.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.tsmiDeselectPoints.Size = new System.Drawing.Size(234, 22);
-            this.tsmiDeselectPoints.Text = "Deselect Points";
-            this.tsmiDeselectPoints.Visible = false;
-            this.tsmiDeselectPoints.Click += new System.EventHandler(this.tsmiDeselectPoints_Click);
-            // 
-            // tsmiSelectInverse
-            // 
-            this.tsmiSelectInverse.Name = "tsmiSelectInverse";
-            this.tsmiSelectInverse.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.tsmiSelectInverse.Size = new System.Drawing.Size(234, 22);
-            this.tsmiSelectInverse.Text = "Select Inverse Points";
-            this.tsmiSelectInverse.Click += new System.EventHandler(this.tsmiSelectInverse_Click);
             // 
             // MassEditForm
             // 

@@ -47,11 +47,12 @@
             this.btnParse = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radLatLon = new System.Windows.Forms.RadioButton();
             this.radUTM = new System.Windows.Forms.RadioButton();
+            this.radLatLon = new System.Windows.Forms.RadioButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.radMeters = new System.Windows.Forms.RadioButton();
             this.radFeet = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -210,7 +211,7 @@
             // 
             // btnParse
             // 
-            this.btnParse.Location = new System.Drawing.Point(439, 98);
+            this.btnParse.Location = new System.Drawing.Point(439, 103);
             this.btnParse.Name = "btnParse";
             this.btnParse.Size = new System.Drawing.Size(75, 23);
             this.btnParse.TabIndex = 2;
@@ -220,7 +221,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(12, 98);
+            this.btnCancel.Location = new System.Drawing.Point(12, 103);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -237,28 +238,29 @@
             this.panel1.Size = new System.Drawing.Size(166, 31);
             this.panel1.TabIndex = 3;
             // 
-            // radLatLon
-            // 
-            this.radLatLon.AutoSize = true;
-            this.radLatLon.Checked = true;
-            this.radLatLon.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radLatLon.Location = new System.Drawing.Point(0, 3);
-            this.radLatLon.Name = "radLatLon";
-            this.radLatLon.Size = new System.Drawing.Size(77, 20);
-            this.radLatLon.TabIndex = 0;
-            this.radLatLon.Text = "Lat/Lon";
-            this.radLatLon.UseVisualStyleBackColor = true;
-            // 
             // radUTM
             // 
             this.radUTM.AutoSize = true;
             this.radUTM.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radUTM.Location = new System.Drawing.Point(83, 3);
+            this.radUTM.Location = new System.Drawing.Point(83, 7);
             this.radUTM.Name = "radUTM";
             this.radUTM.Size = new System.Drawing.Size(59, 20);
             this.radUTM.TabIndex = 0;
             this.radUTM.Text = "UTM";
             this.radUTM.UseVisualStyleBackColor = true;
+            // 
+            // radLatLon
+            // 
+            this.radLatLon.AutoSize = true;
+            this.radLatLon.Checked = true;
+            this.radLatLon.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radLatLon.Location = new System.Drawing.Point(0, 7);
+            this.radLatLon.Name = "radLatLon";
+            this.radLatLon.Size = new System.Drawing.Size(77, 20);
+            this.radLatLon.TabIndex = 0;
+            this.radLatLon.TabStop = true;
+            this.radLatLon.Text = "Lat/Lon";
+            this.radLatLon.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -273,7 +275,7 @@
             // 
             this.radMeters.AutoSize = true;
             this.radMeters.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radMeters.Location = new System.Drawing.Point(97, 3);
+            this.radMeters.Location = new System.Drawing.Point(97, 7);
             this.radMeters.Name = "radMeters";
             this.radMeters.Size = new System.Drawing.Size(73, 20);
             this.radMeters.TabIndex = 0;
@@ -285,18 +287,29 @@
             this.radFeet.AutoSize = true;
             this.radFeet.Checked = true;
             this.radFeet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radFeet.Location = new System.Drawing.Point(0, 3);
+            this.radFeet.Location = new System.Drawing.Point(0, 7);
             this.radFeet.Name = "radFeet";
             this.radFeet.Size = new System.Drawing.Size(91, 20);
             this.radFeet.TabIndex = 0;
+            this.radFeet.TabStop = true;
             this.radFeet.Text = "Ft-Tenths";
             this.radFeet.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(263, 95);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Elevation ( Z )";
             // 
             // TextImportFieldSelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 130);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCancel);
@@ -360,5 +373,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.RadioButton radMeters;
         private System.Windows.Forms.RadioButton radFeet;
+        private System.Windows.Forms.Label label2;
     }
 }

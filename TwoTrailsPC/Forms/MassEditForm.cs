@@ -2918,7 +2918,9 @@ namespace TwoTrails.Forms
                     {
                         if (CurrentPoint != null)
                         {
-                            ((GpsPoint)CurrentPoint).X = value;
+                            GpsPoint p = CurrentPoint as GpsPoint;
+                            p.X = value;
+                            p.UnAdjX = value;
 
                             urManager.EditPoint(_CurrentPoint, _EditPoints);
                             edited = true;
@@ -2928,6 +2930,7 @@ namespace TwoTrails.Forms
                     {
                         List<TtPoint> points = new List<TtPoint>();
                         TtPoint tmpPoint;
+                        GpsPoint gps;
 
                         foreach (DataGridViewRow row in dgvPoints.SelectedRows)
                         {
@@ -2935,7 +2938,9 @@ namespace TwoTrails.Forms
 
                             if (tmpPoint.IsGpsType())
                             {
-                                ((GpsPoint)tmpPoint).X = value;
+                                gps = tmpPoint as GpsPoint;
+                                gps.X = value;
+                                gps.UnAdjX = value;
                                 points.Add(tmpPoint);
                             }
                         }
@@ -2959,7 +2964,9 @@ namespace TwoTrails.Forms
                     {
                         if (CurrentPoint != null)
                         {
-                            ((GpsPoint)CurrentPoint).Y = value;
+                            GpsPoint p = CurrentPoint as GpsPoint;
+                            p.Y = value;
+                            p.UnAdjY = value;
 
                             urManager.EditPoint(_CurrentPoint, _EditPoints);
                             edited = true;
@@ -2969,6 +2976,7 @@ namespace TwoTrails.Forms
                     {
                         List<TtPoint> points = new List<TtPoint>();
                         TtPoint tmpPoint;
+                        GpsPoint gps;
 
                         foreach (DataGridViewRow row in dgvPoints.SelectedRows)
                         {
@@ -2976,7 +2984,9 @@ namespace TwoTrails.Forms
 
                             if (tmpPoint.IsGpsType())
                             {
-                                ((GpsPoint)tmpPoint).Y = value;
+                                gps = tmpPoint as GpsPoint;
+                                gps.Y = value;
+                                gps.UnAdjY = value;
                                 points.Add(tmpPoint);
                             }
                         }
@@ -3000,7 +3010,9 @@ namespace TwoTrails.Forms
                     {
                         if (CurrentPoint != null)
                         {
-                            ((GpsPoint)CurrentPoint).Z = value;
+                            GpsPoint p = CurrentPoint as GpsPoint;
+                            p.Z = value;
+                            p.UnAdjZ = value;
 
                             urManager.EditPoint(_CurrentPoint, _EditPoints);
                             edited = true;
@@ -3010,6 +3022,7 @@ namespace TwoTrails.Forms
                     {
                         List<TtPoint> points = new List<TtPoint>();
                         TtPoint tmpPoint;
+                        GpsPoint gps;
 
                         foreach (DataGridViewRow row in dgvPoints.SelectedRows)
                         {
@@ -3017,7 +3030,9 @@ namespace TwoTrails.Forms
 
                             if (tmpPoint.IsGpsType())
                             {
-                                ((GpsPoint)tmpPoint).Z = value;
+                                gps = tmpPoint as GpsPoint;
+                                gps.Z = value;
+                                gps.UnAdjZ = value;
                                 points.Add(tmpPoint);
                             }
                         }
