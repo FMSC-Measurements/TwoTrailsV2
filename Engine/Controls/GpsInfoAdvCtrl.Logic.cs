@@ -70,16 +70,38 @@ namespace TwoTrails.Controls
             lblUTMX.Text = b._X.ToString().Truncate(11);
             lblUTMY.Text = b._Y.ToString().Truncate(11);
 
-            if (b._fix_quality > 0 && b._fix_quality < 4)
-                lblGpsStatus.Text = "OK";
-            else if (b._fix_quality == 8)
+            switch (b._fix_quality)
             {
-                lblGpsStatus.Text = "Simulation";
+                case 1:
+                    lblGpsStatus.Text = "GPS";
+                    break;
+                case 2:
+                    lblGpsStatus.Text = "D-GPS";
+                    break;
+                case 3:
+                    lblGpsStatus.Text = "PPS";
+                    break;
+                case 4:
+                    lblGpsStatus.Text = "RTK";
+                    break;
+                case 5:
+                    lblGpsStatus.Text = "F-RTK";
+                    break;
+                case 6:
+                    lblGpsStatus.Text = "EST";
+                    break;
+                case 7:
+                    lblGpsStatus.Text = "MAN";
+                    break;
+                case 8:
+                    lblGpsStatus.Text = "Simulation";
+                    break;
+                default:
+                    lblGpsStatus.Text = "No Fix";
+                    break;
             }
-            else
-                lblGpsStatus.Text = "No Fix";
 
-            string gpsString = "";
+            string gpsString = String.Empty;
 
             if (b._fix_quality != 3)
             {

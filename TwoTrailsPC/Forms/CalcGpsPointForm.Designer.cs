@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboFixType = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,7 +40,6 @@
             this.txtStart = new System.Windows.Forms.TextBox();
             this.txtGroup = new System.Windows.Forms.TextBox();
             this.txtDOP = new System.Windows.Forms.TextBox();
-            this.cboFixType = new System.Windows.Forms.ComboBox();
             this.cboDOP = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -98,6 +98,25 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(313, 118);
             this.panel1.TabIndex = 0;
+            // 
+            // cboFixType
+            // 
+            this.cboFixType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFixType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboFixType.FormattingEnabled = true;
+            this.cboFixType.Items.AddRange(new object[] {
+            "Any",
+            "3D",
+            "3D+DIFF",
+            "PPS",
+            "Float RTK",
+            "RTK"});
+            this.cboFixType.Location = new System.Drawing.Point(218, 29);
+            this.cboFixType.Name = "cboFixType";
+            this.cboFixType.Size = new System.Drawing.Size(85, 24);
+            this.cboFixType.TabIndex = 0;
+            this.cboFixType.TabStop = false;
+            this.cboFixType.SelectedIndexChanged += new System.EventHandler(this.cboFixType_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -204,22 +223,6 @@
             this.txtDOP.TabIndex = 1;
             this.txtDOP.TabStop = false;
             this.txtDOP.TextChanged += new System.EventHandler(this.txtDOP_TextChanged);
-            // 
-            // cboFixType
-            // 
-            this.cboFixType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboFixType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboFixType.FormattingEnabled = true;
-            this.cboFixType.Items.AddRange(new object[] {
-            "Any",
-            "3D",
-            "3D+DIFF"});
-            this.cboFixType.Location = new System.Drawing.Point(218, 29);
-            this.cboFixType.Name = "cboFixType";
-            this.cboFixType.Size = new System.Drawing.Size(85, 24);
-            this.cboFixType.TabIndex = 0;
-            this.cboFixType.TabStop = false;
-            this.cboFixType.SelectedIndexChanged += new System.EventHandler(this.cboFixType_SelectedIndexChanged);
             // 
             // cboDOP
             // 

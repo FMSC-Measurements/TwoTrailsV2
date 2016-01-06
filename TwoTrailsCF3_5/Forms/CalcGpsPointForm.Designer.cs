@@ -249,6 +249,9 @@
             this.cboFixType.Items.Add("Any");
             this.cboFixType.Items.Add("3D");
             this.cboFixType.Items.Add("3D+DIFF");
+            this.cboFixType.Items.Add("PPS");
+            this.cboFixType.Items.Add("Float RTK");
+            this.cboFixType.Items.Add("RTK");
             this.cboFixType.Location = new System.Drawing.Point(170, 20);
             this.cboFixType.Name = "cboFixType";
             this.cboFixType.Size = new System.Drawing.Size(67, 22);
@@ -798,6 +801,9 @@
             this.cboFixType.Items.Add("Any");
             this.cboFixType.Items.Add("3D");
             this.cboFixType.Items.Add("3D+DIFF");
+            this.cboFixType.Items.Add("PPS");
+            this.cboFixType.Items.Add("Float RTK");
+            this.cboFixType.Items.Add("RTK");
             this.cboFixType.Location = new System.Drawing.Point(173, 20);
             this.cboFixType.Name = "cboFixType";
             this.cboFixType.Size = new System.Drawing.Size(67, 22);

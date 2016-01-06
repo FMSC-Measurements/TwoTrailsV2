@@ -188,15 +188,16 @@ namespace Engine.BusinessLogic
         {
             double closeError = TtUtils.Distance(_LastPoint.X, _LastPoint.Y,
                                     pt.UnAdjX, pt.UnAdjY);
-            double travError = travLength / closeError;
+
+            double travError = travLength / (closeError != 0 ? Math.Round(closeError, 2) : 0);
 
             _PointOutput.AppendLine(String.Format("\tTraverse Total Segments: {0}", travSegs));
-            _PointOutput.AppendLine(String.Format("\tTraverse Total Distance: {0:F4} feet.",
+            _PointOutput.AppendLine(String.Format("\tTraverse Total Distance: {0:F2} feet.",
                 TtUtils.ConvertToFeetTenths(travLength, Unit.METERS)));
-            _PointOutput.AppendLine(String.Format("\tTraverse Closing Distance: {0:F4} feet.",
+            _PointOutput.AppendLine(String.Format("\tTraverse Closing Distance: {0:F2} feet.",
                 TtUtils.ConvertToFeetTenths(closeError, Unit.METERS)));
-            _PointOutput.AppendLine(String.Format("\tTraverse Close Error: 1 part in {0}.",
-                Math.Round(travError)));
+            _PointOutput.AppendLine(String.Format("\tTraverse Close Error: 1 part in {0:F0}.",
+                travError));
 
             TotalTravError += (travLength * closeError / 2);
 
@@ -269,7 +270,7 @@ namespace Engine.BusinessLogic
                         {
                             _PointOutput.AppendFormat("Point {0}: {2} {1}- ", pt.PID, pt.op.ToString(), pt.OnBnd ? " " : "*");
 
-                            _PointOutput.AppendLine(String.Format("Accuracy is {0:F4} meters.", TtUtils.GetPointAcc(pt, polys)));
+                            _PointOutput.AppendLine(String.Format("Accuracy is {0:F2} meters.", TtUtils.GetPointAcc(pt, polys)));
                         }
                         break;
                     }
@@ -385,9 +386,9 @@ namespace Engine.BusinessLogic
             if (p.Area > 0)
             {
                 _PolyOutput.AppendLine();
-                _PolyOutput.AppendLine(String.Format("The polygon area is: {2}{0:F4} Ha ({1:F4} ac).",
+                _PolyOutput.AppendLine(String.Format("The polygon area is: {2}{0:F2} Ha ({1:F2} ac).",
                     TtUtils.ConvertMeters2ToHa(p.Area), TtUtils.ConvertMeters2ToAcres(p.Area), _options.SaveReport ? "              " : ""));
-                _PolyOutput.AppendLine(String.Format("The polygon exterior perimeter is: {0:F4} M ({1:F4} ft).", p.Perimeter,
+                _PolyOutput.AppendLine(String.Format("The polygon exterior perimeter is: {0:F0} M ({1:F0} ft).", p.Perimeter,
                     TtUtils.ConvertToFeetTenths(p.Perimeter, Unit.METERS)));
             }
 
@@ -406,7 +407,7 @@ namespace Engine.BusinessLogic
             if (TotalGpsError > 0)
             {
                 _PolyOutput.AppendLine();
-                _PolyOutput.AppendLine(String.Format("GPS Contribution to area-error area: {2}{0:F5} Ha ({1:F4} ac).",
+                _PolyOutput.AppendLine(String.Format("GPS Contribution to area-error area: {2}{0:F2} Ha ({1:F2} ac).",
                     TtUtils.ConvertMeters2ToHa(TotalGpsError), TtUtils.ConvertMeters2ToAcres(TotalGpsError),
                     _options.SaveReport ? "              " : ""));
 
@@ -417,7 +418,7 @@ namespace Engine.BusinessLogic
             if (TotalTravError > 0)
             {
                 _PolyOutput.AppendLine(" ");
-                _PolyOutput.AppendLine(String.Format("Traverse Contribution to area-error area: {2}{0:F5} Ha ({1:F4} ac).",
+                _PolyOutput.AppendLine(String.Format("Traverse Contribution to area-error area: {2}{0:F2} Ha ({1:F2} ac).",
                     TtUtils.ConvertMeters2ToHa(TotalTravError), TtUtils.ConvertMeters2ToAcres(TotalTravError),
                     _options.SaveReport ? "         " : ""));
 

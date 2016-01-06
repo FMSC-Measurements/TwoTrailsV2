@@ -354,7 +354,7 @@ namespace TwoTrails.Forms
                             MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                     }
                 }
-                else if (!phv && UpdatedPoint.IsTravType() && !_closing)
+                else if (!phv && UpdatedPoint.IsTravType() && !_closing && CurrPoint != null)
                 {
                     SideShotPoint sp = UpdatedPoint as SideShotPoint;
                     if (sp.ForwardAz == null && sp.BackwardAz == null)
@@ -979,13 +979,13 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                     return;
 
 
-                if (CurrPoint.IsTravType())
+                if (UpdatedPoint.IsTravType())
                 {
                     ((SideShotPoint)_UpdatedPoint).SlopeDistance = TtUtils.ConvertDistance(((SideShotPoint)_UpdatedPoint).SlopeDistance, CurrMeta.uomDistance, metaFrom.uomDistance);
                     ((SideShotPoint)_UpdatedPoint).SlopeAngle = TtUtils.ConvertAngle(((SideShotPoint)_UpdatedPoint).SlopeAngle, CurrMeta.uomSlope, metaFrom.uomSlope);
                     travInfoControl1.CurrentPoint = (SideShotPoint)UpdatedPoint;
                 }
-                else if (CurrPoint.IsGpsType())
+                else if (UpdatedPoint.IsGpsType())
                 {
                     _UpdatedPoint = TtUtils.RecalcPoint(UpdatedPoint, CurrMeta.Zone, metaFrom.Zone, DAL);
                     gpsInfoControl1.CurrentPoint = (GpsPoint)UpdatedPoint;

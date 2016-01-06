@@ -275,8 +275,7 @@ namespace TwoTrails.Forms
                         {
                             NmeaBurst burst = Bursts[j];
 
-                            if (!burst.drop && ((fType == 0) || (fType == 1 && burst._fix == 3) ||
-                                (fType == 2 && burst._fix == 3 && burst._fix_quality == 2)))  //fix tpye
+                            if (!burst.drop && filterFix(burst, fType))  //fix tpye
                             {
                                 if (DOP)    //is PDOP
                                 {
@@ -312,6 +311,23 @@ namespace TwoTrails.Forms
             }
 
             return true;
+        }
+
+        bool filterFix(NmeaBurst burst, int filter)
+        {
+            //no fix
+            if (filter == 0)
+                return true;
+
+            if (burst._fix == 3 &&
+                (burst._fix_quality >= filter ||
+                (filter == 4 && burst._fix_quality == 5) ||
+                (filter == 5 && burst._fix_quality == 4)))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void Calculate()

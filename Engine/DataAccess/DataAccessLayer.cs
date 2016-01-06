@@ -1004,7 +1004,7 @@ namespace TwoTrails.DataAccess
                     if (!reader.IsDBNull(3))
                         t.SlopeAngle = reader.GetDouble(3);
                     if (!reader.IsDBNull(4))
-                        t.Accuracy = reader.GetDouble(4);
+                        t.Accuracy = reader.ForceGetDouble(4);
                 }
             }
             catch (Exception ex)
@@ -4536,6 +4536,26 @@ namespace TwoTrails.DataAccess
                 }
                 return stream.ToArray();
             }
+        }
+
+        public static double? ForceGetDouble(this SQLiteDataReader reader, int i)
+        {
+            double? value = null;
+
+            try
+            {
+                value = reader.GetDouble(i);
+            }
+            catch
+            {
+                object o = reader.GetValue(i);
+                if (o is double)
+                {
+                    value = o as double?;
+                }
+            }
+
+            return value;
         }
     }
 }
