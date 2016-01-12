@@ -20,7 +20,7 @@ namespace TwoTrails.Forms
         private const double RMSE95_COEF = 1.7308;
 
         private int groupSize, start, currentZone;
-        private bool calculated, canceled, recalculated;
+        private bool calculated, canceled, recalculated, clearing;
         List<NmeaBurst> Bursts, ToUseBursts;
         private List<int> intRange;
         private double pointX, pointY, pointZ, pointRMSEr;
@@ -126,48 +126,57 @@ namespace TwoTrails.Forms
                 }
                 else
                 {
-                    if (!range.Contains('-'))
+                    if (!range.IsEmpty())
                     {
-                        MessageBox.Show("Range must be formated as such: ##-##");
-                        return false;
-                    }
-
-                    string[] rSplit = range.Split(new char[] { '-', ',' });
-
-                    if (rSplit.Length < 2)
-                    {
-                        MessageBox.Show("Range must contain at least 2 numbers.");
-                        return false;
-                    }
-
-                    if (rSplit.Length % 2 == 1)
-                    {
-                        MessageBox.Show("Range must contain an even amount of parameters.");
-                        return false;
-                    }
-
-                    intRange.Clear();
-
-                    try
-                    {
-                        foreach (string s in rSplit)
+                        if (!range.Contains('-'))
                         {
-                            int i = -1;
+                            MessageBox.Show("Range must be formated as such: ##-##");
+                            return false;
+                        }
 
-                            i = Convert.ToInt32(s);
+                        string[] rSplit = range.Split(new char[] { '-', ',' });
 
-                            if (i < 1 || i > Bursts.Count)
+                        if (rSplit.Length < 2)
+                        {
+                            MessageBox.Show("Range must contain at least 2 numbers.");
+                            return false;
+                        }
+
+                        if (rSplit.Length % 2 == 1)
+                        {
+                            MessageBox.Show("Range must contain an even amount of parameters.");
+                            return false;
+                        }
+
+                        intRange.Clear();
+
+                        try
+                        {
+                            foreach (string s in rSplit)
                             {
-                                throw new Exception();
-                            }
+                                int i = -1;
 
-                            intRange.Add(i);
+                                i = Convert.ToInt32(s);
+
+                                if (i < 1 || i > Bursts.Count)
+                                {
+                                    throw new Exception();
+                                }
+
+                                intRange.Add(i);
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show(String.Format("Range must must be between 1 and {0}.", Bursts.Count));
+                            return false;
                         }
                     }
-                    catch
+                    else
                     {
-                        MessageBox.Show(String.Format("Range must must be between 1 and {0}.", Bursts.Count));
-                        return false;
+                        intRange.Clear();
+                        intRange.Add(1);
+                        intRange.Add(Bursts.Count);
                     }
 
 
@@ -217,6 +226,9 @@ namespace TwoTrails.Forms
 
         private bool Filter()
         {
+            if (clearing)
+                return false;
+
             int fType = 0;
             double dDOP = -1;
             bool DOP = false;   //PDOP true, HDOP false
@@ -227,13 +239,18 @@ namespace TwoTrails.Forms
             {
                 switch (cboFixType.SelectedIndex)
                 {
-                    case 1:
-                        fType = 1;
+                    case 4:
+                        fType = 5;
                         break;
-                    case 2:
-                        fType = 2;
+                    case 5:
+                        fType = 4;
+                        break;
+                    default:
+                        fType = cboFixType.SelectedIndex;
                         break;
                 }
+
+                fType = cboFixType.SelectedIndex;
 
                 try
                 {
@@ -319,13 +336,18 @@ namespace TwoTrails.Forms
             if (filter == 0)
                 return true;
 
-            if (burst._fix == 3 &&
-                (burst._fix_quality >= filter ||
-                (filter == 4 && burst._fix_quality == 5) ||
-                (filter == 5 && burst._fix_quality == 4)))
+            if (burst._fix == 3 && burst._fix_quality >= filter)
             {
                 return true;
             }
+
+            //if (burst._fix == 3 &&
+            //    (burst._fix_quality >= filter ||
+            //    (filter == 4 && burst._fix_quality == 5) ||
+            //    (filter == 5 && burst._fix_quality == 4)))
+            //{
+            //    return true;
+            //}
 
             return false;
         }
@@ -440,7 +462,7 @@ namespace TwoTrails.Forms
                         {
                             x = 0; y = 0; count = 0;
 
-                            for (i = groupSize * 2; i < ToUseBursts.Count && i < groupSize * 3; i++)
+                            for (i = groupSize * 2; i < ToUseBursts.Count; i++)
                             {
                                 x += ToUseBursts[i]._X;
                                 y += ToUseBursts[i]._Y;
@@ -453,7 +475,7 @@ namespace TwoTrails.Forms
                             dRMSEy = 0;
                             dRMSEr = 0;
 
-                            for (i = groupSize * 2; i < ToUseBursts.Count && i < groupSize * 3; i++)
+                            for (i = groupSize * 2; i < ToUseBursts.Count; i++)
                             {
                                 dRMSEx += Math.Pow(ToUseBursts[i]._X - x, 2);
                                 dRMSEy += Math.Pow(ToUseBursts[i]._Y - y, 2);
@@ -496,6 +518,9 @@ namespace TwoTrails.Forms
 
         private void CalculatePoint()
         {
+            if (clearing)
+                return;
+
             int count = 0, i = 0;
             double x = 0, y = 0, z = 0;
             double dRMSEx = 0, dRMSEy = 0, dRMSEr = 0;
@@ -544,7 +569,7 @@ namespace TwoTrails.Forms
 
                 if (chk3.Enabled && chk3.Checked)
                 {
-                    for (i = groupSize * 2; i < ToUseBursts.Count && i < groupSize * 3; i++)
+                    for (i = groupSize * 2; i < ToUseBursts.Count; i++)
                     {
                         ToUseBursts[i]._Used = true;
                         tmpBurst = ToUseBursts[i];
@@ -609,6 +634,8 @@ namespace TwoTrails.Forms
         {
             if (calculated)
             {
+                clearing = true;
+
                 lblutmX1.Text = "000000.00";
                 lblutmY1.Text = "0000000.00";
                 lblNssda1.Text = "0.00";
@@ -621,9 +648,9 @@ namespace TwoTrails.Forms
 
                 lblUtmX.Text = "000000.00";
                 lblUtmY.Text = "0000000.00";
+                lblNssda.Text = String.Empty;
 
-                lblBurstInfo.Text = String.Format("0 of {0}{1}Bursts used.", Bursts.Count.ToString(),
-                    Values.WideScreen ? Environment.NewLine : " ");
+                lblBurstInfo.Text = String.Empty;
 
                 chk1.Checked = false;
                 chk1.Enabled = false;
@@ -633,6 +660,8 @@ namespace TwoTrails.Forms
                 chk3.Enabled = false;
 
                 calculated = false;
+
+                clearing = false;
             }
         }
 
@@ -767,6 +796,8 @@ namespace TwoTrails.Forms
 #if (PocketPC || WindowsCE || Mobile)
             btnFixType.Text = cboFixType.Text;
 #endif
+
+            Calculate();
         }
 
         private void chkCustom_CheckStateChanged2(object sender, EventArgs e)
