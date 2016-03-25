@@ -953,7 +953,7 @@ namespace TwoTrails.Utilities
                 {
                     GpsPoint gps = ((GpsPoint)point);
 
-                    if (gps.X != 0 || gps.Y != 0 || gps.Z != 0 ||
+                    if (//gps.X != 0 || gps.Y != 0 || gps.Z != 0 ||
                        gps.UnAdjX != 0 || gps.UnAdjY != 0 || gps.UnAdjZ != 0)
                         hasvalue = true;
                 }
@@ -1293,8 +1293,10 @@ namespace TwoTrails.Utilities
 
                     GpsPoint gps = (GpsPoint)point;
 
-                    gps.X = gps.UnAdjX = x;
-                    gps.Y = gps.UnAdjY = y;
+                    gps.UnAdjX = x;
+                    gps.UnAdjY = y;
+                    //gps.X = gps.UnAdjX = x;
+                    //gps.Y = gps.UnAdjY = y;
                     gps.AdjX = gps.AdjY = 0;
                     gps.RMSEr = (dRMSEr > Values.Settings.DeviceOptions.MIN_POINT_ACCURACY) ?
                     dRMSEr : Values.Settings.DeviceOptions.DEFAULT_POINT_ACCURACY;
@@ -1577,23 +1579,12 @@ namespace TwoTrails.Utilities
             switch (p.op)
             {
                 case OpType.GPS:
-                    {
-                        ((GpsPoint)p).Z = TtUtils.ConvertDistance(((GpsPoint)p).Z, UomElevation.Meters, meta.uomElevation);
-                        break;
-                    }
                 case OpType.Take5:
-                    {
-                        ((Take5Point)p).Z = TtUtils.ConvertDistance(((Take5Point)p).Z, UomElevation.Meters, meta.uomElevation);
-                        break;
-                    }
                 case OpType.Walk:
-                    {
-                        ((WalkPoint)p).Z = TtUtils.ConvertDistance(((WalkPoint)p).Z, UomElevation.Meters, meta.uomElevation);
-                        break;
-                    }
                 case OpType.WayPoint:
                     {
-                        ((WayPoint)p).Z = TtUtils.ConvertDistance(((WayPoint)p).Z, UomElevation.Meters, meta.uomElevation);
+                        p.UnAdjZ = TtUtils.ConvertDistance(p.UnAdjZ, UomElevation.Meters, meta.uomElevation);
+                        //((GpsPoint)p).Z = TtUtils.ConvertDistance(((GpsPoint)p).Z, UomElevation.Meters, meta.uomElevation);
                         break;
                     }
                 case OpType.SideShot:
@@ -1626,23 +1617,11 @@ namespace TwoTrails.Utilities
             switch (p.op)
             {
                 case OpType.GPS:
-                    {
-                        ((GpsPoint)p).Z = TtUtils.ConvertDistance(((GpsPoint)p).Z, meta.uomElevation, UomElevation.Meters);
-                        break;
-                    }
                 case OpType.Take5:
-                    {
-                        ((Take5Point)p).Z = TtUtils.ConvertDistance(((Take5Point)p).Z, meta.uomElevation, UomElevation.Meters);
-                        break;
-                    }
                 case OpType.Walk:
-                    {
-                        ((WalkPoint)p).Z = TtUtils.ConvertDistance(((WalkPoint)p).Z, meta.uomElevation, UomElevation.Meters);
-                        break;
-                    }
                 case OpType.WayPoint:
                     {
-                        ((WayPoint)p).Z = TtUtils.ConvertDistance(((WayPoint)p).Z, meta.uomElevation, UomElevation.Meters);
+                        p.UnAdjZ = TtUtils.ConvertDistance(p.UnAdjZ, meta.uomElevation, UomElevation.Meters);
                         break;
                     }
                 case OpType.SideShot:

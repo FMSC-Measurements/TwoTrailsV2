@@ -212,9 +212,9 @@ namespace TwoTrails.Forms
                         CurrentPoint.UnAdjX = x;
                         CurrentPoint.UnAdjY = y;
                         CurrentPoint.UnAdjZ = z;
-                        CurrentPoint.X = x;
-                        CurrentPoint.Y = y;
-                        CurrentPoint.Z = z;
+                        //CurrentPoint.X = x;
+                        //CurrentPoint.Y = y;
+                        //CurrentPoint.Z = z;
                         CurrentPoint.RMSEr = (dRMSEr > Values.Settings.DeviceOptions.MIN_POINT_ACCURACY) ?
                             dRMSEr : Values.Settings.DeviceOptions.DEFAULT_POINT_ACCURACY;
                         CurrentPoint.Time = DateTime.Now;

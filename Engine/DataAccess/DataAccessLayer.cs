@@ -1044,12 +1044,12 @@ namespace TwoTrails.DataAccess
 
                 if (reader.Read())
                 {
-                    if (!reader.IsDBNull(0))
-                        gps.X = reader.GetDouble(0);
-                    if (!reader.IsDBNull(1))
-                        gps.Y = reader.GetDouble(1);
-                    if (!reader.IsDBNull(2))
-                        gps.Z = reader.GetDouble(2);
+                    //if (!reader.IsDBNull(0))
+                    //    gps.X = reader.GetDouble(0);
+                    //if (!reader.IsDBNull(1))
+                    //    gps.Y = reader.GetDouble(1);
+                    //if (!reader.IsDBNull(2))
+                    //    gps.Z = reader.GetDouble(2);
                     if (!reader.IsDBNull(3))
                         gps.ManualAccuracy = reader.GetDouble(3);
                     if (!reader.IsDBNull(4))
@@ -1137,9 +1137,9 @@ namespace TwoTrails.DataAccess
                 (String.Format("'{0}'", updatedPoint.ManualAccuracy.ToString())));
             query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.GpsPointSchema.RMSEr, (updatedPoint.RMSEr == null) ? ("null") :
                 (String.Format("'{0}'", ((updatedPoint.RMSEr).ToString()))));
-            query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.GpsPointSchema.X, updatedPoint.X);
-            query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.GpsPointSchema.Y, updatedPoint.Y);
-            query.AppendFormat("{0} = {1} ", TwoTrailsSchema.GpsPointSchema.Z, updatedPoint.Z);
+            query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.GpsPointSchema.X, updatedPoint.UnAdjX);
+            query.AppendFormat("{0} = {1}, ", TwoTrailsSchema.GpsPointSchema.Y, updatedPoint.UnAdjY);
+            query.AppendFormat("{0} = {1} ", TwoTrailsSchema.GpsPointSchema.Z, updatedPoint.UnAdjZ);
 
             query.AppendFormat("where {0} = '{1}'", TwoTrailsSchema.SharedSchema.CN, updatedPoint.CN);
 
@@ -1619,15 +1619,15 @@ namespace TwoTrails.DataAccess
 
             //X
             queryBeginning.AppendFormat("{0},", TwoTrailsSchema.GpsPointSchema.X);
-            queryEnd.AppendFormat("'{0}',", gpsPoint.X);
+            queryEnd.AppendFormat("'{0}',", gpsPoint.UnAdjX);
 
             //Y
             queryBeginning.AppendFormat("{0},", TwoTrailsSchema.GpsPointSchema.Y);
-            queryEnd.AppendFormat("'{0}',", gpsPoint.Y);
+            queryEnd.AppendFormat("'{0}',", gpsPoint.UnAdjY);
 
             //Z
             queryBeginning.AppendFormat("{0}", TwoTrailsSchema.GpsPointSchema.Z);
-            queryEnd.AppendFormat("'{0}'", gpsPoint.Z);
+            queryEnd.AppendFormat("'{0}'", gpsPoint.UnAdjZ);
 
             queryBeginning.Append(") values ");
             queryEnd.Append(");");

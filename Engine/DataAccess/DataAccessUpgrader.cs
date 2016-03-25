@@ -50,21 +50,6 @@ namespace TwoTrails.DataAccess
                             UpgradeGroups() &&
                             UpgradePoints() &&
                             UpgradeNmea();
-
-                        /*
-                        if (success && oldData.DalVersion < DbReleaseVersions.D1_2_0)
-                        {
-                            List<TtPoint> ssps = GetPoints().Where(p => p.IsTravType()).ToList();
-
-                            double angle;
-                            foreach (TtPoint p in ssps)
-                            {
-                                ((SideShotPoint)p).SlopeAngle /= 3.6;
-                            }
-
-                            SavePoints(ssps);
-                        }
-                        */
                     }
                 }
             }
@@ -1409,12 +1394,7 @@ namespace TwoTrails.DataAccess
             if (obj.GetType() != typeof(TtDalVersion))
                 return false;
 
-            TtDalVersion compVersion = (TtDalVersion)obj;
-
-            if (Major == compVersion.Major && Minor == compVersion.Minor && Update == compVersion.Update)
-                return true;
-
-            return false;
+            return this == (TtDalVersion)obj;
         }
     }
 }

@@ -170,12 +170,12 @@ namespace TwoTrails.Controls
         {
             if (textBoxX.Text.IsDouble())
             {
-                _current.X = textBoxX.Text.ToDouble();
-                _current.UnAdjX = _current.X;
+                _current.UnAdjX = textBoxX.Text.ToDouble();
+                //_current.UnAdjX = _current.X;
             }
             else
             {
-                _current.X = _current.UnAdjX = 0;
+                _current.UnAdjX = _current.UnAdjX = 0;
             }
 
             #region Trigger Event
@@ -191,12 +191,12 @@ namespace TwoTrails.Controls
         {
             if (textBoxY.Text.IsDouble())
             {
-                _current.Y = textBoxY.Text.ToDouble();
-                _current.UnAdjY = _current.Y;
+                _current.UnAdjY = textBoxY.Text.ToDouble();
+                //_current.UnAdjY = _current.Y;
             }
             else
             {
-                _current.Y = _current.UnAdjY = 0;
+                _current.UnAdjY = _current.UnAdjY = 0;
             }
 
             #region Trigger Event
@@ -212,12 +212,12 @@ namespace TwoTrails.Controls
         {
             if (textBoxZ.Text.IsDouble())
             {
-                _current.Z = textBoxZ.Text.ToDouble();
-                _current.UnAdjZ = _current.Z;
+                _current.UnAdjZ = textBoxZ.Text.ToDouble();
+                //_current.UnAdjZ = _current.Z;
             }
             else
             {
-                _current.Z = _current.UnAdjZ = 0;
+                _current.UnAdjZ = _current.UnAdjZ = 0;
             }
 
             #region Trigger Event

@@ -917,9 +917,9 @@ namespace TwoTrails.Forms
                 p.UnAdjX = pointX;
                 p.UnAdjY = pointY;
                 p.UnAdjZ = pointZ;
-                p.X = p.UnAdjX;
-                p.Y = p.UnAdjY;
-                p.Z = p.UnAdjZ;
+                //p.X = p.UnAdjX;
+                //p.Y = p.UnAdjY;
+                //p.Z = p.UnAdjZ;
                 p.RMSEr = (pointRMSEr > Values.Settings.DeviceOptions.MIN_POINT_ACCURACY) ?
                     pointRMSEr : Values.Settings.DeviceOptions.DEFAULT_POINT_ACCURACY; ;
 

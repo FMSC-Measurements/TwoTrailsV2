@@ -512,9 +512,9 @@ namespace TwoTrails.Utilities
 
                         if (p.IsGpsType())
                         {
-                            pl.Add(((GpsPoint)p).X.ToString());
-                            pl.Add(((GpsPoint)p).Y.ToString());
-                            pl.Add(((GpsPoint)p).Z.ToString());
+                            pl.Add(p.UnAdjX.ToString());
+                            pl.Add(p.UnAdjY.ToString());
+                            pl.Add(p.UnAdjZ.ToString());
                             pl.Add(((GpsPoint)p).RMSEr.ToString());
                             pl.Add(((GpsPoint)p).ManualAccuracy.ToString());
                         }
