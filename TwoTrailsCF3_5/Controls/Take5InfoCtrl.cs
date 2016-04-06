@@ -86,5 +86,15 @@ namespace TwoTrails.Controls
         {
             btnHide_Click2(sender, e);
         }
+
+        private void txtIgnore_GotFocus(object sender, EventArgs e)
+        {
+            txtIgnore_GotFocus2(sender, e);
+        }
+
+        private void txtIgnore_LostFocus(object sender, EventArgs e)
+        {
+            txtIgnore_LostFocus(sender, e);
+        }
     }
 }

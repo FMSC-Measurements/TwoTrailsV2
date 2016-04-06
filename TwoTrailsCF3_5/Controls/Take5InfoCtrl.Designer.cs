@@ -158,6 +158,8 @@
             this.txtIgnore.TabIndex = 20;
             this.txtIgnore.TabStop = false;
             this.txtIgnore.TextChanged += new System.EventHandler(this.txtIgnore_TextChanged);
+            this.txtIgnore.GotFocus += new System.EventHandler(this.txtIgnore_GotFocus);
+            this.txtIgnore.LostFocus += new System.EventHandler(this.txtIgnore_LostFocus);
             // 
             // label4
             // 
