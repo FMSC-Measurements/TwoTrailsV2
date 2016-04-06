@@ -214,9 +214,9 @@ namespace TwoTrails.Forms
                     CurrentPoint.UnAdjX = b._X;
                     CurrentPoint.UnAdjY = b._Y;
                     CurrentPoint.UnAdjZ = b._Z;
-                    CurrentPoint.X = b._X;
-                    CurrentPoint.Y = b._Y;
-                    CurrentPoint.Z = b._Z;
+                    //CurrentPoint.X = b._X;
+                    //CurrentPoint.Y = b._Y;
+                    //CurrentPoint.Z = b._Z;
                     CurrentPoint.Time = DateTime.Now;
                     CurrentPoint.MetaDefCN = _currmeta.CN;
                     CurrentPoint.RMSEr = Values.Settings.DeviceOptions.MIN_POINT_ACCURACY;

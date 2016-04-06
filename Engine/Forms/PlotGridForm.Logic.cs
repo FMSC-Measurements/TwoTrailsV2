@@ -359,9 +359,9 @@ namespace TwoTrails.Forms
                             way = new WayPoint();
 
                             DoublePoint dp = dblPts[a];
-                            way.X = dp.X;
+                            //way.X = dp.X;
                             way.UnAdjX = dp.X;
-                            way.Y = dp.Y;
+                            //way.Y = dp.Y;
                             way.UnAdjY = dp.Y;
                             way.UnAdjZ = 0;
                             way.PolyCN = newPoly.CN;

@@ -1370,8 +1370,8 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
         {
             if (loaded)
             {
-                UpdatedPoint.UnAdjX = gpsInfoControl1.CurrentPoint.X;
-                ((GpsPoint)UpdatedPoint).X = gpsInfoControl1.CurrentPoint.X;
+                UpdatedPoint.UnAdjX = gpsInfoControl1.CurrentPoint.UnAdjX;
+                //((GpsPoint)UpdatedPoint).X = gpsInfoControl1.CurrentPoint.X;
                 _dirty = true;
             }
         }
@@ -1380,8 +1380,8 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
         {
             if (loaded)
             {
-                UpdatedPoint.UnAdjY = gpsInfoControl1.CurrentPoint.Y;
-                ((GpsPoint)UpdatedPoint).Y = gpsInfoControl1.CurrentPoint.Y;
+                UpdatedPoint.UnAdjY = gpsInfoControl1.CurrentPoint.UnAdjY;
+                //((GpsPoint)UpdatedPoint).Y = gpsInfoControl1.CurrentPoint.Y;
                 _dirty = true;
             }
         }
@@ -1390,8 +1390,8 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
         {
             if (loaded)
             {
-                UpdatedPoint.UnAdjZ = gpsInfoControl1.CurrentPoint.Z;
-                ((GpsPoint)UpdatedPoint).Z = gpsInfoControl1.CurrentPoint.Z;
+                UpdatedPoint.UnAdjZ = gpsInfoControl1.CurrentPoint.UnAdjZ;
+                //((GpsPoint)UpdatedPoint).Z = gpsInfoControl1.CurrentPoint.Z;
                 _dirty = true;
             }
         }
@@ -1436,9 +1436,9 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                                     up.UnAdjX = gpsPoint.UnAdjX;
                                     up.UnAdjY = gpsPoint.UnAdjY;
                                     up.UnAdjZ = gpsPoint.UnAdjZ;
-                                    up.X = gpsPoint.X;
-                                    up.Y = gpsPoint.Y;
-                                    up.Z = gpsPoint.Z;
+                                    //up.X = gpsPoint.X;
+                                    //up.Y = gpsPoint.Y;
+                                    //up.Z = gpsPoint.Z;
                                     up.RMSEr = gpsPoint.RMSEr;
 
                                     GetConversion(ref _UpdatedPoint);
@@ -1520,9 +1520,9 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                                 currGps.UnAdjX = gpsPoint.UnAdjX;
                                 currGps.UnAdjY = gpsPoint.UnAdjY;
                                 currGps.UnAdjZ = gpsPoint.UnAdjZ;
-                                currGps.X = gpsPoint.X;
-                                currGps.Y = gpsPoint.Y;
-                                currGps.Z = gpsPoint.Z;
+                                ////currGps.X = gpsPoint.X;
+                                ////currGps.Y = gpsPoint.Y;
+                                ////currGps.Z = gpsPoint.Z;
                                 currGps.RMSEr = gpsPoint.RMSEr;
 
                                 _UpdatedPoint = currGps;

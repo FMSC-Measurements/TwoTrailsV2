@@ -221,9 +221,9 @@ namespace TwoTrails.Forms
                     {
                         gps = (GpsPoint)point;
 
-                        row[17] = gps.X;
-                        row[18] = gps.Y;
-                        row[19] = gps.Z;
+                        row[17] = gps.UnAdjX;
+                        row[18] = gps.UnAdjY;
+                        row[19] = gps.UnAdjZ;
 
                         if (gps.RMSEr != null) { row[20] = gps.RMSEr; }
 
@@ -681,29 +681,29 @@ namespace TwoTrails.Forms
                         case 17:
                             if (isnull)
                             {
-                                gps.X = 0;
+                                gps.UnAdjX = 0;
                                 EditTable.Rows[e.RowIndex][e.ColumnIndex] = 0;
                             }
                             else
-                                gps.X = (double)value;
+                                gps.UnAdjX = (double)value;
                             break;
                         case 18:
                             if (isnull)
                             {
-                                gps.Y = 0;
+                                gps.UnAdjY = 0;
                                 EditTable.Rows[e.RowIndex][e.ColumnIndex] = 0;
                             }
                             else
-                                gps.Y = (double)value;
+                                gps.UnAdjY = (double)value;
                             break;
                         case 19:
                             if (isnull)
                             {
-                                gps.Z = 0;
+                                gps.UnAdjZ = 0;
                                 EditTable.Rows[e.RowIndex][e.ColumnIndex] = 0;
                             }
                             else
-                                gps.Z = (double)value;
+                                gps.UnAdjZ = (double)value;
                             break;
                     }
                 }
@@ -921,9 +921,9 @@ namespace TwoTrails.Forms
                 {
                     GpsPoint gps = (GpsPoint)point;
 
-                    row[17] = gps.X;
-                    row[18] = gps.Y;
-                    row[19] = gps.Z;
+                    row[17] = gps.UnAdjX;
+                    row[18] = gps.UnAdjY;
+                    row[19] = gps.UnAdjZ;
 
                     if (gps.RMSEr != null) { row[20] = gps.RMSEr; }
 

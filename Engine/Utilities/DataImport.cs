@@ -446,20 +446,16 @@ namespace TwoTrails.Utilities
                             tmp = details[xIndex];
                             if (tmp.Length > 0 && tmp.IsDouble())
                             {
-                                p.X = Convert.ToDouble(tmp);
+                                p.UnAdjX = Convert.ToDouble(tmp);
                             }
                             else
-                                p.X = 0;
-
-                            p.UnAdjX = p.X;
+                                p.UnAdjX = 0;
 
                             tmp = details[yIndex];
                             if (tmp.Length > 0)
-                                p.Y = Convert.ToDouble(tmp);
+                                p.UnAdjY = Convert.ToDouble(tmp);
                             else
-                                p.Y = 0;
-
-                            p.UnAdjY = p.Y;
+                                p.UnAdjY = 0;
 
                             if (useElev)
                             {
@@ -467,29 +463,24 @@ namespace TwoTrails.Utilities
                                 if (tmp.Length > 0 && tmp.IsDouble())
                                 {
                                     if (elevFeet)
-                                        p.Z = TtUtils.ConvertToMeters(tmp.ToDouble(), Unit.FEET_TENTH);
+                                        p.UnAdjZ = TtUtils.ConvertToMeters(tmp.ToDouble(), Unit.FEET_TENTH);
                                     else
-                                        p.Z = tmp.ToDouble();
+                                        p.UnAdjZ = tmp.ToDouble();
                                 }
                                 else
                                 {
-                                    p.Z = 0;
+                                    p.UnAdjZ = 0;
                                 }
-
-                                p.UnAdjZ = p.Z;
                             }
 
                             if (latLng)
                             {
                                 double x, y;
 
-                                TtUtils.LatLontoUTM(p.Y, p.X, _Meta.Zone, out y, out x);
+                                TtUtils.LatLontoUTM(p.UnAdjY, p.UnAdjX, _Meta.Zone, out y, out x);
 
-                                p.X = x;
-                                p.Y = y;
-
-                                p.UnAdjX = p.X;
-                                p.UnAdjY = p.Y;
+                                p.UnAdjX = x;
+                                p.UnAdjY = y;
                             }
 
                         }
@@ -668,15 +659,15 @@ Check the error log for complete details.", "Import Error");
 
                                                 TtUtils.LatLontoUTM(lat, lon, _Meta.Zone, out utmY, out utmX);
 
-                                                point.X = utmX;
-                                                point.Y = utmY;
+                                                point.UnAdjX = utmX;
+                                                point.UnAdjY = utmY;
 
                                                 if (useElev)
                                                 {
                                                     if (elevFeet)
-                                                        point.Z = TtUtils.ConvertToMeters(elev, Unit.FEET_TENTH);
+                                                        point.UnAdjZ = TtUtils.ConvertToMeters(elev, Unit.FEET_TENTH);
                                                     else
-                                                        point.Z = elev;
+                                                        point.UnAdjZ = elev;
                                                 }
 
                                                 _Points.Add(point);
@@ -1026,12 +1017,12 @@ Check the error log for complete details.", "Import Error");
                             {
                                 gps = new GpsPoint(point);
 
-                                gps.X = metaKit.GetDouble(viewId, i, 4);
-                                gps.Y = metaKit.GetDouble(viewId, i, 5);
-                                gps.Z = metaKit.GetDouble(viewId, i, 6);
-                                gps.UnAdjX = gps.X;
-                                gps.UnAdjY = gps.Y;
-                                gps.UnAdjZ = gps.Z;
+                                gps.UnAdjX = metaKit.GetDouble(viewId, i, 4);
+                                gps.UnAdjY = metaKit.GetDouble(viewId, i, 5);
+                                gps.UnAdjZ = metaKit.GetDouble(viewId, i, 6);
+                                //gps.UnAdjX = gps.X;
+                                //gps.UnAdjY = gps.Y;
+                                //gps.UnAdjZ = gps.Z;
 
                                 tmpDouble = metaKit.GetDouble(viewId, i, 32);
                                 if (tmpDouble != 0)
@@ -1544,14 +1535,14 @@ Check the error log for complete details.", "Import Error");
                                     double x,y;
 
                                     TtUtils.LatLontoUTM(coord.Y, coord.X, _Meta.Zone, out y, out x);
-                                    
-                                    gps.X = x;
-                                    gps.Y = y;
+
+                                    gps.UnAdjX = x;
+                                    gps.UnAdjY = y;
                                 }
                                 else
                                 {
-                                    gps.X = coord.X;
-                                    gps.Y = coord.Y;
+                                    gps.UnAdjX = coord.X;
+                                    gps.UnAdjY = coord.Y;
                                 }
 
                                 if (useElev)
@@ -1559,15 +1550,15 @@ Check the error log for complete details.", "Import Error");
                                     if (coord.Z != double.NaN)
                                     {
                                         if (elevFeet)
-                                            gps.Z = TtUtils.ConvertToMeters(coord.Z, Unit.FEET_TENTH);
+                                            gps.UnAdjZ = TtUtils.ConvertToMeters(coord.Z, Unit.FEET_TENTH);
                                         else
-                                            gps.Z = coord.Z;
+                                            gps.UnAdjZ = coord.Z;
                                     }
                                     else
-                                        gps.Z = 0;
+                                        gps.UnAdjZ = 0;
                                 }
                                 else
-                                    gps.Z = 0;
+                                    gps.UnAdjZ = 0;
 
                                 gps.PolyCN = _Poly.CN;
                                 gps.PolyName = _Poly.Name;
@@ -1680,7 +1671,7 @@ Check the error log for complete details.", "Import Error");
                                         if (elevFeet)
                                             gps.UnAdjZ = TtUtils.ConvertToMeters(coord.Z, Unit.FEET_TENTH);
                                         else
-                                            gps.Z = coord.Z;
+                                            gps.UnAdjZ = coord.Z;
                                     }
                                     else
                                         gps.UnAdjZ = 0;

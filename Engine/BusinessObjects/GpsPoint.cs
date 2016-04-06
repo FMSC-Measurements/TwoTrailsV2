@@ -159,9 +159,9 @@ namespace TwoTrails.BusinessObjects
         {
             this.ManualAccuracy = p.ManualAccuracy;
             this.RMSEr = p.RMSEr;
-            this.X = p.X;
-            this.Y = p.Y;
-            this.Z = p.Z;
+            //this.X = p.X;
+            //this.Y = p.Y;
+            //this.Z = p.Z;
             this.AdjX = p.AdjX;
             this.AdjY = p.AdjY;
             this.AdjZ = p.AdjZ;
@@ -226,9 +226,9 @@ namespace TwoTrails.BusinessObjects
             return true;
         }
 
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Z { get; set; }
+        //public double X { get; set; }
+        //public double Y { get; set; }
+        //public double Z { get; set; }
     }
     #endregion
 }

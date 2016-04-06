@@ -189,9 +189,9 @@ namespace TwoTrails.Forms
                 if (p.op == OpType.GPS || p.op == OpType.Take5 || p.op == OpType.Walk || p.op == OpType.WayPoint)
                 {
                     GpsPoint gp = (GpsPoint)p;
-                    X = Math.Round(gp.X, 3).ToString();
-                    Y = Math.Round(gp.Y, 3).ToString();
-                    Z = Math.Round(gp.Z, 3).ToString();
+                    X = Math.Round(gp.UnAdjX, 3).ToString();
+                    Y = Math.Round(gp.UnAdjY, 3).ToString();
+                    Z = Math.Round(gp.UnAdjZ, 3).ToString();
                     AdjX = Math.Round(gp.AdjX, 3).ToString();
                     AdjY = Math.Round(gp.AdjY, 3).ToString();
                     AdjZ = Math.Round(gp.AdjZ, 3).ToString();

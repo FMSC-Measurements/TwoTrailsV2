@@ -670,13 +670,13 @@ namespace TwoTrails.Forms
                                 #region X
                                 if (statusX == TbStatus.OK)
                                 {
-                                    if (x > tmpGps.X)
+                                    if (x > tmpGps.UnAdjX)
                                         continue;
                                 }
 
                                 if (statusX2 == TbStatus.OK)
                                 {
-                                    if (x2 < tmpGps.X)
+                                    if (x2 < tmpGps.UnAdjX)
                                         continue;
                                 }
                                 #endregion
@@ -684,13 +684,13 @@ namespace TwoTrails.Forms
                                 #region Y
                                 if (statusY == TbStatus.OK)
                                 {
-                                    if (y > tmpGps.Y)
+                                    if (y > tmpGps.UnAdjY)
                                         continue;
                                 }
 
                                 if (statusY2 == TbStatus.OK)
                                 {
-                                    if (y2 < tmpGps.Y)
+                                    if (y2 < tmpGps.UnAdjY)
                                         continue;
                                 }
                                 #endregion
@@ -698,13 +698,13 @@ namespace TwoTrails.Forms
                                 #region Z
                                 if (statusZ == TbStatus.OK)
                                 {
-                                    if (z > tmpGps.Z)
+                                    if (z > tmpGps.UnAdjZ)
                                         continue;
                                 }
 
                                 if (statusZ2 == TbStatus.OK)
                                 {
-                                    if (z2 < tmpGps.Z)
+                                    if (z2 < tmpGps.UnAdjZ)
                                         continue;
                                 }
                                 #endregion
@@ -2042,9 +2042,9 @@ namespace TwoTrails.Forms
                         {
                             GpsPoint gps = (GpsPoint)CurrentPoint;
 
-                            txtX.Text = gps.X.ToString("0.###");
-                            txtY.Text = gps.Y.ToString("0.###");
-                            txtZ.Text = gps.Z.ToString("0.###");
+                            txtX.Text = gps.UnAdjX.ToString("0.###");
+                            txtY.Text = gps.UnAdjY.ToString("0.###");
+                            txtZ.Text = gps.UnAdjZ.ToString("0.###");
 
                             if (gps.ManualAccuracy != null && gps.ManualAccuracy >= 0)
                                 txtManAcc.Text = gps.ManualAccuracy.ToString();
@@ -2919,7 +2919,7 @@ namespace TwoTrails.Forms
                         if (CurrentPoint != null)
                         {
                             GpsPoint p = CurrentPoint as GpsPoint;
-                            p.X = value;
+                            //p.X = value;
                             p.UnAdjX = value;
 
                             urManager.EditPoint(_CurrentPoint, _EditPoints);
@@ -2939,7 +2939,7 @@ namespace TwoTrails.Forms
                             if (tmpPoint.IsGpsType())
                             {
                                 gps = tmpPoint as GpsPoint;
-                                gps.X = value;
+                                //gps.X = value;
                                 gps.UnAdjX = value;
                                 points.Add(tmpPoint);
                             }
@@ -2965,7 +2965,7 @@ namespace TwoTrails.Forms
                         if (CurrentPoint != null)
                         {
                             GpsPoint p = CurrentPoint as GpsPoint;
-                            p.Y = value;
+                            //p.Y = value;
                             p.UnAdjY = value;
 
                             urManager.EditPoint(_CurrentPoint, _EditPoints);
@@ -2985,7 +2985,7 @@ namespace TwoTrails.Forms
                             if (tmpPoint.IsGpsType())
                             {
                                 gps = tmpPoint as GpsPoint;
-                                gps.Y = value;
+                                //gps.Y = value;
                                 gps.UnAdjY = value;
                                 points.Add(tmpPoint);
                             }
@@ -3011,7 +3011,7 @@ namespace TwoTrails.Forms
                         if (CurrentPoint != null)
                         {
                             GpsPoint p = CurrentPoint as GpsPoint;
-                            p.Z = value;
+                            //p.Z = value;
                             p.UnAdjZ = value;
 
                             urManager.EditPoint(_CurrentPoint, _EditPoints);
@@ -3031,7 +3031,7 @@ namespace TwoTrails.Forms
                             if (tmpPoint.IsGpsType())
                             {
                                 gps = tmpPoint as GpsPoint;
-                                gps.Z = value;
+                                //gps.Z = value;
                                 gps.UnAdjZ = value;
                                 points.Add(tmpPoint);
                             }
@@ -3959,9 +3959,9 @@ namespace TwoTrails.Forms
 
                         if (p.IsGpsType())
                         {
-                            pl.Add(((GpsPoint)p).X.ToString());
-                            pl.Add(((GpsPoint)p).Y.ToString());
-                            pl.Add(((GpsPoint)p).Z.ToString());
+                            pl.Add(p.UnAdjX.ToString());
+                            pl.Add(p.UnAdjY.ToString());
+                            pl.Add(p.UnAdjZ.ToString());
                             pl.Add(((GpsPoint)p).RMSEr.ToString()); //20
                             pl.Add(((GpsPoint)p).ManualAccuracy.ToString());
                         }
