@@ -224,6 +224,12 @@ namespace TwoTrails.Controls
             Kb.ShowNumeric(this, txtBursts);
         }
 
+        private void txtIgnore_GotFocus2(object sender, EventArgs e)
+        {
+            ControlsFocused();
+            Kb.ShowNumeric(this, txtBursts);
+        }
+
         private void txtDOP_LostFocus2(object sender, EventArgs e)
         {
             Kb.Hide(this);
@@ -234,11 +240,18 @@ namespace TwoTrails.Controls
             Kb.Hide(this);
         }
 
+        private void txtIgnore_LostFocus2(object sender, EventArgs e)
+        {
+            Kb.Hide(this);
+        }
+
         private void Take5InfoCtrl_Click2(object sender, EventArgs e)
         {
             ControlsFocused();
             Kb.Hide(this);
         }
+
+
         #endregion
         #endregion
 
