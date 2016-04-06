@@ -183,6 +183,7 @@ namespace TwoTrails.Forms
                 {
                     _PointCNs.Add(_Points[i].CN);
                 }
+                _dirty = false;
             }
         }
 
@@ -354,16 +355,23 @@ namespace TwoTrails.Forms
                             MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                     }
                 }
-                else if (!phv && UpdatedPoint.IsTravType() && !_closing && CurrPoint != null)
+                else if (!phv)
                 {
-                    SideShotPoint sp = UpdatedPoint as SideShotPoint;
-                    if (sp.ForwardAz == null && sp.BackwardAz == null)
+                    if (UpdatedPoint.IsTravType() && !_closing && CurrPoint != null)
                     {
-                        MessageBox.Show("Foward Azimuth and/or Backward Azimuth must contain a value.");
+                        SideShotPoint sp = UpdatedPoint as SideShotPoint;
+                        if (sp.ForwardAz == null && sp.BackwardAz == null)
+                        {
+                            MessageBox.Show("Foward Azimuth and/or Backward Azimuth must contain a value.");
+                        }
+                        else if (sp.SlopeDistance <= 0)
+                        {
+                            MessageBox.Show("Slope Distance must contain a value greater than 0.");
+                        } 
                     }
-                    else if (sp.SlopeDistance <= 0)
+                    else if (Values.Settings.ProjectOptions.DropZero)
                     {
-                       MessageBox.Show("Slope Distance must contain a value greater than 0.");
+                        DeletePoint();
                     }
                 }
             }
@@ -1708,25 +1716,29 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
             {
                 try
                 {
-                    using (Take5Form form = new Take5Form(pointInfoCtrl.Polygon, DAL, CurrMeta, (int)UpdatedPoint.Index))
+                    SavePoint();
+                    using (Take5Form form = new Take5Form(pointInfoCtrl.Polygon, DAL, CurrMeta, CurrPointIndex))
                     {
-                        form.ShowDialog();
-                        LoadPoints();
-                        _dirty = false;
-                        MoveToLastPoint();
-                        pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
-                        AdjustNavControls();
-                        _adjust = true;
-                        LockControls(true);
-                        TtUtils.HideWaitCursor();
-
-                        GC.Collect();
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            LoadPoints();
+                            MoveToLastPoint();
+                            pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
+                            AdjustNavControls();
+                            LockControls(true);
+                            TtUtils.HideWaitCursor();
+                            _adjust = true;
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                     TtUtils.WriteError(ex.Message, "PointEditLogic:Take5Setup");
                     MessageBox.Show("Take5 Form Error");
+                }
+                finally
+                {
+                    GC.Collect();
                 }
             }
             else
@@ -1755,7 +1767,8 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
             {
                 try
                 {
-                    using (WalkForm form = new WalkForm(pointInfoCtrl.Polygon, DAL, CurrMeta, (int)UpdatedPoint.Index))
+                    SavePoint();
+                    using (WalkForm form = new WalkForm(pointInfoCtrl.Polygon, DAL, CurrMeta, CurrPointIndex))
                     {
                         if (form.ShowDialog() == DialogResult.OK)
                         {
@@ -1763,18 +1776,21 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                             MoveToLastPoint();
                             pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
                             AdjustNavControls();
-                            TtUtils.HideWaitCursor();
                             LockControls(true);
+                            TtUtils.HideWaitCursor();
+                            _adjust = true;
                         }
                     }
-
-                    GC.Collect();
                 }
                 catch (Exception ex)
                 {
                     TtUtils.HideWaitCursor();
                     TtUtils.WriteError(ex.Message, "PointEditLogic:WalkSetup");
                     MessageBox.Show("Walk Form Error");
+                }
+                finally
+                {
+                    GC.Collect();
                 }
             }
             else

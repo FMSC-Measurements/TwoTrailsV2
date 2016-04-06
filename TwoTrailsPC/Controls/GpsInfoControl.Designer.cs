@@ -51,7 +51,7 @@
             // 
             // textBoxX
             // 
-            this.textBoxX.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "X", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
+            this.textBoxX.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjX", true));
             this.textBoxX.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxX.Location = new System.Drawing.Point(30, 3);
             this.textBoxX.Name = "textBoxX";
@@ -66,7 +66,7 @@
             // 
             // textBoxY
             // 
-            this.textBoxY.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "Y", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
+            this.textBoxY.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjY", true));
             this.textBoxY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxY.Location = new System.Drawing.Point(30, 30);
             this.textBoxY.Name = "textBoxY";
@@ -76,7 +76,7 @@
             // 
             // textBoxZ
             // 
-            this.textBoxZ.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "Z", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
+            this.textBoxZ.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjZ", true));
             this.textBoxZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxZ.Location = new System.Drawing.Point(30, 57);
             this.textBoxZ.Name = "textBoxZ";

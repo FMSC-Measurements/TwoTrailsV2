@@ -63,7 +63,6 @@ namespace TwoTrails.Forms
             logging = false;
             this.DialogResult = DialogResult.Cancel;
             OnBound = true;
-            _index = 0;
 
             lblPoly.Text = "Poly: " + Polygon.Name;
 
@@ -181,16 +180,16 @@ namespace TwoTrails.Forms
         {
             try
             {
+                if (WalkGroup == null)
+                {
+                    WalkGroup = new TtGroup();
+                    WalkGroup.SetGroupName(String.Format("Walk_{0}", WalkGroup.CN.Truncate(8)), null);
+
+                    DAL.InsertGroup(WalkGroup);
+                }
+
                 if (CurrentPoint != null)
                 {
-                    if (WalkGroup == null)
-                    {
-                        WalkGroup = new TtGroup();
-                        WalkGroup.SetGroupName(String.Format("Walk_{0}", WalkGroup.CN.Truncate(8)), null);
-
-                        DAL.InsertGroup(WalkGroup);
-                    }
-
                     DAL.InsertPoint(CurrentPoint);
                     DAL.SaveNmeaBurst(CurrentNmea, CurrentPoint.CN);
 
