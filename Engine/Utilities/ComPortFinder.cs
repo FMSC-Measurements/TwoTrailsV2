@@ -197,7 +197,7 @@ namespace TwoTrails.Utilities
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(String.Format("{0}|{2}:{1}", num, ex.Message, device.Baud), "autofind");
+                        TtUtils.WriteError(String.Format("{0}|{2}:{1}", num, ex.Message, device.Baud), "autofind", ex.StackTrace);
                         break;
                     }
                     finally
@@ -212,7 +212,7 @@ namespace TwoTrails.Utilities
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "ComPortFinder:RunCheck");
+                TtUtils.WriteError(ex.Message, "ComPortFinder:RunCheck", ex.StackTrace);
             }
 
             lock (_Devices)

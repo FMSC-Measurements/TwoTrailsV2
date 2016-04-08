@@ -206,7 +206,7 @@ namespace TwoTrails.BusinessLogic
 #if !(PocketPC || WindowsCE || Mobile)
                 Values.UpdateStatusText("Polygon Adjustment Failed. See Error Log for details.");
 #endif
-                TtUtils.WriteError(ex.Message, "SegmentFactory:PolygonAdjuster");
+                TtUtils.WriteError(ex.Message, "SegmentFactory:PolygonAdjuster", ex.StackTrace);
 
                 return false;
             }
@@ -298,7 +298,7 @@ namespace TwoTrails.BusinessLogic
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(ex.Message, "SegmentFactory:CalculateAreaAndPerimeter");
+                        TtUtils.WriteError(ex.Message, "SegmentFactory:CalculateAreaAndPerimeter", ex.StackTrace);
                     }
                 }
             }

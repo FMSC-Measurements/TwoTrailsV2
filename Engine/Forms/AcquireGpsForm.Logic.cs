@@ -108,7 +108,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "AcquireGpsFormLogic:CloseForm");
+                    TtUtils.WriteError(ex.Message, "AcquireGpsFormLogic:CloseForm", ex.StackTrace);
                 }
             }
         }

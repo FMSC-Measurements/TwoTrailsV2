@@ -81,7 +81,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MetadataForm:Init-GetMetaData");
+                TtUtils.WriteError(ex.Message, "MetadataForm:Init-GetMetaData", ex.StackTrace);
             }
 
             _dirty = false;
@@ -223,7 +223,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MetaDataFormLogic:Bind");
+                TtUtils.WriteError(ex.Message, "MetaDataFormLogic:Bind", ex.StackTrace);
             }
         }
 
@@ -260,7 +260,7 @@ namespace TwoTrails.Forms
                 }
                 catch(Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "MetadataFormLogic:SaveMeta");
+                    TtUtils.WriteError(ex.Message, "MetadataFormLogic:SaveMeta", ex.StackTrace);
                 }
 
                 TtUtils.HideWaitCursor();

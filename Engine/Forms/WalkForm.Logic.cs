@@ -200,7 +200,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "WalkFormLogic:CreateWalkPoint-Save Current Point");
+                TtUtils.WriteError(ex.Message, "WalkFormLogic:CreateWalkPoint-Save Current Point", ex.StackTrace);
             }
 
             LastNmea = CurrentNmea;
@@ -244,7 +244,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "WalkFormLogic:CreateWalkPoint");
+                    TtUtils.WriteError(ex.Message, "WalkFormLogic:CreateWalkPoint", ex.StackTrace);
                 }
             }
         }
@@ -270,7 +270,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "WalkFormLogic:SetupPoint");
+                TtUtils.WriteError(ex.Message, "WalkFormLogic:SetupPoint", ex.StackTrace);
                 return false;
             }
 
@@ -400,7 +400,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "WalkFormLogic:Ok:SavePoints");
+                TtUtils.WriteError(ex.Message, "WalkFormLogic:Ok:SavePoints", ex.StackTrace);
             }
             Kb.Hide(this);
             TtUtils.HideWaitCursor();
@@ -441,7 +441,7 @@ namespace TwoTrails.Forms
             }
             catch(Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "WalkFormLogic:btnCapture");
+                TtUtils.WriteError(ex.Message, "WalkFormLogic:btnCapture", ex.StackTrace);
             }
         }
 

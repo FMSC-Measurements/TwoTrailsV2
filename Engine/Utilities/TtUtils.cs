@@ -1966,38 +1966,33 @@ namespace TwoTrails.Utilities
         private static ReaderWriterLockSlim _writeLock;
 #endif
 
-        public static void WriteError()
-        {
-            WriteError("Unknown Error");
-        }
+//        public static void WriteError(string error)
+//        {
+//            new Thread(() =>
+//            {
+//                Thread.CurrentThread.IsBackground = true;
+//#if !(PocketPC || WindowsCE || Mobile)
+//                _writeLock.EnterWriteLock();
+//#endif
+//                try
+//                {
+//                    using (StreamWriter sw = new StreamWriter(FILENAME, true))
+//                    {
+//                        sw.WriteLine(String.Format("ERR:[{0}]: {1}", DateTime.Now.ToString(), error));
+//                    }
+//                }
+//                catch
+//                {
 
-        public static void WriteError(string error)
-        {
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-#if !(PocketPC || WindowsCE || Mobile)
-                _writeLock.EnterWriteLock();
-#endif
-                try
-                {
-                    using (StreamWriter sw = new StreamWriter(FILENAME, true))
-                    {
-                        sw.WriteLine(String.Format("ERR:[{0}]: {1}", DateTime.Now.ToString(), error));
-                    }
-                }
-                catch
-                {
-
-                }
-#if !(PocketPC || WindowsCE || Mobile)
-                finally
-                {
-                    _writeLock.ExitWriteLock();
-                }
-#endif
-            }).Start();
-        }
+//                }
+//#if !(PocketPC || WindowsCE || Mobile)
+//                finally
+//                {
+//                    _writeLock.ExitWriteLock();
+//                }
+//#endif
+//            }).Start();
+//        }
 
         public static void WriteError(string error, string codePage)
         {

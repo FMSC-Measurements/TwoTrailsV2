@@ -552,7 +552,7 @@ namespace TwoTrails.Utilities
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "ImportFormnLogic:ParseTxt");
+                TtUtils.WriteError(ex.Message, "ImportFormnLogic:ParseTxt", ex.StackTrace);
                 MessageBox.Show(@"An Error has occured while importing data. 
 Make sure other applications are not using the file which is being imported.
 Check the error log for complete details.", "Import Error");
@@ -707,7 +707,7 @@ Check the error log for complete details.", "Import Error");
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "DataImport:ImportGpx");
+                    TtUtils.WriteError(ex.Message, "DataImport:ImportGpx", ex.StackTrace);
                     return false;
                 }
             }
@@ -1217,7 +1217,7 @@ Check the error log for complete details.", "Import Error");
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataImport:ImportTt");
+                TtUtils.WriteError(ex.Message, "DataImport:ImportTt", ex.StackTrace);
                 return false;
             }
 

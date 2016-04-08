@@ -172,7 +172,7 @@ namespace TwoTrails.Forms
                     catch (Exception ex)
                     {
                         MapValues.mapHasBackground = false;
-                        TtUtils.WriteError(ex.Message, "MapForm:InitValues:MapBackground");
+                        TtUtils.WriteError(ex.Message, "MapForm:InitValues:MapBackground", ex.StackTrace);
                         MessageBox.Show("Map Background Error, see log for details.");
                     }
                 }
@@ -264,7 +264,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic");
+                TtUtils.WriteError(ex.Message, "MapFormLogic:Draw", ex.StackTrace);
                 MessageBox.Show("An Error has occured.");
                 this.Close();
             }
@@ -318,7 +318,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic");
+                TtUtils.WriteError(ex.Message, "MapFormLogic:DrawPaint", ex.StackTrace);
                 MessageBox.Show("An Error has occured.");
                 this.Close();
             }
@@ -553,7 +553,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic- DrawPoint");
+                TtUtils.WriteError(ex.Message, "MapFormLogic- DrawPoint", ex.StackTrace);
             }
 
         }
@@ -588,7 +588,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic- WayPoint");
+                TtUtils.WriteError(ex.Message, "MapFormLogic- WayPoint", ex.StackTrace);
             }
         }
 
@@ -636,7 +636,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic- MiscPoint");
+                TtUtils.WriteError(ex.Message, "MapFormLogic- MiscPoint", ex.StackTrace);
             }
         }
 
@@ -695,7 +695,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic- BoundTrail");
+                TtUtils.WriteError(ex.Message, "MapFormLogic- BoundTrail", ex.StackTrace);
             }
         }
 
@@ -742,7 +742,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic- NavTrail");
+                TtUtils.WriteError(ex.Message, "MapFormLogic- NavTrail", ex.StackTrace);
             }
         }
 
@@ -767,7 +767,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic- MyPos");
+                TtUtils.WriteError(ex.Message, "MapFormLogic- MyPos", ex.StackTrace);
             }
         }
 
@@ -816,7 +816,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic- Grid");
+                TtUtils.WriteError(ex.Message, "MapFormLogic- Grid", ex.StackTrace);
             }
         }
 
@@ -1680,7 +1680,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MapFormLogic");
+                TtUtils.WriteError(ex.Message, "MapFormLogic", ex.StackTrace);
             }
 
             drawPanel.Refresh();

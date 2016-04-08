@@ -124,7 +124,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "GroudEditForm:Save");
+                TtUtils.WriteError(ex.Message, "GroudEditForm:Save", ex.StackTrace);
             }
 
             this.Close();

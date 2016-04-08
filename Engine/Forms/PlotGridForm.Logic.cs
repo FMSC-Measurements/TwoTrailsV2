@@ -418,7 +418,7 @@ namespace TwoTrails.Forms
                 {
                     if (!_killThread)
                     {
-                        TtUtils.WriteError(ex.Message, "PlotGirdFormLogic:Generate");
+                        TtUtils.WriteError(ex.Message, "PlotGirdFormLogic:Generate", ex.StackTrace);
                         MessageBox.Show("Plot Generate Error.");
                     }
                 }
@@ -478,7 +478,7 @@ namespace TwoTrails.Forms
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(ex.Message, "PlotGridFormLogic::btnPlot(Sample)");
+                        TtUtils.WriteError(ex.Message, "PlotGridFormLogic::btnPlot(Sample)", ex.StackTrace);
                     }
                 }
                 else
@@ -542,7 +542,7 @@ namespace TwoTrails.Forms
                             }
                             catch (Exception ex)
                             {
-                                TtUtils.WriteError(ex.Message, "PlotGridFormLogic::btnPlot");
+                                TtUtils.WriteError(ex.Message, "PlotGridFormLogic::btnPlot", ex.StackTrace);
                             }
                         }
                     }

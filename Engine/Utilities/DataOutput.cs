@@ -627,7 +627,7 @@ namespace TwoTrails.Utilities
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "DataOutput:WritePoints");
+                    TtUtils.WriteError(ex.Message, "DataOutput:WritePoints", ex.StackTrace);
                     throw ex;
                 }
             }
@@ -1401,7 +1401,7 @@ namespace TwoTrails.Utilities
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "DataOutput:WriteKmzFile");
+                    TtUtils.WriteError(ex.Message, "DataOutput:WriteKmzFile", ex.StackTrace);
                 }
             }
 

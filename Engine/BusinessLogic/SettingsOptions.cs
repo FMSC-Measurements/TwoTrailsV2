@@ -29,7 +29,7 @@ namespace TwoTrails.BusinessLogic
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "SettingsOpetions- RecentProject");
+                TtUtils.WriteError(ex.Message, "SettingsOpetions- RecentProject", ex.StackTrace);
             }
         }
 

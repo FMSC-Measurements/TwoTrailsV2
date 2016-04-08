@@ -350,7 +350,7 @@ namespace TwoTrails.Forms
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(ex.Message, "PointEditFormLogic:SavePoint");
+                        TtUtils.WriteError(ex.Message, "PointEditFormLogic:SavePoint", ex.StackTrace);
                         MessageBox.Show("Point Save Error.", "Error", MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                     }
@@ -509,7 +509,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointFormEditLogc:CreateNewPoint-Update indexes");
+                    TtUtils.WriteError(ex.Message, "PointFormEditLogc:CreateNewPoint-Update indexes", ex.StackTrace);
                 }
             }
 
@@ -1040,7 +1040,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointEditFormLogic");
+                    TtUtils.WriteError(ex.Message, "PointEditFormLogic", ex.StackTrace);
                 }
             }
 
@@ -1270,7 +1270,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointEditFormLogic:PointInfoCtrl-changeOp");
+                    TtUtils.WriteError(ex.Message, "PointEditFormLogic:PointInfoCtrl-changeOp", ex.StackTrace);
                     MessageBox.Show("Point conversion error.");
                 }
             }
@@ -1359,7 +1359,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointEditFormLogic:DelNmea");
+                    TtUtils.WriteError(ex.Message, "PointEditFormLogic:DelNmea", ex.StackTrace);
                 }
 
             }
@@ -1460,7 +1460,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                         }
                         catch (Exception ex)
                         {
-                            TtUtils.WriteError(ex.Message, "PointEditFormLogic");
+                            TtUtils.WriteError(ex.Message, "PointEditFormLogic", ex.StackTrace);
                             MessageBox.Show("Aquire GPS Form error.");
                         }
                     }
@@ -1491,7 +1491,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message);
+                TtUtils.WriteError(ex.Message, "PointEdit:gpsWayInputCtrl1_OnAcquire", ex.StackTrace);
             }
         }
 
@@ -1733,7 +1733,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointEditLogic:Take5Setup");
+                    TtUtils.WriteError(ex.Message, "PointEditLogic:Take5Setup", ex.StackTrace);
                     MessageBox.Show("Take5 Form Error");
                 }
                 finally
@@ -1785,7 +1785,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 catch (Exception ex)
                 {
                     TtUtils.HideWaitCursor();
-                    TtUtils.WriteError(ex.Message, "PointEditLogic:WalkSetup");
+                    TtUtils.WriteError(ex.Message, "PointEditLogic:WalkSetup", ex.StackTrace);
                     MessageBox.Show("Walk Form Error");
                 }
                 finally

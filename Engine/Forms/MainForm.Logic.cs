@@ -123,7 +123,7 @@ namespace TwoTrails.Forms
                 Directory.CreateDirectory(Values.DefaultSaveFolder);
             }
 #else
-            TtUtils.WriteEvent("TwoTrails (PC): Loaded", true);
+            TtUtils.WriteEvent(String.Format("TwoTrails (PC {0}): Loaded", Engine.Values.TwoTrailsVersion), true);
 #endif
 
             TtUtils.HideWaitCursor();
@@ -320,7 +320,7 @@ namespace TwoTrails.Forms
             {
                 TtUtils.HideWaitCursor();
                 AutoClosingMessageBox.Show("Open Point Table Error", "Table Error", 1);
-                TtUtils.WriteError(ex.Message, "MainFormLogic:btnEditPointTable");
+                TtUtils.WriteError(ex.Message, "MainFormLogic:btnEditPointTable", ex.StackTrace);
             }
             
         }
@@ -1186,7 +1186,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message);
+                    TtUtils.WriteError(ex.Message, "MainForm:btn_Reset");
                 }
             }
         }

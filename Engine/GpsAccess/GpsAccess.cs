@@ -205,7 +205,7 @@ namespace TwoTrails.GpsAccess
                             }
                             catch (Exception ex)
                             {
-                                TtUtils.WriteError(ex.Message, "GpsAccess:LogToFile");
+                                TtUtils.WriteError(ex.Message, "GpsAccess:LogToFile", ex.StackTrace);
                             }
                         }
                     }
@@ -385,7 +385,7 @@ namespace TwoTrails.GpsAccess
                         }
                         catch(Exception ex)
                         {
-                            TtUtils.WriteError(ex.Message, String.Format("GpsAccess:GpsWorker:OpenFile [{0}]", GpsFile));
+                            TtUtils.WriteError(ex.Message, String.Format("GpsAccess:GpsWorker:OpenFile [{0}]", GpsFile), ex.StackTrace);
                             Error = GpsErrorType.FileOpenError;
                             if (GpsError != null)
                                 GpsError();
@@ -427,7 +427,7 @@ namespace TwoTrails.GpsAccess
                             }
                             catch (Exception ex)
                             {
-                                TtUtils.WriteError(ex.Message, "GpsAccess:GpsWorker:Readline");
+                                TtUtils.WriteError(ex.Message, "GpsAccess:GpsWorker:Readline", ex.StackTrace);
                                 Error = GpsErrorType.FileReadError;
                                 if (GpsError != null)
                                     GpsError();
@@ -462,7 +462,7 @@ namespace TwoTrails.GpsAccess
                                 }
                                 catch (Exception ex)
                                 {
-                                    TtUtils.WriteError(ex.Message, "GpsAccess:GpsWorker:BurstReceived:Delegate");
+                                    TtUtils.WriteError(ex.Message, "GpsAccess:GpsWorker:BurstReceived:Delegate", ex.StackTrace);
                                     Error = GpsErrorType.BurstDelegateError;
                                     if (GpsError != null)
                                         GpsError();
@@ -477,7 +477,7 @@ namespace TwoTrails.GpsAccess
                     }
                     catch (IOException ioEx)
                     {
-                        TtUtils.WriteError(ioEx.Message, "GpsAccess:GpsWorker(IO)");
+                        TtUtils.WriteError(ioEx.Message, "GpsAccess:GpsWorker(IO)", ioEx.StackTrace);
                         Error = GpsErrorType.UnknownFileError;
                         if (GpsError != null)
                             GpsError();
@@ -485,7 +485,7 @@ namespace TwoTrails.GpsAccess
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(ex.Message, "GpsAccess:GpsWorker");
+                        TtUtils.WriteError(ex.Message, "GpsAccess:GpsWorker", ex.StackTrace);
                         Error = GpsErrorType.UnknownError;
                         if (GpsError != null)
                             GpsError();
@@ -560,7 +560,7 @@ namespace TwoTrails.GpsAccess
                                 }
                                 catch (Exception ex)
                                 {
-                                    TtUtils.WriteError(ex.Message, "GpsAccess:BurstReceived:Delegate");
+                                    TtUtils.WriteError(ex.Message, "GpsAccess:BurstReceived:Delegate", ex.StackTrace);
                                 }
                             }
                             #endregion
@@ -581,7 +581,7 @@ namespace TwoTrails.GpsAccess
             catch (TimeoutException toEx)
             {
                 Error = GpsErrorType.GpsTimeout;
-                TtUtils.WriteError(toEx.Message, "GpsAccess");
+                TtUtils.WriteError(toEx.Message, "GpsAccess", toEx.StackTrace);
 
                 #region trigger ComTimeout event
                 if (ComTimeout != null)

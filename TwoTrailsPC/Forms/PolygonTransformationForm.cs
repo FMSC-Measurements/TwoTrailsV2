@@ -389,7 +389,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "PolygonTransformationForm:Transform");
+                TtUtils.WriteError(ex.Message, "PolygonTransformationForm:Transform", ex.StackTrace);
                 _transforming = false;
                 return false;
             }

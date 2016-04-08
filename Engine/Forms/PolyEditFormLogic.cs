@@ -228,7 +228,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PolyEditForm:Delete");
+                    TtUtils.WriteError(ex.Message, "PolyEditForm:Delete", ex.StackTrace);
                     MessageBox.Show("Error Deleteing Polygon.");
                 }
 

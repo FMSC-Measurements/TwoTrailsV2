@@ -91,7 +91,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:Init");
+                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:Init", ex.StackTrace);
             }
         }
 
@@ -218,7 +218,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:CheckInput");
+                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:CheckInput", ex.StackTrace);
             }
 
             return true;
@@ -324,7 +324,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:Filter");
+                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:Filter", ex.StackTrace);
             }
 
             return true;
@@ -511,7 +511,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:Calculate");
+                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:Calculate", ex.StackTrace);
             }
 
         }
@@ -625,7 +625,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:CalculatePoint");
+                TtUtils.WriteError(ex.Message, "CalcGpsPointForm:CalculatePoint", ex.StackTrace);
             }
         }
 
@@ -701,7 +701,7 @@ namespace TwoTrails.Forms
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(ex.Message, "CalcGpsPointFormLogic:SaveNmea");
+                        TtUtils.WriteError(ex.Message, "CalcGpsPointFormLogic:SaveNmea", ex.StackTrace);
                     }
 
                     Values.Settings.DeviceOptions.Filter_GPS_DOP_TYPE = cboDOP.SelectedIndex;

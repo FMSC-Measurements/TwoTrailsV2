@@ -232,7 +232,7 @@ namespace TwoTrails.Forms
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(ex.Message, "Take5Form:CreateNewTake5Point");
+                        TtUtils.WriteError(ex.Message, "Take5Form:CreateNewTake5Point", ex.StackTrace);
                     }
                 }
                 else
@@ -273,7 +273,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "Take5Form:SetupPoint");
+                TtUtils.WriteError(ex.Message, "Take5Form:SetupPoint", ex.StackTrace);
                 return false;
             }
 
@@ -330,7 +330,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "Take5Form:SetupSideshot");
+                TtUtils.WriteError(ex.Message, "Take5Form:SetupSideshot", ex.StackTrace);
             }
 
             return false;
@@ -516,11 +516,11 @@ namespace TwoTrails.Forms
             }
             catch (DataException daEx)
             {
-                TtUtils.WriteError(daEx.Message, "Take5Form:btnOk(DataException)");
+                TtUtils.WriteError(daEx.Message, "Take5Form:btnOk(DataException)", daEx.StackTrace);
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "Take5Form:btnOk");
+                TtUtils.WriteError(ex.Message, "Take5Form:btnOk", ex.StackTrace);
             }
 
             if (close)
