@@ -20,7 +20,7 @@ namespace TwoTrails.Forms
         private const double RMSE95_COEF = 1.7308;
 
         private int groupSize, start, currentZone;
-        private bool calculated, canceled, recalculated, clearing;
+        private bool calculated, canceled, recalculated, clearing, init;
         List<NmeaBurst> Bursts, ToUseBursts;
         private List<int> intRange;
         private double pointX, pointY, pointZ, pointRMSEr;
@@ -49,10 +49,6 @@ namespace TwoTrails.Forms
 
             try
             {
-                cboFixType.SelectedIndex = Values.Settings.DeviceOptions.Filter_GPS_FixType;
-                cboDOP.SelectedIndex = Values.Settings.DeviceOptions.Filter_GPS_DOP_TYPE;
-
-                txtDOP.Text = Values.Settings.DeviceOptions.Filter_GPS_DOP_VALUE.ToString();
 
 #if (PocketPC || WindowsCE || Mobile)
                 btnDOP.Text = cboDOP.Text;
@@ -86,6 +82,13 @@ namespace TwoTrails.Forms
 
                 txtGroup.Text = groupSize.ToString();
 
+
+                cboFixType.SelectedIndex = Values.Settings.DeviceOptions.Filter_GPS_FixType;
+                cboDOP.SelectedIndex = Values.Settings.DeviceOptions.Filter_GPS_DOP_TYPE;
+
+                txtDOP.Text = Values.Settings.DeviceOptions.Filter_GPS_DOP_VALUE.ToString();
+
+                init = true;
 
                 Calculate();
             }
@@ -354,6 +357,9 @@ namespace TwoTrails.Forms
 
         private void Calculate()
         {
+            if (!init)
+                return;
+
             calculated = false;
 
             try

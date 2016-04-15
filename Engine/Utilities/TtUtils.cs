@@ -2035,6 +2035,10 @@ namespace TwoTrails.Utilities
                     using (StreamWriter sw = new StreamWriter(FILENAME, true))
                     {
                         sw.WriteLine((String.Format("ERR:[{0}][{1}]: {2}", DateTime.Now.ToString(), codePage, error)));
+
+                        int index = stack.OrdinalIndexOf('\n', 10);
+                        if (index > 0)
+                            stack = stack.Substring(index);
                         sw.WriteLine(String.Format("\tStack Trace: {0}", stack));
                     }
                 }
@@ -3094,6 +3098,32 @@ namespace TwoTrails.Utilities
                 return str.Substring(0, size);
 
             return str;
+        }
+
+        public static int OrdinalIndexOf(this String str, char c, int n)
+        {
+            int pos = str.IndexOf(c, 0);
+            while (n-- > 0 && pos != -1)
+                pos = str.IndexOf(c, pos + 1);
+            return pos;
+        }
+
+        public static int IndexOf(this String str, char c)
+        {
+            return IndexOf(str, c, 0);
+        }
+
+        public static int IndexOf(this String str, char c, int start)
+        {
+            for (int i = start; i < str.Length; i++)
+            {
+                if (str[i] == c)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         public static bool IsInteger(this String str)

@@ -3072,13 +3072,11 @@ namespace TwoTrails.DataAccess
                 queryBeginning.AppendFormat("{0},", satAz);
                 queryEnd.AppendFormat("'{0}',", sats[i].Azimuth);
 
-                queryBeginning.AppendFormat("{0},", satSRN);
-                queryEnd.AppendFormat("'{0}',", sats[i].SNR);
+                string end = i == sats.Count - 1 ? "" : ",";
+                queryBeginning.AppendFormat("{0}{1}", satSRN, end);
+                queryEnd.AppendFormat("'{0}'{1}", sats[i].SNR, end);
             }
             #endregion
-
-            queryBeginning.Remove(queryBeginning.Length - 1, 1);
-            queryEnd.Remove(queryEnd.Length - 1, 1);
 
             queryBeginning.Append(") values ");
             queryEnd.Append(");");
@@ -3327,11 +3325,11 @@ namespace TwoTrails.DataAccess
 
                 query.AppendFormat("{0} = '{1}', ", satAz, sats[i].Azimuth);
 
-                query.AppendFormat("{0} = '{1}', ", satSRN, sats[i].SNR);
+                query.AppendFormat("{0} = '{1}'{2} ", satSRN, sats[i].SNR, 
+                    i == sats.Count - 1 ? "" : ",");
             }
             #endregion
 
-            query.Remove(query.Length - 1, 2);
             query.AppendFormat("where {0} = '{1}'", TwoTrailsSchema.SharedSchema.CN, burst._CN);
 
             SQLiteCommand update = _dbConnection.CreateCommand();

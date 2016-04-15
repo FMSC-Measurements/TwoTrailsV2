@@ -188,11 +188,11 @@ namespace TwoTrails.Utilities
                     }
                     catch (TimeoutException toEx)
                     {
-                        TtUtils.WriteError(String.Format("{0}|{2}to:{1}", device.Port, toEx.Message, device.Baud), "autofind");
+                        //TtUtils.WriteError(String.Format("{0}|{2}to:{1}", device.Port, toEx.Message, device.Baud), "autofind");
                     }
                     catch (System.IO.IOException ioEx)
                     {
-                        TtUtils.WriteError(String.Format("{0}|{2}io:{1}", num, ioEx.Message, device.Baud), "autofind");
+                        //TtUtils.WriteError(String.Format("{0}|{2}io:{1}", num, ioEx.Message, device.Baud), "autofind");
                         break;
                     }
                     catch (Exception ex)
