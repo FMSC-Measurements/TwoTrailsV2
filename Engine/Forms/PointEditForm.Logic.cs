@@ -1717,7 +1717,8 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 try
                 {
                     SavePoint();
-                    using (Take5Form form = new Take5Form(pointInfoCtrl.Polygon, DAL, CurrMeta, CurrPointIndex))
+                    using (Take5Form form = new Take5Form(pointInfoCtrl.Polygon, DAL, CurrMeta,
+                        _Points.Count > 1 ? _Points[CurrPointIndex - 1] : null, CurrPointIndex))
                     {
                         if (form.ShowDialog() == DialogResult.OK)
                         {

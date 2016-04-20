@@ -38,7 +38,7 @@ namespace TwoTrails.Forms
 
         #endregion
 
-        public void Init(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int currIndex)
+        public void Init(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, TtPoint currentPoint, int currIndex)
         {
             this.Icon = Properties.Resources.Map;
             TtUtils.ShowWaitCursor();
@@ -78,13 +78,8 @@ namespace TwoTrails.Forms
             LastNmea = new List<NmeaBurst>();
             CurrentPoint = null;
 
-            List<TtPoint> points = DAL.GetPointsInPolygon(Polygon);
             _index = currIndex;
-            if (_index > 0)
-            {
-                _index--;
-                LastPoint = points[_index];
-            }
+            LastPoint = currentPoint;
 
             gpsInfoAdvCtrl.SetZone(CurrMeta.Zone);
             gpsInfoAdvCtrl.StartControl();
@@ -263,13 +258,13 @@ namespace TwoTrails.Forms
                 else
                     CurrentPoint.PID = PointNaming.NameFirstPoint(Polygon);
 
-                _index++;
                 CurrentPoint.PolyCN = Polygon.CN;
                 CurrentPoint.PolyName = Polygon.Name;
                 CurrentPoint.OnBnd = OnBound;
                 CurrentPoint.Index = _index;
                 CurrentPoint.GroupCN = Values.MainGroup.CN;
                 CurrentPoint.GroupName = Values.MainGroup.Name;
+                _index++;
             }
             catch (Exception ex)
             {

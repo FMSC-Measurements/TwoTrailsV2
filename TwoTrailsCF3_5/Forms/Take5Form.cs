@@ -13,14 +13,14 @@ namespace TwoTrails.Forms
 {
     public partial class Take5Form : Form
     {
-        public Take5Form(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int currIndex)
+        public Take5Form(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, TtPoint currentPoint, int currIndex)
         {
             if (Engine.Values.WideScreen)
                 InitializeComponentWide();
             else
                 InitializeComponent();
 
-            Init(poly, dal, meta, currIndex);
+            Init(poly, dal, meta, currentPoint, currIndex);
         }
 
         private void btnOk_Click(object sender, EventArgs e)
