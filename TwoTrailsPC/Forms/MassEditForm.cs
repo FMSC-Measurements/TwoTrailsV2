@@ -2739,7 +2739,7 @@ namespace TwoTrails.Forms
                                 MessageBox.Show("Can not convert Ops that contain a Quondam operation.");
                                 return;
                             }
-                            else if (op != tmpPoint.op)
+                            else if (op == tmpPoint.op)
                             {
                                 continue;
                             }

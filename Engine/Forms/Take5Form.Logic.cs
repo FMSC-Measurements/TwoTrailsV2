@@ -84,7 +84,7 @@ namespace TwoTrails.Forms
             gpsInfoAdvCtrl.SetZone(CurrMeta.Zone);
             gpsInfoAdvCtrl.StartControl();
 
-            if (Values.GPSA.UsesFile)
+            if (Values.GPSA.UsesFile && Values.Settings.DeviceOptions.GetGpsOnStart)
             {
                 using (DeviceSetupForm dsf = new DeviceSetupForm())
                 {
@@ -536,9 +536,12 @@ namespace TwoTrails.Forms
                 if (!logging)
                 {
 #if !(PocketPC || WindowsCE || Mobile)
-                    using (DeviceSetupForm dsf = new DeviceSetupForm())
+                    if (Values.Settings.DeviceOptions.GetGpsOnStart)
                     {
-                        dsf.ShowDialog();
+                        using (DeviceSetupForm dsf = new DeviceSetupForm())
+                        {
+                            dsf.ShowDialog();
+                        }
                     }
 
                     System.Threading.Thread.Sleep(1000);

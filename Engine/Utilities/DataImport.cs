@@ -1269,15 +1269,6 @@ Check the error log for complete details.", "Import Error");
                 Dictionary<string, TtMetaData> importedMetas = tmpMeta.ToDictionary(m => m.CN, m => m);
                 tmpMeta.Clear();
 
-                /*
-                 * Compare default meta from imported with default from current
-                 * if they are the same set the current meta to the value of the imported meta
-                 * 
-                 * importedMetas[EmptyGuid] = currentmeta
-                 * 
-                 * set all imported points with importedmeta to current meta
-                */
-
                 List<string> currPolyCNs = dal.GetPolygons().Select(p => p.CN).ToList();
                 _Polygons = new Dictionary<string, TtPolygon>();
                 _Points = new List<TtPoint>();

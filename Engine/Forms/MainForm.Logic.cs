@@ -440,6 +440,12 @@ namespace TwoTrails.Forms
             }
         }
 
+        private void chkChangeGpsOnStart_CheckedChanged2(object sender, EventArgs e)
+        {
+            Values.Settings.DeviceOptions.GetGpsOnStart = chkUseCombo.Checked;
+            Values.Settings.WriteDeviceSettings();
+        }
+
         #endregion
 
 
@@ -878,6 +884,8 @@ namespace TwoTrails.Forms
                 radGpsAlwaysOnNo.Checked = true;
                 radGpsAlwaysOnYes.Checked = false;
             }
+
+            chkChangeGpsOnStart.Checked = Values.Settings.DeviceOptions.GetGpsOnStart;
 
             cboRecOpen.Items.Clear();
 

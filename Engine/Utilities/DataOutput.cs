@@ -925,7 +925,10 @@ namespace TwoTrails.Utilities
 
                 if (points.Count > 0)
                 {
-                    md = DAL.GetMetaDataByCN(points[0].MetaDefCN);
+                    md = DAL.GetMetaDataByCN(Values.EmptyGuid);
+
+                    if (md == null)
+                        md = DAL.GetMetaData()[0];
 
                     if (md == null)
                         throw new Exception("Meta Data is null. Cant obtain UTM Zone");

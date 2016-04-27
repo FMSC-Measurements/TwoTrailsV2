@@ -88,6 +88,7 @@ namespace TwoTrails.Forms
         private bool tracking = false;
         private bool ignoreMyPos = false;
         private int direction, count;
+        private long lastDraw = 0;
 
         private List<PointName> pns = new List<PointName>();
         bool drawPN = false, ignoreClick = false;
@@ -504,6 +505,8 @@ namespace TwoTrails.Forms
                 g.DrawEllipse(new Pen(Color.Red, 2), recPoint);
             }
             #endregion
+
+            lastDraw = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
 
@@ -1654,36 +1657,39 @@ namespace TwoTrails.Forms
             myGpsPosX = b._X;
             myGpsPosY = b._Y;
 
-            if (b.IsValid)
-                ignoreMyPos = false;
-            else
-                ignoreMyPos = true;
-
-            try
+            if (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond - lastDraw > 999)
             {
-                if (MapValues.mapDetails)
-                {
-                    if (ignoreMyPos)
-                        lblLoc.Text = "Bad GPS Position";
+                if (b.IsValid)
+                    ignoreMyPos = false;
+                else
+                    ignoreMyPos = true;
 
-                    if (MapValues.mapDetailsUTM)
+                try
+                {
+                    if (MapValues.mapDetails)
                     {
-                        lblLoc.Text = String.Format("Zone:{0} {1:F}M {2}, {3:F}M {4}", b._utm_zone, b._X,
-                            b._longDir.ToString(),b._Y, b._latDir.ToString());
-                    }
-                    else
-                    {
-                        lblLoc.Text = String.Format("Lat: {0}{1}  Lon: {2}{3}", b._latitude.ToString().Substring(0, 8),
-                            (b._longDir == EastWest.West)?('W'):('E'), b._longitude.ToString().Substring(0,8), (b._latDir == NorthSouth.North)?('N'):('S'));
+                        if (ignoreMyPos)
+                            lblLoc.Text = "Bad GPS Position";
+
+                        if (MapValues.mapDetailsUTM)
+                        {
+                            lblLoc.Text = String.Format("Zone:{0} {1:F}M {2}, {3:F}M {4}", b._utm_zone, b._X,
+                                b._longDir.ToString(), b._Y, b._latDir.ToString());
+                        }
+                        else
+                        {
+                            lblLoc.Text = String.Format("Lat: {0}{1}  Lon: {2}{3}", b._latitude.ToString().Substring(0, 8),
+                                (b._longDir == EastWest.West) ? ('W') : ('E'), b._longitude.ToString().Substring(0, 8), (b._latDir == NorthSouth.North) ? ('N') : ('S'));
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                TtUtils.WriteError(ex.Message, "MapFormLogic", ex.StackTrace);
-            }
+                catch (Exception ex)
+                {
+                    TtUtils.WriteError(ex.Message, "MapFormLogic", ex.StackTrace);
+                }
 
-            drawPanel.Refresh();
+                drawPanel.Refresh(); 
+            }
         }
 
         private void GPSA_BurstReceived(TwoTrails.GpsAccess.NmeaBurst b)

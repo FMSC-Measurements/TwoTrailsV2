@@ -68,6 +68,7 @@ namespace TwoTrails.Forms
             this.radGpsAlwaysOnYes = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.chkChangeGpsOnStart = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -414,6 +415,7 @@ namespace TwoTrails.Forms
             this.tabPage5.Controls.Add(this.btnReset);
             this.tabPage5.Controls.Add(this.btnEportLog);
             this.tabPage5.Controls.Add(this.btnInfo);
+            this.tabPage5.Controls.Add(this.chkChangeGpsOnStart);
             this.tabPage5.Controls.Add(this.chkAutoUpdateIndex);
             this.tabPage5.Controls.Add(this.chkOnKeyboard);
             this.tabPage5.Controls.Add(this.btnClear);
@@ -464,7 +466,7 @@ namespace TwoTrails.Forms
             // 
             this.chkAutoUpdateIndex.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.chkAutoUpdateIndex.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.chkAutoUpdateIndex.Location = new System.Drawing.Point(3, 116);
+            this.chkAutoUpdateIndex.Location = new System.Drawing.Point(4, 142);
             this.chkAutoUpdateIndex.Name = "chkAutoUpdateIndex";
             this.chkAutoUpdateIndex.Size = new System.Drawing.Size(173, 20);
             this.chkAutoUpdateIndex.TabIndex = 13;
@@ -563,6 +565,19 @@ namespace TwoTrails.Forms
             // 
             this.openFileDialog1.Filter = "TwoTrails File|*.tt2";
             this.openFileDialog1.FilterIndex = 0;
+            // 
+            // chkChangeGpsOnStart
+            // 
+            this.chkChangeGpsOnStart.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.chkChangeGpsOnStart.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.chkChangeGpsOnStart.Location = new System.Drawing.Point(4, 116);
+            this.chkChangeGpsOnStart.Name = "chkChangeGpsOnStart";
+            this.chkChangeGpsOnStart.Size = new System.Drawing.Size(173, 20);
+            this.chkChangeGpsOnStart.TabIndex = 13;
+            this.chkChangeGpsOnStart.TabStop = false;
+            this.chkChangeGpsOnStart.Tag = "Ask to switch to a different GPS source when starting to collect a point.";
+            this.chkChangeGpsOnStart.Text = "Change GPS on Start";
+            this.chkChangeGpsOnStart.CheckStateChanged += new System.EventHandler(this.chkChangeGpsOnStart_CheckStateChanged);
             // 
             // MainForm
             // 
@@ -1171,6 +1186,7 @@ namespace TwoTrails.Forms
         private Button btnPlotGrid;
         private Button btnRename;
         private Button btnGPSLogger;
+        private CheckBox chkChangeGpsOnStart;
 
 
 

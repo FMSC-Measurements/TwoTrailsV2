@@ -145,9 +145,12 @@ namespace TwoTrails.Forms
                     CloseForm();
             }
 #else
-            using (DeviceSetupForm form = new DeviceSetupForm())
+            if (Values.Settings.DeviceOptions.GetGpsOnStart)
             {
-                form.ShowDialog();
+                using (DeviceSetupForm form = new DeviceSetupForm())
+                {
+                    form.ShowDialog();
+                }
             }
 #endif
 
