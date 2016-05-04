@@ -67,7 +67,7 @@ namespace TwoTrails.Forms
         }
         private bool _saveSettings = true;
 #if !DEBUG
-        private bool _closing = false;
+        private bool _closing = false, _loading = true;
 #endif
 
         public MainForm()
@@ -114,6 +114,7 @@ namespace TwoTrails.Forms
             tabControl1.SelectedIndex = 0;
             FileLoaded = false;
             LoadSettings();
+            _loading = false;
 
 #if (PocketPC || WindowsCE || Mobile)
             TtUtils.WriteEvent("TwoTrails (Mobile): Loaded", true);
@@ -438,12 +439,6 @@ namespace TwoTrails.Forms
             {
                 form.ShowDialog();
             }
-        }
-
-        private void chkChangeGpsOnStart_CheckedChanged2(object sender, EventArgs e)
-        {
-            Values.Settings.DeviceOptions.GetGpsOnStart = chkUseCombo.Checked;
-            Values.Settings.WriteDeviceSettings();
         }
 
         #endregion
@@ -885,7 +880,9 @@ namespace TwoTrails.Forms
                 radGpsAlwaysOnYes.Checked = false;
             }
 
+#if !(PocketPC || WindowsCE || Mobile)
             chkChangeGpsOnStart.Checked = Values.Settings.DeviceOptions.GetGpsOnStart;
+#endif
 
             cboRecOpen.Items.Clear();
 
@@ -1042,8 +1039,11 @@ namespace TwoTrails.Forms
 
         public void chkUseCombo_CheckStateChanged2(object sender, EventArgs e)
         {
-            Values.Settings.DeviceOptions.UseSelection = !chkUseCombo.Checked;
-            Values.Settings.WriteDeviceSettings();
+            if (!_loading)
+            {
+                Values.Settings.DeviceOptions.UseSelection = !chkUseCombo.Checked;
+                Values.Settings.WriteDeviceSettings();
+            }
 
 #if (PocketPC || WindowsCE || Mobile)
             cboRecOpen.Visible = !Values.Settings.DeviceOptions.UseSelection;
@@ -1065,14 +1065,20 @@ namespace TwoTrails.Forms
 
         private void chkOnKeyboard_CheckStateChanged2(object sender, EventArgs e)
         {
-            Values.Settings.DeviceOptions.UseOnScreenKeyboard = chkOnKeyboard.Checked;
-            Values.Settings.WriteDeviceSettings();
+            if (!_loading)
+            {
+                Values.Settings.DeviceOptions.UseOnScreenKeyboard = chkOnKeyboard.Checked;
+                Values.Settings.WriteDeviceSettings();
+            }
         }
 
         private void chkAutoUpdateIndex_CheckStateChanged2(object sender, EventArgs e)
         {
-            Values.Settings.DeviceOptions.AutoUpdateIndex = chkAutoUpdateIndex.Checked;
-            Values.Settings.WriteDeviceSettings();
+            if (!_loading)
+            {
+                Values.Settings.DeviceOptions.AutoUpdateIndex = chkAutoUpdateIndex.Checked;
+                Values.Settings.WriteDeviceSettings();
+            }
         }
 
         private void btnMassEdit_Click2(object sender, EventArgs e)
@@ -1411,6 +1417,15 @@ namespace TwoTrails.Forms
         private void tsmiErrorLog_Click2(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("notepad.exe", Values.Settings.LogFilePath);
+        }
+
+        private void chkChangeGpsOnStart_CheckedChanged2(object sender, EventArgs e)
+        {
+            if (!_loading)
+            {
+                Values.Settings.DeviceOptions.GetGpsOnStart = chkChangeGpsOnStart.Checked;
+                Values.Settings.WriteDeviceSettings();
+            }
         }
 #endif
         #endregion
