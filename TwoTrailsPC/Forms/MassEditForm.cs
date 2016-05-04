@@ -1059,9 +1059,9 @@ namespace TwoTrails.Forms
                     chkLstPolyFilter.SetItemChecked(e.Index, value);
                 }
 
-                ignoreControls = false;
-
                 UpdateFilter();
+
+                ignoreControls = false;
             }
         }
 
