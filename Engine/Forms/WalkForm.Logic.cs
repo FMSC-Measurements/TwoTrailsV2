@@ -323,7 +323,7 @@ namespace TwoTrails.Forms
                     {
                         if (Values.Settings.DeviceOptions.Filter_Accuracy > 0)
                         {
-                            if (CurrentNmea == null || !(TtUtils.BurstDistance(CurrentNmea, b) > Values.Settings.DeviceOptions.Filter_Accuracy))
+                            if (CurrentNmea == null || TtUtils.BurstDistance(CurrentNmea, b) > Values.Settings.DeviceOptions.Filter_Accuracy)
                             {
                                 CreateWalkPoint(b);
                             }
