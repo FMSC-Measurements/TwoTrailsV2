@@ -35,13 +35,13 @@ namespace Engine.BusinessLogic
         StringBuilder _PolyOutput, _PointOutput;
 
         Dictionary<string, TtPolygon> polys;
-        DoublePoint _LastPoint;
+        DoublePoint _LastPoint, _LastBndPt;
 
         bool traversing;
         double travLength, _travGpsError;
         int travSegs, lastGpsPtName;
 
-        TtPoint _LastTtPoint;
+        TtPoint _LastTtPoint, _LastTtBndPt;
         List<Leg> _Legs, _TravLegs;
 
         double TotalTravError;
@@ -125,6 +125,7 @@ namespace Engine.BusinessLogic
                 TotalError = TotalTravError = TotalGpsError = _travGpsError = 0;
                 traversing = false;
                 _LastTtPoint = null;
+                _LastTtBndPt = null;
 
                 if (points.Count > 0)
                 {
@@ -147,12 +148,12 @@ namespace Engine.BusinessLogic
                         }
                     }
 
-                    if (!pt.SameAdjLocation(_LastTtPoint))
+                    if (!pt.SameAdjLocation(_LastTtBndPt))
                     {
                         //if (_LastTtPoint.op == OpType.SideShot || pt.op == OpType.SideShot)
                         //     _Legs.Add(new Leg(_LastTtPoint, pt, polys[_LastTtPoint.PolyCN].PolyAccu, polys[pt.PolyCN].PolyAccu));
                         //else
-                            _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                            _Legs.Add(new Leg(_LastTtBndPt, pt, polys));
                     }
 
                     foreach(Leg leg in _Legs)
@@ -241,25 +242,29 @@ namespace Engine.BusinessLogic
                             {
                                 closeTraverse(pt);
                                 _LastTtPoint = pt;
+                                _LastTtBndPt = pt;
                             }
                             else
                             {
                                 if (_LastTtPoint == null)
                                 {
                                     _LastTtPoint = pt;
+                                    _LastTtBndPt = pt;
                                 }
                                 else
                                 {
-                                    if (_LastTtPoint != null && _LastTtPoint.OnBnd)
+                                    if (_LastTtBndPt != null)
                                     {
-                                        _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                                        _Legs.Add(new Leg(_LastTtBndPt, pt, polys));
                                     }
 
                                     _LastTtPoint = pt;
+                                    _LastTtBndPt = pt;
                                 }
                             }
 
                             _LastPoint = new DoublePoint(pt.UnAdjX, pt.UnAdjY);
+                            _LastBndPt = _LastPoint;
                         }
                         else
                         {
@@ -279,6 +284,9 @@ namespace Engine.BusinessLogic
                         if (_LastTtPoint == null)
                         {
                             _LastTtPoint = pt;
+
+                            if (pt.OnBnd)
+                                _LastTtBndPt = pt;
                             break;
                         }
 
@@ -300,21 +308,24 @@ namespace Engine.BusinessLogic
                                 }
 
                                 _TravLegs = new List<Leg>();
-                                if (_LastTtPoint != null && _LastTtPoint.OnBnd)
+                                if (_LastTtBndPt != null)
                                 {
-                                    _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                                    _Legs.Add(new Leg(_LastTtBndPt, pt, polys));
                                 }
                             }
                             else
                             {
                                 travLength += TtUtils.Distance(_LastPoint.X, _LastPoint.Y, pt.UnAdjX, pt.UnAdjY);
                                 _LastPoint = new DoublePoint(pt.UnAdjX, pt.UnAdjY);
+                                _LastBndPt = _LastPoint;
 
-                                if (_LastTtPoint != null && _LastTtPoint.OnBnd)
+                                if (_LastTtBndPt != null)
                                 {
-                                    _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                                    _Legs.Add(new Leg(_LastTtBndPt, pt, polys));
                                 }
                             }
+
+                            _LastTtBndPt = pt;
                         }
 
                         _LastTtPoint = pt;
@@ -329,15 +340,20 @@ namespace Engine.BusinessLogic
                             _PointOutput.AppendLine(String.Format("Point {0}: {2} SideShot from Point {1}.", pt.PID, lastGpsPtName, pt.OnBnd ? " " : "*"));
                         }
 
-                        if (_LastTtPoint != null && _LastTtPoint.OnBnd)
+                        if (_LastTtBndPt != null)
                         {
-                            _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                            _Legs.Add(new Leg(_LastTtBndPt, pt, polys));
                         }
 
                         _LastTtPoint = pt;
 
                         _LastPoint = new DoublePoint(pt.UnAdjX, pt.UnAdjY);
 
+                        if (pt.OnBnd)
+                        {
+                            _LastTtBndPt = pt;
+                            _LastBndPt = _LastPoint;
+                        }
                         break;
                     }
                 case TwoTrails.Engine.OpType.Quondam:
@@ -352,11 +368,10 @@ namespace Engine.BusinessLogic
                             }
                             else
                             {
-                                if (_LastTtPoint != null && _LastTtPoint.OnBnd)
+                                if (_LastTtBndPt != null)
                                 {
-                                    _Legs.Add(new Leg(_LastTtPoint, pt, polys));
+                                    _Legs.Add(new Leg(_LastTtBndPt, pt, polys));
                                 }
-                                _LastTtPoint = pt;
                             }
                         }
                         else
@@ -371,6 +386,9 @@ namespace Engine.BusinessLogic
                         }
 
                         _LastTtPoint = pt;
+
+                        if (pt.OnBnd)
+                            _LastTtBndPt = pt;
                         break;
                     }
             }

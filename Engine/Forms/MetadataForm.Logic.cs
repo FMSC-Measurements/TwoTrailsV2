@@ -441,7 +441,7 @@ namespace TwoTrails.Forms
             {
                 name = String.Format("m_{0}", i);
 
-                if (MetaData.Where(m => m.Name == name).Count() > 0)
+                if (MetaData.Where(m => m.Name == name).Any())
                 {
                     i++;
                 }

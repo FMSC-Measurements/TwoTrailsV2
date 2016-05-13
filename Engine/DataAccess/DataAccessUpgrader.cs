@@ -1310,19 +1310,19 @@ namespace TwoTrails.DataAccess
 
             string[] vals = versionString.Split('.');
 
-            if (vals.Count() > 0)
+            if (vals.Length > 0)
             {
                 if (vals[0].IsInteger())
                     Major = vals[0].ToInteger();
             }
 
-            if (vals.Count() > 1)
+            if (vals.Length > 1)
             {
                 if (vals[1].IsInteger())
                     Minor = vals[1].ToInteger();
             }
 
-            if (vals.Count() > 2)
+            if (vals.Length > 2)
             {
                 if (vals[2].IsInteger())
                     Update = vals[2].ToInteger();

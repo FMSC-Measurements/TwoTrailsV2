@@ -63,7 +63,7 @@ namespace TwoTrails.Utilities
 
             _PortNames = SerialPort.GetPortNames();
 
-            if (_PortNames.Count() < 1)
+            if (_PortNames.Length < 1)
             {
                 Thread.Sleep(500);
                 _PortNames = SerialPort.GetPortNames();
@@ -99,7 +99,7 @@ namespace TwoTrails.Utilities
 
             _PortNames = SerialPort.GetPortNames();
 
-            if (_PortNames.Count() < 1)
+            if (!_PortNames.Any())
             {
                 Thread.Sleep(500);
                 _PortNames = SerialPort.GetPortNames();

@@ -468,7 +468,7 @@ namespace TwoTrails.Forms
 
                 IEnumerable<TtPolygon> polys = _Polys.Where(p => p.Name.EndsWith(polyName + "_PltSample"));
 
-                if (polys.Count() > 0)
+                if (polys.Any())
                 {
                     npoly = polys.First();
 

@@ -124,8 +124,8 @@ namespace TwoTrails.Utilities
 
                     if (points.Count > 0)
                     {
-                        hasWaypoints = (points.Where(p => p.op == TwoTrails.Engine.OpType.WayPoint).Count() > 0);
-                        hasMiscPoints = (points.Where(p => p.op == TwoTrails.Engine.OpType.SideShot && !p.OnBnd).Count() > 0);
+                        hasWaypoints = (points.Where(p => p.op == TwoTrails.Engine.OpType.WayPoint).Any());
+                        hasMiscPoints = (points.Where(p => p.op == TwoTrails.Engine.OpType.SideShot && !p.OnBnd).Any());
 
                         StringBuilder coordArray = new StringBuilder();
                         StringBuilder pmArray = new StringBuilder();

@@ -230,30 +230,6 @@ namespace TwoTrails.BusinessLogic
                 }
             }
 
-            /*
-            List<TtPoint> allPoints = points.Values.ToList();
-
-            if(allPoints.Where(p => p.op == OpType.SideShot).Count() > 0)
-            {
-                Dictionary<string, TtPolygon> polys = dal.GetPolygons().ToDictionary(p => p.CN, p => p);
-                allPoints.Sort();
-
-                TtPoint currPoint, lastPoint = allPoints[0];
-                for (int i = 0; i < allPoints.Count; i++)
-                {
-                    currPoint = allPoints[i];
-
-                    if (currPoint.op == OpType.SideShot)
-                    {
-                        ((SideShotPoint)currPoint).Accuracy = TtUtils.GetPointAcc(lastPoint, polys);
-                    }
-
-                    lastPoint = currPoint;
-                }
-            }
-            dal.SavePoints(allPoints, ref Values.GlobalCancelToken);
-            */
-
             dal.SavePoints(points.Values.ToList(), ref Values.GlobalCancelToken);
         }
 
