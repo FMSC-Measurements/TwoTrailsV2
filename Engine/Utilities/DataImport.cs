@@ -552,7 +552,7 @@ namespace TwoTrails.Utilities
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "ImportFormnLogic:ParseTxt");
+                TtUtils.WriteError(ex.Message, "ImportFormnLogic:ParseTxt", ex.StackTrace);
                 MessageBox.Show(@"An Error has occured while importing data. 
 Make sure other applications are not using the file which is being imported.
 Check the error log for complete details.", "Import Error");
@@ -707,7 +707,7 @@ Check the error log for complete details.", "Import Error");
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "DataImport:ImportGpx");
+                    TtUtils.WriteError(ex.Message, "DataImport:ImportGpx", ex.StackTrace);
                     return false;
                 }
             }
@@ -1217,7 +1217,7 @@ Check the error log for complete details.", "Import Error");
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataImport:ImportTt");
+                TtUtils.WriteError(ex.Message, "DataImport:ImportTt", ex.StackTrace);
                 return false;
             }
 
@@ -1268,15 +1268,6 @@ Check the error log for complete details.", "Import Error");
 
                 Dictionary<string, TtMetaData> importedMetas = tmpMeta.ToDictionary(m => m.CN, m => m);
                 tmpMeta.Clear();
-
-                /*
-                 * Compare default meta from imported with default from current
-                 * if they are the same set the current meta to the value of the imported meta
-                 * 
-                 * importedMetas[EmptyGuid] = currentmeta
-                 * 
-                 * set all imported points with importedmeta to current meta
-                */
 
                 List<string> currPolyCNs = dal.GetPolygons().Select(p => p.CN).ToList();
                 _Polygons = new Dictionary<string, TtPolygon>();

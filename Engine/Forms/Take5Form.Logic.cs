@@ -38,7 +38,7 @@ namespace TwoTrails.Forms
 
         #endregion
 
-        public void Init(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int currIndex)
+        public void Init(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, TtPoint currentPoint, int currIndex)
         {
             this.Icon = Properties.Resources.Map;
             TtUtils.ShowWaitCursor();
@@ -78,18 +78,13 @@ namespace TwoTrails.Forms
             LastNmea = new List<NmeaBurst>();
             CurrentPoint = null;
 
-            List<TtPoint> points = DAL.GetPointsInPolygon(Polygon);
             _index = currIndex;
-            if (_index > 0)
-            {
-                _index--;
-                LastPoint = points[_index];
-            }
+            LastPoint = currentPoint;
 
             gpsInfoAdvCtrl.SetZone(CurrMeta.Zone);
             gpsInfoAdvCtrl.StartControl();
 
-            if (Values.GPSA.UsesFile)
+            if (Values.GPSA.UsesFile && Values.Settings.DeviceOptions.GetGpsOnStart)
             {
                 using (DeviceSetupForm dsf = new DeviceSetupForm())
                 {
@@ -232,7 +227,7 @@ namespace TwoTrails.Forms
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(ex.Message, "Take5Form:CreateNewTake5Point");
+                        TtUtils.WriteError(ex.Message, "Take5Form:CreateNewTake5Point", ex.StackTrace);
                     }
                 }
                 else
@@ -263,17 +258,17 @@ namespace TwoTrails.Forms
                 else
                     CurrentPoint.PID = PointNaming.NameFirstPoint(Polygon);
 
-                _index++;
                 CurrentPoint.PolyCN = Polygon.CN;
                 CurrentPoint.PolyName = Polygon.Name;
                 CurrentPoint.OnBnd = OnBound;
                 CurrentPoint.Index = _index;
                 CurrentPoint.GroupCN = Values.MainGroup.CN;
                 CurrentPoint.GroupName = Values.MainGroup.Name;
+                _index++;
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "Take5Form:SetupPoint");
+                TtUtils.WriteError(ex.Message, "Take5Form:SetupPoint", ex.StackTrace);
                 return false;
             }
 
@@ -330,7 +325,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "Take5Form:SetupSideshot");
+                TtUtils.WriteError(ex.Message, "Take5Form:SetupSideshot", ex.StackTrace);
             }
 
             return false;
@@ -516,11 +511,11 @@ namespace TwoTrails.Forms
             }
             catch (DataException daEx)
             {
-                TtUtils.WriteError(daEx.Message, "Take5Form:btnOk(DataException)");
+                TtUtils.WriteError(daEx.Message, "Take5Form:btnOk(DataException)", daEx.StackTrace);
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "Take5Form:btnOk");
+                TtUtils.WriteError(ex.Message, "Take5Form:btnOk", ex.StackTrace);
             }
 
             if (close)
@@ -541,9 +536,12 @@ namespace TwoTrails.Forms
                 if (!logging)
                 {
 #if !(PocketPC || WindowsCE || Mobile)
-                    using (DeviceSetupForm dsf = new DeviceSetupForm())
+                    if (Values.Settings.DeviceOptions.GetGpsOnStart)
                     {
-                        dsf.ShowDialog();
+                        using (DeviceSetupForm dsf = new DeviceSetupForm())
+                        {
+                            dsf.ShowDialog();
+                        }
                     }
 
                     System.Threading.Thread.Sleep(1000);

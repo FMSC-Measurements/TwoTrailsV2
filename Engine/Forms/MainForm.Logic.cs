@@ -67,7 +67,7 @@ namespace TwoTrails.Forms
         }
         private bool _saveSettings = true;
 #if !DEBUG
-        private bool _closing = false;
+        private bool _closing = false, _loading = true;
 #endif
 
         public MainForm()
@@ -114,6 +114,7 @@ namespace TwoTrails.Forms
             tabControl1.SelectedIndex = 0;
             FileLoaded = false;
             LoadSettings();
+            _loading = false;
 
 #if (PocketPC || WindowsCE || Mobile)
             TtUtils.WriteEvent("TwoTrails (Mobile): Loaded", true);
@@ -123,7 +124,7 @@ namespace TwoTrails.Forms
                 Directory.CreateDirectory(Values.DefaultSaveFolder);
             }
 #else
-            TtUtils.WriteEvent("TwoTrails (PC): Loaded", true);
+            TtUtils.WriteEvent(String.Format("TwoTrails (PC {0}): Loaded", Engine.Values.TwoTrailsVersion), true);
 #endif
 
             TtUtils.HideWaitCursor();
@@ -320,7 +321,7 @@ namespace TwoTrails.Forms
             {
                 TtUtils.HideWaitCursor();
                 AutoClosingMessageBox.Show("Open Point Table Error", "Table Error", 1);
-                TtUtils.WriteError(ex.Message, "MainFormLogic:btnEditPointTable");
+                TtUtils.WriteError(ex.Message, "MainFormLogic:btnEditPointTable", ex.StackTrace);
             }
             
         }
@@ -879,6 +880,10 @@ namespace TwoTrails.Forms
                 radGpsAlwaysOnYes.Checked = false;
             }
 
+#if !(PocketPC || WindowsCE || Mobile)
+            chkChangeGpsOnStart.Checked = Values.Settings.DeviceOptions.GetGpsOnStart;
+#endif
+
             cboRecOpen.Items.Clear();
 
             cboRecOpen.Items.Add(Values.Settings.ProjectOptions.RecOpen[0].File);
@@ -1034,8 +1039,11 @@ namespace TwoTrails.Forms
 
         public void chkUseCombo_CheckStateChanged2(object sender, EventArgs e)
         {
-            Values.Settings.DeviceOptions.UseSelection = !chkUseCombo.Checked;
-            Values.Settings.WriteDeviceSettings();
+            if (!_loading)
+            {
+                Values.Settings.DeviceOptions.UseSelection = !chkUseCombo.Checked;
+                Values.Settings.WriteDeviceSettings();
+            }
 
 #if (PocketPC || WindowsCE || Mobile)
             cboRecOpen.Visible = !Values.Settings.DeviceOptions.UseSelection;
@@ -1057,14 +1065,20 @@ namespace TwoTrails.Forms
 
         private void chkOnKeyboard_CheckStateChanged2(object sender, EventArgs e)
         {
-            Values.Settings.DeviceOptions.UseOnScreenKeyboard = chkOnKeyboard.Checked;
-            Values.Settings.WriteDeviceSettings();
+            if (!_loading)
+            {
+                Values.Settings.DeviceOptions.UseOnScreenKeyboard = chkOnKeyboard.Checked;
+                Values.Settings.WriteDeviceSettings();
+            }
         }
 
         private void chkAutoUpdateIndex_CheckStateChanged2(object sender, EventArgs e)
         {
-            Values.Settings.DeviceOptions.AutoUpdateIndex = chkAutoUpdateIndex.Checked;
-            Values.Settings.WriteDeviceSettings();
+            if (!_loading)
+            {
+                Values.Settings.DeviceOptions.AutoUpdateIndex = chkAutoUpdateIndex.Checked;
+                Values.Settings.WriteDeviceSettings();
+            }
         }
 
         private void btnMassEdit_Click2(object sender, EventArgs e)
@@ -1186,7 +1200,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message);
+                    TtUtils.WriteError(ex.Message, "MainForm:btn_Reset");
                 }
             }
         }
@@ -1403,6 +1417,15 @@ namespace TwoTrails.Forms
         private void tsmiErrorLog_Click2(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("notepad.exe", Values.Settings.LogFilePath);
+        }
+
+        private void chkChangeGpsOnStart_CheckedChanged2(object sender, EventArgs e)
+        {
+            if (!_loading)
+            {
+                Values.Settings.DeviceOptions.GetGpsOnStart = chkChangeGpsOnStart.Checked;
+                Values.Settings.WriteDeviceSettings();
+            }
         }
 #endif
         #endregion

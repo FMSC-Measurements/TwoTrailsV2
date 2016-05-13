@@ -63,7 +63,7 @@ namespace TwoTrails.Utilities
 
             _PortNames = SerialPort.GetPortNames();
 
-            if (_PortNames.Count() < 1)
+            if (_PortNames.Length < 1)
             {
                 Thread.Sleep(500);
                 _PortNames = SerialPort.GetPortNames();
@@ -99,7 +99,7 @@ namespace TwoTrails.Utilities
 
             _PortNames = SerialPort.GetPortNames();
 
-            if (_PortNames.Count() < 1)
+            if (!_PortNames.Any())
             {
                 Thread.Sleep(500);
                 _PortNames = SerialPort.GetPortNames();
@@ -188,16 +188,16 @@ namespace TwoTrails.Utilities
                     }
                     catch (TimeoutException toEx)
                     {
-                        TtUtils.WriteError(String.Format("{0}|{2}to:{1}", device.Port, toEx.Message, device.Baud), "autofind");
+                        //TtUtils.WriteError(String.Format("{0}|{2}to:{1}", device.Port, toEx.Message, device.Baud), "autofind");
                     }
                     catch (System.IO.IOException ioEx)
                     {
-                        TtUtils.WriteError(String.Format("{0}|{2}io:{1}", num, ioEx.Message, device.Baud), "autofind");
+                        //TtUtils.WriteError(String.Format("{0}|{2}io:{1}", num, ioEx.Message, device.Baud), "autofind");
                         break;
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(String.Format("{0}|{2}:{1}", num, ex.Message, device.Baud), "autofind");
+                        TtUtils.WriteError(String.Format("{0}|{2}:{1}", num, ex.Message, device.Baud), "autofind", ex.StackTrace);
                         break;
                     }
                     finally
@@ -212,7 +212,7 @@ namespace TwoTrails.Utilities
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "ComPortFinder:RunCheck");
+                TtUtils.WriteError(ex.Message, "ComPortFinder:RunCheck", ex.StackTrace);
             }
 
             lock (_Devices)

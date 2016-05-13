@@ -54,6 +54,8 @@
             this.lblGroups = new System.Windows.Forms.Label();
             this.lblPoints = new System.Windows.Forms.Label();
             this.lblPolygons = new System.Windows.Forms.Label();
+            this.lblCreated = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -94,14 +96,13 @@
             this.btnDeviceSetup = new System.Windows.Forms.Button();
             this.radGpsAlwaysOnNo = new System.Windows.Forms.RadioButton();
             this.radGpsAlwaysOnYes = new System.Windows.Forms.RadioButton();
+            this.chkChangeGpsOnStart = new System.Windows.Forms.CheckBox();
             this.chkAutoUpdateIndex = new System.Windows.Forms.CheckBox();
             this.chkUseCombo = new System.Windows.Forms.CheckBox();
             this.chkOnKeyboard = new System.Windows.Forms.CheckBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblCreated = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -348,6 +349,25 @@
             this.lblPolygons.Size = new System.Drawing.Size(18, 20);
             this.lblPolygons.TabIndex = 2;
             this.lblPolygons.Text = "0";
+            // 
+            // lblCreated
+            // 
+            this.lblCreated.AutoSize = true;
+            this.lblCreated.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCreated.Location = new System.Drawing.Point(8, 197);
+            this.lblCreated.Name = "lblCreated";
+            this.lblCreated.Size = new System.Drawing.Size(0, 20);
+            this.lblCreated.TabIndex = 2;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(3, 185);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(72, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Created With:";
             // 
             // label2
             // 
@@ -765,6 +785,7 @@
             this.tabPage5.Controls.Add(this.btnDeviceSetup);
             this.tabPage5.Controls.Add(this.radGpsAlwaysOnNo);
             this.tabPage5.Controls.Add(this.radGpsAlwaysOnYes);
+            this.tabPage5.Controls.Add(this.chkChangeGpsOnStart);
             this.tabPage5.Controls.Add(this.chkAutoUpdateIndex);
             this.tabPage5.Controls.Add(this.chkUseCombo);
             this.tabPage5.Controls.Add(this.chkOnKeyboard);
@@ -859,6 +880,19 @@
             this.radGpsAlwaysOnYes.UseVisualStyleBackColor = true;
             this.radGpsAlwaysOnYes.CheckedChanged += new System.EventHandler(this.radGpsAlwaysOnYes_CheckedChanged);
             // 
+            // chkChangeGpsOnStart
+            // 
+            this.chkChangeGpsOnStart.AutoSize = true;
+            this.chkChangeGpsOnStart.Location = new System.Drawing.Point(165, 62);
+            this.chkChangeGpsOnStart.Name = "chkChangeGpsOnStart";
+            this.chkChangeGpsOnStart.Size = new System.Drawing.Size(128, 17);
+            this.chkChangeGpsOnStart.TabIndex = 0;
+            this.chkChangeGpsOnStart.TabStop = false;
+            this.chkChangeGpsOnStart.Text = "Change GPS on Start";
+            this.toolTip.SetToolTip(this.chkChangeGpsOnStart, "Ask to switch to a different GPS source when starting to collect a point.");
+            this.chkChangeGpsOnStart.UseVisualStyleBackColor = true;
+            this.chkChangeGpsOnStart.CheckedChanged += new System.EventHandler(this.chkChangeGpsOnStart_CheckedChanged);
+            // 
             // chkAutoUpdateIndex
             // 
             this.chkAutoUpdateIndex.AutoSize = true;
@@ -888,7 +922,7 @@
             // chkOnKeyboard
             // 
             this.chkOnKeyboard.AutoSize = true;
-            this.chkOnKeyboard.Location = new System.Drawing.Point(165, 62);
+            this.chkOnKeyboard.Location = new System.Drawing.Point(165, 131);
             this.chkOnKeyboard.Name = "chkOnKeyboard";
             this.chkOnKeyboard.Size = new System.Drawing.Size(144, 17);
             this.chkOnKeyboard.TabIndex = 0;
@@ -905,25 +939,6 @@
             // saveFileDialog1
             // 
             this.saveFileDialog1.Filter = "TwoTrails File|*.tt2|All files|*.*";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(3, 185);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Created With:";
-            // 
-            // lblCreated
-            // 
-            this.lblCreated.AutoSize = true;
-            this.lblCreated.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreated.Location = new System.Drawing.Point(8, 197);
-            this.lblCreated.Name = "lblCreated";
-            this.lblCreated.Size = new System.Drawing.Size(0, 20);
-            this.lblCreated.TabIndex = 2;
             // 
             // MainForm
             // 
@@ -1034,6 +1049,7 @@
         private System.Windows.Forms.ToolStripProgressBar tsProg;
         private System.Windows.Forms.Label lblCreated;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox chkChangeGpsOnStart;
 
     }
 }

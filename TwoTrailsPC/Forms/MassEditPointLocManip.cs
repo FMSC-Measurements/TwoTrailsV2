@@ -316,7 +316,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MasseditPointLocManip:Commit");
+                TtUtils.WriteError(ex.Message, "MasseditPointLocManip:Commit", ex.StackTrace);
                 this.DialogResult = DialogResult.Abort;
             }
         }

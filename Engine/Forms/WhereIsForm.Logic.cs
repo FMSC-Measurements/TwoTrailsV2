@@ -924,7 +924,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "WhereIsForm:StartGps");
+                    TtUtils.WriteError(ex.Message, "WhereIsForm:StartGps", ex.StackTrace);
                 }
             }
         }
@@ -955,7 +955,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "WhereIsForm:StopGps");
+                    TtUtils.WriteError(ex.Message, "WhereIsForm:StopGps", ex.StackTrace);
                 }
             }
         }

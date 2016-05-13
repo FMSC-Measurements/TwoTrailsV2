@@ -55,7 +55,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:Upgrade");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:Upgrade", ex.StackTrace);
                 return false;
             }
             finally
@@ -96,7 +96,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradeProject");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradeProject", ex.StackTrace);
                 return false;
             }
 
@@ -170,7 +170,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetMetaData");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetMetaData", ex.StackTrace);
             }
             finally
             {
@@ -205,7 +205,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradeMeta");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradeMeta", ex.StackTrace);
                 return false;
             }
 
@@ -270,7 +270,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetQuondamPointData");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetQuondamPointData", ex.StackTrace);
             }
             finally
             {
@@ -295,7 +295,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradePolys");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradePolys", ex.StackTrace);
                 return false;
             }
 
@@ -489,7 +489,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetNmeaBursts");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetNmeaBursts", ex.StackTrace);
             }
             finally
             {
@@ -762,7 +762,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:SaveNmeaBurst");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:SaveNmeaBurst", ex.StackTrace);
             }
             finally
             {
@@ -789,7 +789,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradeNmea");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradeNmea", ex.StackTrace);
                 return false;
             }
             finally
@@ -918,7 +918,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetPoints");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetPoints", ex.StackTrace);
             }
             finally
             {
@@ -974,7 +974,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessLayer:GetTravPointData");
+                TtUtils.WriteError(ex.Message, "DataAccessLayer:GetTravPointData", ex.StackTrace);
             }
             finally
             {
@@ -1098,7 +1098,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:InsertPoint");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:InsertPoint", ex.StackTrace);
             }
             finally
             {
@@ -1137,7 +1137,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradePoints");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradePoints", ex.StackTrace);
                 return false;
             }
             finally
@@ -1193,7 +1193,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetGroups");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:GetGroups", ex.StackTrace);
             }
             finally
             {
@@ -1251,7 +1251,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:InsertGroup");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:InsertGroup", ex.StackTrace);
             }
             finally
             {
@@ -1277,7 +1277,7 @@ namespace TwoTrails.DataAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradeGroups");
+                TtUtils.WriteError(ex.Message, "DataAccessUpgrader:UpgradeGroups", ex.StackTrace);
                 return false;
             }
 
@@ -1310,19 +1310,19 @@ namespace TwoTrails.DataAccess
 
             string[] vals = versionString.Split('.');
 
-            if (vals.Count() > 0)
+            if (vals.Length > 0)
             {
                 if (vals[0].IsInteger())
                     Major = vals[0].ToInteger();
             }
 
-            if (vals.Count() > 1)
+            if (vals.Length > 1)
             {
                 if (vals[1].IsInteger())
                     Minor = vals[1].ToInteger();
             }
 
-            if (vals.Count() > 2)
+            if (vals.Length > 2)
             {
                 if (vals[2].IsInteger())
                     Update = vals[2].ToInteger();

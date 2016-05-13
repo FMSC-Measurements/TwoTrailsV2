@@ -121,6 +121,7 @@ namespace TwoTrails.BusinessLogic
         private const string FILTER_WALK_DOP_VALUE = "FilterWalkDopValue";
         private const string FILTER_WALK_FIX_TYPE = "FilterWalkFixType";
 
+        private const string GET_GPS_ON_START = "GetGpsOnStart";
         private const string GPS_CONFIGURED = "GpsConfigured";
         private const string USE_ONSCREEN_KEYBOARD = "OnScreenKeyboard";
         private const string UPDATE_INDEX_ON_SAVE = "AutoUpdateIndex";
@@ -280,6 +281,10 @@ namespace TwoTrails.BusinessLogic
                 textWriter.WriteValue(DeviceOptions.GpsConfigured);
                 textWriter.WriteEndElement(); //If Gps is configured
 
+                textWriter.WriteStartElement(GET_GPS_ON_START);
+                textWriter.WriteValue(DeviceOptions.GetGpsOnStart);
+                textWriter.WriteEndElement(); //Ask to change gps input on gps start
+
                 textWriter.WriteStartElement(USE_ONSCREEN_KEYBOARD);
                 textWriter.WriteValue(DeviceOptions.UseOnScreenKeyboard);
                 textWriter.WriteEndElement(); //If to use the onscreen keyboard
@@ -388,6 +393,11 @@ namespace TwoTrails.BusinessLogic
                                     case USE_SELECTION:
                                         {
                                             DeviceOptions.UseSelection = textReader.ReadContentAsBoolean();
+                                            break;
+                                        }
+                                    case GET_GPS_ON_START:
+                                        {
+                                            DeviceOptions.GetGpsOnStart = textReader.ReadContentAsBoolean();
                                             break;
                                         }
                                     case KEEP_GPS_ON:

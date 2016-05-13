@@ -183,6 +183,7 @@ namespace TwoTrails.Forms
                 {
                     _PointCNs.Add(_Points[i].CN);
                 }
+                _dirty = false;
             }
         }
 
@@ -349,21 +350,28 @@ namespace TwoTrails.Forms
                     }
                     catch (Exception ex)
                     {
-                        TtUtils.WriteError(ex.Message, "PointEditFormLogic:SavePoint");
+                        TtUtils.WriteError(ex.Message, "PointEditFormLogic:SavePoint", ex.StackTrace);
                         MessageBox.Show("Point Save Error.", "Error", MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                     }
                 }
-                else if (!phv && UpdatedPoint.IsTravType() && !_closing && CurrPoint != null)
+                else if (!phv)
                 {
-                    SideShotPoint sp = UpdatedPoint as SideShotPoint;
-                    if (sp.ForwardAz == null && sp.BackwardAz == null)
+                    if (UpdatedPoint.IsTravType() && !_closing && CurrPoint != null)
                     {
-                        MessageBox.Show("Foward Azimuth and/or Backward Azimuth must contain a value.");
+                        SideShotPoint sp = UpdatedPoint as SideShotPoint;
+                        if (sp.ForwardAz == null && sp.BackwardAz == null)
+                        {
+                            MessageBox.Show("Foward Azimuth and/or Backward Azimuth must contain a value.");
+                        }
+                        else if (sp.SlopeDistance <= 0)
+                        {
+                            MessageBox.Show("Slope Distance must contain a value greater than 0.");
+                        } 
                     }
-                    else if (sp.SlopeDistance <= 0)
+                    else if (Values.Settings.ProjectOptions.DropZero)
                     {
-                       MessageBox.Show("Slope Distance must contain a value greater than 0.");
+                        DeletePoint();
                     }
                 }
             }
@@ -501,7 +509,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointFormEditLogc:CreateNewPoint-Update indexes");
+                    TtUtils.WriteError(ex.Message, "PointFormEditLogc:CreateNewPoint-Update indexes", ex.StackTrace);
                 }
             }
 
@@ -1032,7 +1040,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointEditFormLogic");
+                    TtUtils.WriteError(ex.Message, "PointEditFormLogic", ex.StackTrace);
                 }
             }
 
@@ -1262,7 +1270,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointEditFormLogic:PointInfoCtrl-changeOp");
+                    TtUtils.WriteError(ex.Message, "PointEditFormLogic:PointInfoCtrl-changeOp", ex.StackTrace);
                     MessageBox.Show("Point conversion error.");
                 }
             }
@@ -1351,7 +1359,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointEditFormLogic:DelNmea");
+                    TtUtils.WriteError(ex.Message, "PointEditFormLogic:DelNmea", ex.StackTrace);
                 }
 
             }
@@ -1452,7 +1460,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                         }
                         catch (Exception ex)
                         {
-                            TtUtils.WriteError(ex.Message, "PointEditFormLogic");
+                            TtUtils.WriteError(ex.Message, "PointEditFormLogic", ex.StackTrace);
                             MessageBox.Show("Aquire GPS Form error.");
                         }
                     }
@@ -1483,7 +1491,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message);
+                TtUtils.WriteError(ex.Message, "PointEdit:gpsWayInputCtrl1_OnAcquire", ex.StackTrace);
             }
         }
 
@@ -1708,25 +1716,30 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
             {
                 try
                 {
-                    using (Take5Form form = new Take5Form(pointInfoCtrl.Polygon, DAL, CurrMeta, (int)UpdatedPoint.Index))
+                    SavePoint();
+                    using (Take5Form form = new Take5Form(pointInfoCtrl.Polygon, DAL, CurrMeta,
+                        _Points.Count > 1 ? _Points[CurrPointIndex - 1] : null, CurrPointIndex))
                     {
-                        form.ShowDialog();
-                        LoadPoints();
-                        _dirty = false;
-                        MoveToLastPoint();
-                        pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
-                        AdjustNavControls();
-                        _adjust = true;
-                        LockControls(true);
-                        TtUtils.HideWaitCursor();
-
-                        GC.Collect();
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            LoadPoints();
+                            MoveToLastPoint();
+                            pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
+                            AdjustNavControls();
+                            LockControls(true);
+                            TtUtils.HideWaitCursor();
+                            _adjust = true;
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "PointEditLogic:Take5Setup");
+                    TtUtils.WriteError(ex.Message, "PointEditLogic:Take5Setup", ex.StackTrace);
                     MessageBox.Show("Take5 Form Error");
+                }
+                finally
+                {
+                    GC.Collect();
                 }
             }
             else
@@ -1755,7 +1768,8 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
             {
                 try
                 {
-                    using (WalkForm form = new WalkForm(pointInfoCtrl.Polygon, DAL, CurrMeta, (int)UpdatedPoint.Index))
+                    SavePoint();
+                    using (WalkForm form = new WalkForm(pointInfoCtrl.Polygon, DAL, CurrMeta, CurrPointIndex))
                     {
                         if (form.ShowDialog() == DialogResult.OK)
                         {
@@ -1763,18 +1777,21 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                             MoveToLastPoint();
                             pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
                             AdjustNavControls();
-                            TtUtils.HideWaitCursor();
                             LockControls(true);
+                            TtUtils.HideWaitCursor();
+                            _adjust = true;
                         }
                     }
-
-                    GC.Collect();
                 }
                 catch (Exception ex)
                 {
                     TtUtils.HideWaitCursor();
-                    TtUtils.WriteError(ex.Message, "PointEditLogic:WalkSetup");
+                    TtUtils.WriteError(ex.Message, "PointEditLogic:WalkSetup", ex.StackTrace);
                     MessageBox.Show("Walk Form Error");
+                }
+                finally
+                {
+                    GC.Collect();
                 }
             }
             else

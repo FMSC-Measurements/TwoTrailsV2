@@ -162,7 +162,7 @@ namespace TwoTrails.LaserAccess
             #region Exceptions
             catch (TimeoutException toEx)
             {
-                TtUtils.WriteError(toEx.Message, "LaserAccess:LaserWorker-toEx");
+                TtUtils.WriteError(toEx.Message, "LaserAccess:LaserWorker-toEx", toEx.StackTrace);
 
                 #region trigger Error event
                 Error = LaserErrorType.LaserTimeout;
@@ -173,7 +173,7 @@ namespace TwoTrails.LaserAccess
             }
             catch (System.IO.IOException ioEx)
             {
-                TtUtils.WriteError(ioEx.Message, "LaserAccess:LaserWorker-ioEx");
+                TtUtils.WriteError(ioEx.Message, "LaserAccess:LaserWorker-ioEx", ioEx.StackTrace);
 
                 #region trigger Error event
                 Error = LaserErrorType.ComNotExist;
@@ -184,7 +184,7 @@ namespace TwoTrails.LaserAccess
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "LaserAccess:LaserWorker-ex");
+                TtUtils.WriteError(ex.Message, "LaserAccess:LaserWorker-ex", ex.StackTrace);
 
                 #region trigger Error event
                 Error = LaserErrorType.UnknownError;

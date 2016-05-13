@@ -81,7 +81,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MetadataForm:Init-GetMetaData");
+                TtUtils.WriteError(ex.Message, "MetadataForm:Init-GetMetaData", ex.StackTrace);
             }
 
             _dirty = false;
@@ -223,7 +223,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MetaDataFormLogic:Bind");
+                TtUtils.WriteError(ex.Message, "MetaDataFormLogic:Bind", ex.StackTrace);
             }
         }
 
@@ -260,7 +260,7 @@ namespace TwoTrails.Forms
                 }
                 catch(Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "MetadataFormLogic:SaveMeta");
+                    TtUtils.WriteError(ex.Message, "MetadataFormLogic:SaveMeta", ex.StackTrace);
                 }
 
                 TtUtils.HideWaitCursor();
@@ -373,7 +373,7 @@ namespace TwoTrails.Forms
         {
             if (_current != null && CurrIndex != 0)
             {
-                if (MessageBox.Show("Are you sure you want to delete this Metadata?", "Delete Metadata",
+                if (MessageBox.Show("Are you sure you want to delete this Metadata? All points that use this Metadata will be switched to the default Metadata.", "Delete Metadata",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                     int pos = -1;
@@ -382,6 +382,18 @@ namespace TwoTrails.Forms
                     {
                         _CNs.RemoveAt(pos);
                         MetaData.RemoveAt(pos);
+
+                        List<TtPoint> points = DAL.GetPointsByMeta(Current.CN);
+
+                        if (points.Count > 0)
+                        {
+                            String dMetaCN = MetaData[0].CN;
+                            foreach (TtPoint p in points)
+                            {
+                                p.MetaDefCN = dMetaCN;
+                            }
+                            DAL.SavePoints(points);
+                        }
 
                         DAL.DeleteMetaData(Current.CN);
 
@@ -429,7 +441,7 @@ namespace TwoTrails.Forms
             {
                 name = String.Format("m_{0}", i);
 
-                if (MetaData.Where(m => m.Name == name).Count() > 0)
+                if (MetaData.Where(m => m.Name == name).Any())
                 {
                     i++;
                 }

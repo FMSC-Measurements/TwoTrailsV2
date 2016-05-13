@@ -63,7 +63,6 @@ namespace TwoTrails.Forms
             logging = false;
             this.DialogResult = DialogResult.Cancel;
             OnBound = true;
-            _index = 0;
 
             lblPoly.Text = "Poly: " + Polygon.Name;
 
@@ -146,9 +145,12 @@ namespace TwoTrails.Forms
                     CloseForm();
             }
 #else
-            using (DeviceSetupForm form = new DeviceSetupForm())
+            if (Values.Settings.DeviceOptions.GetGpsOnStart)
             {
-                form.ShowDialog();
+                using (DeviceSetupForm form = new DeviceSetupForm())
+                {
+                    form.ShowDialog();
+                }
             }
 #endif
 
@@ -181,16 +183,16 @@ namespace TwoTrails.Forms
         {
             try
             {
+                if (WalkGroup == null)
+                {
+                    WalkGroup = new TtGroup();
+                    WalkGroup.SetGroupName(String.Format("Walk_{0}", WalkGroup.CN.Truncate(8)), null);
+
+                    DAL.InsertGroup(WalkGroup);
+                }
+
                 if (CurrentPoint != null)
                 {
-                    if (WalkGroup == null)
-                    {
-                        WalkGroup = new TtGroup();
-                        WalkGroup.SetGroupName(String.Format("Walk_{0}", WalkGroup.CN.Truncate(8)), null);
-
-                        DAL.InsertGroup(WalkGroup);
-                    }
-
                     DAL.InsertPoint(CurrentPoint);
                     DAL.SaveNmeaBurst(CurrentNmea, CurrentPoint.CN);
 
@@ -201,7 +203,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "WalkFormLogic:CreateWalkPoint-Save Current Point");
+                TtUtils.WriteError(ex.Message, "WalkFormLogic:CreateWalkPoint-Save Current Point", ex.StackTrace);
             }
 
             LastNmea = CurrentNmea;
@@ -245,7 +247,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "WalkFormLogic:CreateWalkPoint");
+                    TtUtils.WriteError(ex.Message, "WalkFormLogic:CreateWalkPoint", ex.StackTrace);
                 }
             }
         }
@@ -271,7 +273,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "WalkFormLogic:SetupPoint");
+                TtUtils.WriteError(ex.Message, "WalkFormLogic:SetupPoint", ex.StackTrace);
                 return false;
             }
 
@@ -321,7 +323,7 @@ namespace TwoTrails.Forms
                     {
                         if (Values.Settings.DeviceOptions.Filter_Accuracy > 0)
                         {
-                            if (CurrentNmea == null || !(TtUtils.BurstDistance(CurrentNmea, b) > Values.Settings.DeviceOptions.Filter_Accuracy))
+                            if (CurrentNmea == null || TtUtils.BurstDistance(CurrentNmea, b) > Values.Settings.DeviceOptions.Filter_Accuracy)
                             {
                                 CreateWalkPoint(b);
                             }
@@ -401,7 +403,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "WalkFormLogic:Ok:SavePoints");
+                TtUtils.WriteError(ex.Message, "WalkFormLogic:Ok:SavePoints", ex.StackTrace);
             }
             Kb.Hide(this);
             TtUtils.HideWaitCursor();
@@ -442,7 +444,7 @@ namespace TwoTrails.Forms
             }
             catch(Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "WalkFormLogic:btnCapture");
+                TtUtils.WriteError(ex.Message, "WalkFormLogic:btnCapture", ex.StackTrace);
             }
         }
 

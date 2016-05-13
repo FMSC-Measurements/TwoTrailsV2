@@ -58,7 +58,7 @@ namespace TwoTrails.Forms
                 }
                 catch(Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "HowAmIDoingForm:Save");
+                    TtUtils.WriteError(ex.Message, "HowAmIDoingForm:Save", ex.StackTrace);
                 }
             }
         }

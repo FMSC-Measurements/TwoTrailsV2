@@ -507,7 +507,7 @@ namespace TwoTrails.Controls
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "TravInfoCtrl:laserReceivingData");
+                    TtUtils.WriteError(ex.Message, "TravInfoCtrl:laserReceivingData", ex.StackTrace);
                 }
 
                 LaserAquireOpen = false;

@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.textBoxX = new System.Windows.Forms.TextBox();
+            this.bindingSourcePoint = new System.Windows.Forms.BindingSource(this.components);
             this.textBoxY = new System.Windows.Forms.TextBox();
             this.textBoxZ = new System.Windows.Forms.TextBox();
             this.labelX = new System.Windows.Forms.Label();
@@ -45,13 +46,12 @@
             this.txtManAcc = new System.Windows.Forms.TextBox();
             this.btnMisc = new System.Windows.Forms.Button();
             this.txtElevation = new System.Windows.Forms.Label();
-            this.bindingSourcePoint = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourcePoint)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxX
             // 
-            this.textBoxX.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "X", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
+            this.textBoxX.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjX", true));
             this.textBoxX.Location = new System.Drawing.Point(28, 3);
             this.textBoxX.Name = "textBoxX";
             this.textBoxX.Size = new System.Drawing.Size(139, 21);
@@ -61,9 +61,14 @@
             this.textBoxX.GotFocus += new System.EventHandler(this.textBoxX_GotFocus);
             this.textBoxX.LostFocus += new System.EventHandler(this.textBoxX_LostFocus);
             // 
+            // bindingSourcePoint
+            // 
+            this.bindingSourcePoint.DataSource = typeof(TwoTrails.BusinessObjects.GpsPoint);
+            this.bindingSourcePoint.DataError += new System.Windows.Forms.BindingManagerDataErrorEventHandler(this.bindingSourcePoint_DataError);
+            // 
             // textBoxY
             // 
-            this.textBoxY.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "Y", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
+            this.textBoxY.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjY", true));
             this.textBoxY.Location = new System.Drawing.Point(28, 30);
             this.textBoxY.Name = "textBoxY";
             this.textBoxY.Size = new System.Drawing.Size(139, 21);
@@ -75,7 +80,7 @@
             // 
             // textBoxZ
             // 
-            this.textBoxZ.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "Z", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
+            this.textBoxZ.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjZ", true));
             this.textBoxZ.Location = new System.Drawing.Point(28, 58);
             this.textBoxZ.Name = "textBoxZ";
             this.textBoxZ.Size = new System.Drawing.Size(99, 21);
@@ -211,11 +216,6 @@
             this.txtElevation.Name = "txtElevation";
             this.txtElevation.Size = new System.Drawing.Size(41, 20);
             this.txtElevation.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // bindingSourcePoint
-            // 
-            this.bindingSourcePoint.DataSource = typeof(TwoTrails.BusinessObjects.GpsPoint);
-            this.bindingSourcePoint.DataError += new System.Windows.Forms.BindingManagerDataErrorEventHandler(this.bindingSourcePoint_DataError);
             // 
             // GpsInfoControl
             // 

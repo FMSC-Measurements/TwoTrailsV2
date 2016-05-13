@@ -215,7 +215,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "REnamePointFormLogic:Ok-savepoints");
+                    TtUtils.WriteError(ex.Message, "REnamePointFormLogic:Ok-savepoints", ex.StackTrace);
                 }
                 TtUtils.HideWaitCursor();
             }

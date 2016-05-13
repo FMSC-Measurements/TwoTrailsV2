@@ -235,6 +235,11 @@ namespace TwoTrails.Forms
         }
 
 
+        private void chkChangeGpsOnStart_CheckedChanged(object sender, EventArgs e)
+        {
+            chkChangeGpsOnStart_CheckedChanged2(sender, e);
+        }
+
 
 
 

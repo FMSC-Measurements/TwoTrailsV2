@@ -60,9 +60,12 @@ namespace TwoTrails.Forms
             this.Icon = Properties.Resources.Map;
 
 #if !(PocketPC || WindowsCE || Mobile)
-            using (DeviceSetupForm dsf = new DeviceSetupForm())
+            if (Values.Settings.DeviceOptions.GetGpsOnStart)
             {
-                dsf.ShowDialog();
+                using (DeviceSetupForm dsf = new DeviceSetupForm())
+                {
+                    dsf.ShowDialog();
+                }
             }
 #endif
 
@@ -108,7 +111,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "AcquireGpsFormLogic:CloseForm");
+                    TtUtils.WriteError(ex.Message, "AcquireGpsFormLogic:CloseForm", ex.StackTrace);
                 }
             }
         }

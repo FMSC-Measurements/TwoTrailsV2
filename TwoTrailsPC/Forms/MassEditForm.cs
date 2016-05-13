@@ -223,7 +223,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MassEditForm:RefreshData");
+                TtUtils.WriteError(ex.Message, "MassEditForm:RefreshData", ex.StackTrace);
                 pnlInner.Enabled = false;
                 tabCtrl.Enabled = false;
 
@@ -896,7 +896,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "MassEditForm:UpdateFilter");
+                TtUtils.WriteError(ex.Message, "MassEditForm:UpdateFilter", ex.StackTrace);
             }
 
             newPoints.Sort();
@@ -1059,9 +1059,9 @@ namespace TwoTrails.Forms
                     chkLstPolyFilter.SetItemChecked(e.Index, value);
                 }
 
-                ignoreControls = false;
-
                 UpdateFilter();
+
+                ignoreControls = false;
             }
         }
 
@@ -2124,7 +2124,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "MassEditForm:SetFields");
+                    TtUtils.WriteError(ex.Message, "MassEditForm:SetFields", ex.StackTrace);
                     pnlInner.Enabled = false;
                     tabCtrl.Enabled = false;
 
@@ -2739,7 +2739,7 @@ namespace TwoTrails.Forms
                                 MessageBox.Show("Can not convert Ops that contain a Quondam operation.");
                                 return;
                             }
-                            else if (op != tmpPoint.op)
+                            else if (op == tmpPoint.op)
                             {
                                 continue;
                             }
@@ -3584,7 +3584,7 @@ namespace TwoTrails.Forms
                 catch (Exception ex)
                 {
                     TtUtils.HideWaitCursor();
-                    TtUtils.WriteError(ex.Message, "MassEditForm:Save");
+                    TtUtils.WriteError(ex.Message, "MassEditForm:Save", ex.StackTrace);
                     MessageBox.Show("Save Error. See log for details.");
                     return false;
                 }
@@ -4012,7 +4012,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "MassEdit:ExportPoints");
+                    TtUtils.WriteError(ex.Message, "MassEdit:ExportPoints", ex.StackTrace);
                 }
             }
 

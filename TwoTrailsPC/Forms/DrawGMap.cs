@@ -40,7 +40,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "DrawGMap:Load");
+                TtUtils.WriteError(ex.Message, "DrawGMap:Load", ex.StackTrace);
                 MessageBox.Show("Page Generation Error. Please see log file for details.");
                 this.Close();
             }
@@ -59,7 +59,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "DrawGMap:Save");
+                    TtUtils.WriteError(ex.Message, "DrawGMap:Save", ex.StackTrace);
                     MessageBox.Show("Map Save Error. Please see log file for details.");
                     this.Close();
                 }

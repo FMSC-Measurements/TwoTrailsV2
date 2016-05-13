@@ -29,7 +29,7 @@ namespace TwoTrails.BusinessLogic
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "SettingsOpetions- RecentProject");
+                TtUtils.WriteError(ex.Message, "SettingsOpetions- RecentProject", ex.StackTrace);
             }
         }
 
@@ -94,6 +94,7 @@ namespace TwoTrails.BusinessLogic
 
             DropZero = DEFAULT_DROP_ZERO;
             Round = DEFAULT_ROUND;
+            GetGpsOnStart = DEFAULT_GET_GPS_ON_START;
 
             FormMassEditElevationFeet = true;
             FormMassEditAutoClosePoly = false;
@@ -121,6 +122,7 @@ namespace TwoTrails.BusinessLogic
         public int DEFAULT_WALK_INCREMENT { get { return 2; } }
         public int DEFAULT_POINT_ACCURACY { get { return 6; } }
         public double MIN_POINT_ACCURACY { get { return 0.0001; } }
+        public bool DEFAULT_GET_GPS_ON_START { get { return false; } }
 
 
 
@@ -161,6 +163,7 @@ namespace TwoTrails.BusinessLogic
         public bool DropZero { get; set; }
         public bool Round { get; set; }
         public int WalkIncrement { get; set; }
+        public bool GetGpsOnStart { get; set; }
 
         //filters
         public int Filter_GPS_DOP_TYPE { get; set; }

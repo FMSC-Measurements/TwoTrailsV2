@@ -115,7 +115,7 @@ namespace TwoTrails.Forms
         {
             if (!txtNewPolyName.Text.IsEmpty())
             {
-                if (_AllPolys.Where(p => p.Name == txtNewPolyName.Text).Count() < 1)
+                if (!_AllPolys.Where(p => p.Name == txtNewPolyName.Text).Any())
                 {
                     Merge(radPointsQndm.Checked);
                 }

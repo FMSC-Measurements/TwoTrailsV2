@@ -464,7 +464,7 @@ namespace TwoTrails.Forms
             // 
             this.chkAutoUpdateIndex.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.chkAutoUpdateIndex.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.chkAutoUpdateIndex.Location = new System.Drawing.Point(3, 116);
+            this.chkAutoUpdateIndex.Location = new System.Drawing.Point(4, 116);
             this.chkAutoUpdateIndex.Name = "chkAutoUpdateIndex";
             this.chkAutoUpdateIndex.Size = new System.Drawing.Size(173, 20);
             this.chkAutoUpdateIndex.TabIndex = 13;

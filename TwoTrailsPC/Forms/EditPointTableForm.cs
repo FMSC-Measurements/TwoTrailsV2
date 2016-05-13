@@ -160,7 +160,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "EditPointTable:SetupDataTables");
+                TtUtils.WriteError(ex.Message, "EditPointTable:SetupDataTables", ex.StackTrace);
             }
         }
 
@@ -261,7 +261,7 @@ namespace TwoTrails.Forms
                 }
                 catch (Exception ex)
                 {
-                    TtUtils.WriteError(ex.Message, "EditPointTable:AddDataToTable");
+                    TtUtils.WriteError(ex.Message, "EditPointTable:AddDataToTable", ex.StackTrace);
                 }
 
                 row.EndEdit();
@@ -815,7 +815,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "EditPointTable:CellValueChanged");
+                TtUtils.WriteError(ex.Message, "EditPointTable:CellValueChanged", ex.StackTrace);
                 tsslStatus.Text = "Point Update Error.";
                 return;
             }
@@ -857,7 +857,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "EditPointTableForm:Save");
+                TtUtils.WriteError(ex.Message, "EditPointTableForm:Save", ex.StackTrace);
                 MessageBox.Show("The Points were unable to save correctly. See log file for details.");
                 return false;
             }
@@ -974,7 +974,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "EditPointTable:ResetRow");
+                TtUtils.WriteError(ex.Message, "EditPointTable:ResetRow", ex.StackTrace);
                 return false;
             }
 
@@ -1002,7 +1002,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "EditPointTableForm:ResetTable");
+                TtUtils.WriteError(ex.Message, "EditPointTableForm:ResetTable", ex.StackTrace);
                 return false;
             }
 

@@ -124,8 +124,8 @@ namespace TwoTrails.Utilities
 
                     if (points.Count > 0)
                     {
-                        hasWaypoints = (points.Where(p => p.op == TwoTrails.Engine.OpType.WayPoint).Count() > 0);
-                        hasMiscPoints = (points.Where(p => p.op == TwoTrails.Engine.OpType.SideShot && !p.OnBnd).Count() > 0);
+                        hasWaypoints = (points.Where(p => p.op == TwoTrails.Engine.OpType.WayPoint).Any());
+                        hasMiscPoints = (points.Where(p => p.op == TwoTrails.Engine.OpType.SideShot && !p.OnBnd).Any());
 
                         StringBuilder coordArray = new StringBuilder();
                         StringBuilder pmArray = new StringBuilder();
@@ -134,7 +134,7 @@ namespace TwoTrails.Utilities
                         TtPoint tmpPoint;
                         double lat, lon;
 
-                        TtMetaData meta = DAL.GetMetaDataByCN(points[0].MetaDefCN);
+                        TtMetaData meta = DAL.GetMetaDataByCN(Engine.Values.EmptyGuid);
                         if (meta == null)
                             meta = DAL.GetMetaData()[0];
 

@@ -71,7 +71,7 @@ namespace TwoTrails.Forms
             }
             catch (Exception ex)
             {
-                TtUtils.WriteError(ex.Message, "QuondamRetraceForm:Init");
+                TtUtils.WriteError(ex.Message, "QuondamRetraceForm:Init", ex.StackTrace);
             }
 
         }
