@@ -4324,7 +4324,6 @@ namespace TwoTrails.DataAccess
                 md.uomElevation = UomElevation.Feet;
                 md.uomDistance = UomDistance.FeetTenths;
                 md.datum = Datum.NAD83;
-                InsertMetaData(md);
             }
 
             md.CN = Values.EmptyGuid;

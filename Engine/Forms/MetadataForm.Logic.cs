@@ -194,7 +194,10 @@ namespace TwoTrails.Forms
                 cboDatum.DataSource = TtUtils.EnumGetValues(Datum.Local);
                 cboDatum.DataBindings.Add("SelectedItem", bindingSourceMeta, "datum", true);
 
-                cboDist.DataSource = TtUtils.EnumGetValues(UomDistance.Chains);
+                cboDist.DataSource = TtUtils.EnumGetValues(UomDistance.Chains).Where(e =>
+                    (UomDistance)e != UomDistance.FeetInches &&
+                    (UomDistance)e != UomDistance.Yards).ToList();
+
                 cboDist.DataBindings.Add("SelectedItem", bindingSourceMeta, "uomDistance", true);
 
                 cboElev.DataSource = TtUtils.EnumGetValues(UomElevation.Feet);
