@@ -45,21 +45,21 @@ namespace TwoTrails.Utilities
         #region Coeff
         public const double HA_Coeff = 2.471;
 
-        public const double FeetToMeters_Coeff = 1200.0 / 3937.0; //0.3048;
-        public const double YardsToMeters_Coeff = FeetToMeters_Coeff * 3.0; //0.9144;
-        public const double ChainsToMeters_Coeff = FeetToMeters_Coeff * 22.0; //20.1168;
+        public const double FeetToMeters_Coeff = 1200 / 3937d;
+        public const double YardsToMeters_Coeff = FeetToMeters_Coeff * 3d;
+        public const double ChainsToMeters_Coeff = FeetToMeters_Coeff * 66d;
 
-        public const double MetersToFeet_Coeff = 3937.0 / 1200.0; //3.28084;
-        public const double YardsToFeet_Coeff = 3.0;
-        public const double ChainsToFeet_Coeff = 66;
+        public const double MetersToFeet_Coeff = 3937 / 1200d; //3.28084;
+        public const double YardsToFeet_Coeff = 3d;
+        public const double ChainsToFeet_Coeff = 66d;
 
-        public const double FeetToYards_Coeff = (1 / 3.0);
-        public const double MetersToYards_Coeff = 1.0 / YardsToMeters_Coeff; //1.09361;
-        public const double ChainsToYards_Coeff = 22;
+        public const double FeetToYards_Coeff = 1 / 3d;
+        public const double MetersToYards_Coeff = 1 / YardsToMeters_Coeff;
+        public const double ChainsToYards_Coeff = 22d;
 
-        public const double FeetToChains_Coeff = (1 / 66.0);
-        public const double MetersToChains_Coeff = MetersToFeet_Coeff / 66.0; //0.0497096954;
-        public const double YardsToChains_Coeff = (3 / 66.0);
+        public const double FeetToChains_Coeff = 1/66d;
+        public const double MetersToChains_Coeff = MetersToFeet_Coeff / 66d;
+        public const double YardsToChains_Coeff = 3 / 66d;
 
         public const double Meters2ToAcres_Coeff = 0.000247105;
         public const double Meters2ToHectares_Coeff = 0.0001;
@@ -218,7 +218,7 @@ namespace TwoTrails.Utilities
                     }
                 case Unit.YARDS:
                     {
-                        return value; ;
+                        return value;
                     }
                 case Unit.FEET_TENTH:
                     {
@@ -242,19 +242,19 @@ namespace TwoTrails.Utilities
             {
                 case Unit.FEET_INCHES:
                     {
-                        return ConvertFeetInchesToFeetTenths(value) * ChainsToFeet_Coeff;
+                        return ConvertFeetInchesToFeetTenths(value) * FeetToChains_Coeff;
                     }
                 case Unit.METERS:
                     {
-                        return value * ChainsToMeters_Coeff;
+                        return value * MetersToChains_Coeff;
                     }
                 case Unit.YARDS:
                     {
-                        return ChainsToYards_Coeff;
+                        return value * YardsToChains_Coeff;
                     }
                 case Unit.FEET_TENTH:
                     {
-                        return value * ChainsToFeet_Coeff;
+                        return value * FeetToChains_Coeff;
                     }
                 case Unit.CHAINS:
                     {

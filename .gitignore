@@ -4,7 +4,9 @@
 **/Release
 /TT2 Installer
 **/FMSC.Controls
-
+/TestResults
+/TtPCTest
+/LocalTestRun.testrunconfig
 
 # Compiled source #
 ###################

@@ -129,14 +129,14 @@ namespace TwoTrails.Forms
 
                 lstDist.Add(Unit.FEET_TENTH.ToString());
                 lstDist.Add(Unit.METERS.ToString());
-                lstDist.Add(Unit.FEET_INCHES.ToString());
-                lstDist.Add(Unit.YARDS.ToString());
+                //lstDist.Add(Unit.FEET_INCHES.ToString());
+                //lstDist.Add(Unit.YARDS.ToString());
                 lstDist.Add(Unit.CHAINS.ToString());
 
                 cboDist.Items.Add(Unit.FEET_TENTH);
                 cboDist.Items.Add(Unit.METERS);
-                cboDist.Items.Add(Unit.FEET_INCHES);
-                cboDist.Items.Add(Unit.YARDS);
+                //cboDist.Items.Add(Unit.FEET_INCHES);
+                //cboDist.Items.Add(Unit.YARDS);
                 cboDist.Items.Add(Unit.CHAINS);
 
                 cboLoc.SelectedIndex = 0;
