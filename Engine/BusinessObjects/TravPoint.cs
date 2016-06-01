@@ -166,7 +166,16 @@ namespace TwoTrails.BusinessObjects
                     return null;
                 }
 
-                return TtUtils.AzimuthModulo(((double)ForwardAz + adjustedBackAz) / 2);
+                double taz = ((double)ForwardAz + adjustedBackAz) / 2;
+
+                if (Math.Abs(taz - adjustedBackAz) > 100)
+                {
+                    return TtUtils.AzimuthModulo(taz + 180);
+                }
+                else
+                {
+                    return TtUtils.AzimuthModulo(taz);
+                }
             }
         }
 
