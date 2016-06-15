@@ -236,8 +236,6 @@ namespace TwoTrails.Forms
                     newPoly.Description = String.Format("Angle: {0}, GridX(Mt): {1}, GridY(Mt): {2}",
                         angle, gridX, gridY);
 
-                    angle = TtUtils.DegreesToRadian(angle);
-
                     //add list of DoublePoints from TtPoints (using DoublePoints is Faster in the calculations)
                     List<DoublePoint> _Points = new List<DoublePoint>();
 
