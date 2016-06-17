@@ -271,7 +271,7 @@
             // 
             // textBoxX
             // 
-            this.textBoxX.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "X", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
+            this.textBoxX.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjX", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
             this.textBoxX.Location = new System.Drawing.Point(28, 3);
             this.textBoxX.Name = "textBoxX";
             this.textBoxX.Size = new System.Drawing.Size(139, 21);
@@ -288,7 +288,7 @@
             // 
             // textBoxY
             // 
-            this.textBoxY.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "Y", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
+            this.textBoxY.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjY", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
             this.textBoxY.Location = new System.Drawing.Point(28, 26);
             this.textBoxY.Name = "textBoxY";
             this.textBoxY.Size = new System.Drawing.Size(139, 21);
@@ -300,7 +300,7 @@
             // 
             // textBoxZ
             // 
-            this.textBoxZ.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "Z", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
+            this.textBoxZ.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjZ", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.#####"));
             this.textBoxZ.Location = new System.Drawing.Point(28, 49);
             this.textBoxZ.Name = "textBoxZ";
             this.textBoxZ.Size = new System.Drawing.Size(99, 21);

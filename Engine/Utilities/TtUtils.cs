@@ -907,12 +907,27 @@ namespace TwoTrails.Utilities
             return (Math.PI / 180) * val;
         }
 
-
+        /// <summary>
+        /// Rotates Point round another point
+        /// </summary>
+        /// <param name="point">point to rotate</param>
+        /// <param name="angle">angle to rotate by in degrees</param>
+        /// <param name="rPoint">point to rotate around</param>
+        /// <returns>rotated point</returns>
         public static DoublePoint RotatePoint(DoublePoint point, double angle, DoublePoint rPoint)
         {
             return RotatePoint(point.X, point.Y, angle, rPoint.X, rPoint.Y);
         }
 
+        /// <summary>
+        /// Rotates coordinates around other coordinates
+        /// </summary>
+        /// <param name="x">rotating x</param>
+        /// <param name="y">rotating y</param>
+        /// <param name="angle">angle to rotate by in degrees</param>
+        /// <param name="rX">x to rotate around</param>
+        /// <param name="rY">y to rotate around</param>
+        /// <returns>rotated point</returns>
         public static DoublePoint RotatePoint(double x, double y, double angle, double rX, double rY)
         {
             double ca = Math.Cos(angle * Degrees2Radians_Coeff);
