@@ -107,17 +107,22 @@ namespace TwoTrails.Forms
             InitializeComponent();
 #endif
 
-            navCtrl = new NavCtrl();
-            navCtrl.Location = new Point(0, 0);
+            if (navCtrl == null)
+            {
+                navCtrl = new NavCtrl();
+                navCtrl.Location = new Point(0, 0);
 
-#if (PocketPC || WindowsCE || Mobile)
-            if (Values.WideScreen)
-                navCtrl.Size = new Size(240, 183);
-            else
-                navCtrl.Size = new Size(240, 205);
-#else
-            navCtrl.Size = new Size(277, 252);
-#endif
+                navCtrl.Size = new Size(panel1.Width, panel2.Height + panel2.Location.Y); 
+            }
+
+//#if (PocketPC || WindowsCE || Mobile)
+//            if (Values.WideScreen)
+//                navCtrl.Size = new Size(240, 183);
+//            else
+//                navCtrl.Size = new Size(240, 205);
+//#else
+//            navCtrl.Size = new Size(277, 252);
+//#endif
 
             navCtrl.BringToFront();
             navCtrl.Visible = false;
