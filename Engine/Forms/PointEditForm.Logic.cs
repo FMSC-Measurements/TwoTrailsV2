@@ -1994,7 +1994,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
             take5InfoCtrl1.Visible = false;
             gpsInfoControl1.Visible = true;
             gpsInfoControl1.MiscButtonText = "Edit Walk";
-            gpsInfoControl1.ShowMiscButton = true;
+            gpsInfoControl1.ShowMiscButton = false;
             gpsInfoControl1.CurrentPoint = point;
             gpsInfoControl1.Meta = CurrMeta;
             travInfoControl1.Visible = false;
