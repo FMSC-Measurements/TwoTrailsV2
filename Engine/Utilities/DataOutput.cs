@@ -315,12 +315,12 @@ namespace TwoTrails.Utilities
 
                 #region Add Data
                 List<string> info = new List<string>();
-                info.Add(Values.Settings.ProjectOptions.ProjectName.Scrub());
-                info.Add(Values.Settings.ProjectOptions.Description.Scrub());
-                info.Add(Values.Settings.ProjectOptions.Region.Scrub());
-                info.Add(Values.Settings.ProjectOptions.Forest.Scrub());
-                info.Add(Values.Settings.ProjectOptions.District.Scrub());
-                info.Add(Values.Settings.ProjectOptions.Year);
+                info.Add(DAL.GetProjectID().Scrub());
+                info.Add(DAL.GetProjectDescription().Scrub());
+                info.Add(DAL.GetProjectDistrict().Scrub());
+                info.Add(DAL.GetProjectForest().Scrub());
+                info.Add(DAL.GetProjectDistrict().Scrub());
+                info.Add(DAL.GetProjectYear());
                 info.Add(Values.Settings.ProjectOptions.DropZero.ToString());
                 info.Add(Values.Settings.DeviceOptions.GpsComPort.Scrub());
                 info.Add(Values.Settings.DeviceOptions.GpsBaud.ToString());
