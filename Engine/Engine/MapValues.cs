@@ -24,6 +24,8 @@ namespace TwoTrails.Engine
                 mapLines = true;
                 mapLegend = false;
 
+                mapPolyLabels = Values.EmptyGuid;
+
                 mapDetailsUTM = true;
 
                 isSetup = true;
@@ -47,11 +49,11 @@ namespace TwoTrails.Engine
             get;
         }
 
-        public static bool mapLabels
-        {
-            set;
-            get;
-        }
+        //public static bool mapLabels
+        //{
+        //    set;
+        //    get;
+        //}
 
         public static bool mapGrid
         {
@@ -101,6 +103,11 @@ namespace TwoTrails.Engine
             set;
         }
 
+        public static string mapPolyLabels
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region ElementOptions

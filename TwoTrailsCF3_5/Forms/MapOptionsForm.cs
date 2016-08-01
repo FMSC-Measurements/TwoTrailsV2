@@ -179,5 +179,10 @@ namespace TwoTrails.Forms
         {
             chkCloseBnd_CheckedChanged2(sender, e);
         }
+
+        private void cboLabels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cboLabels_SelectedIndexChanged2(sender, e);
+        }
     }
 }

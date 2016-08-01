@@ -52,7 +52,6 @@
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ctxmsPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.printDoc = new System.Drawing.Printing.PrintDocument();
-            this.chkLabels = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.zoomBar)).BeginInit();
             this.drawPanel.SuspendLayout();
             this.pnlSettings.SuspendLayout();
@@ -69,11 +68,12 @@
             // 
             this.zoomBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.zoomBar.Location = new System.Drawing.Point(0, 533);
+            this.zoomBar.Location = new System.Drawing.Point(0, 656);
+            this.zoomBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.zoomBar.Maximum = 20;
             this.zoomBar.Minimum = 1;
             this.zoomBar.Name = "zoomBar";
-            this.zoomBar.Size = new System.Drawing.Size(684, 45);
+            this.zoomBar.Size = new System.Drawing.Size(912, 56);
             this.zoomBar.TabIndex = 0;
             this.zoomBar.TabStop = false;
             this.zoomBar.Tag = "Zoom Map";
@@ -91,8 +91,9 @@
             this.drawPanel.Controls.Add(this.pnlMoveImage);
             this.drawPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawPanel.Location = new System.Drawing.Point(0, 0);
+            this.drawPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.drawPanel.Name = "drawPanel";
-            this.drawPanel.Size = new System.Drawing.Size(684, 562);
+            this.drawPanel.Size = new System.Drawing.Size(912, 692);
             this.drawPanel.TabIndex = 1;
             this.drawPanel.DoubleClick += new System.EventHandler(this.drawPanel_DoubleClick);
             this.drawPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.drawPanel_Paint);
@@ -105,9 +106,10 @@
             this.lblLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLoc.AutoSize = true;
             this.lblLoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoc.Location = new System.Drawing.Point(5, 546);
+            this.lblLoc.Location = new System.Drawing.Point(7, 672);
+            this.lblLoc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLoc.Name = "lblLoc";
-            this.lblLoc.Size = new System.Drawing.Size(51, 16);
+            this.lblLoc.Size = new System.Drawing.Size(59, 20);
             this.lblLoc.TabIndex = 4;
             this.lblLoc.Text = "label1";
             this.lblLoc.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -122,11 +124,11 @@
             this.pnlSettings.Controls.Add(this.chkDetails);
             this.pnlSettings.Controls.Add(this.chkFollowPos);
             this.pnlSettings.Controls.Add(this.chkMyPos);
-            this.pnlSettings.Controls.Add(this.chkLabels);
             this.pnlSettings.Controls.Add(this.chkInvert);
-            this.pnlSettings.Location = new System.Drawing.Point(275, 150);
+            this.pnlSettings.Location = new System.Drawing.Point(367, 185);
+            this.pnlSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlSettings.Name = "pnlSettings";
-            this.pnlSettings.Size = new System.Drawing.Size(150, 200);
+            this.pnlSettings.Size = new System.Drawing.Size(200, 246);
             this.pnlSettings.TabIndex = 3;
             this.pnlSettings.Visible = false;
             // 
@@ -135,9 +137,10 @@
             this.radLatLon.AutoSize = true;
             this.radLatLon.Enabled = false;
             this.radLatLon.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radLatLon.Location = new System.Drawing.Point(32, 171);
+            this.radLatLon.Location = new System.Drawing.Point(43, 210);
+            this.radLatLon.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radLatLon.Name = "radLatLon";
-            this.radLatLon.Size = new System.Drawing.Size(85, 20);
+            this.radLatLon.Size = new System.Drawing.Size(106, 24);
             this.radLatLon.TabIndex = 1;
             this.radLatLon.Text = "Lat / Lon";
             this.radLatLon.UseVisualStyleBackColor = true;
@@ -149,9 +152,10 @@
             this.radUTM.Checked = true;
             this.radUTM.Enabled = false;
             this.radUTM.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radUTM.Location = new System.Drawing.Point(32, 145);
+            this.radUTM.Location = new System.Drawing.Point(43, 178);
+            this.radUTM.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radUTM.Name = "radUTM";
-            this.radUTM.Size = new System.Drawing.Size(59, 20);
+            this.radUTM.Size = new System.Drawing.Size(69, 24);
             this.radUTM.TabIndex = 1;
             this.radUTM.TabStop = true;
             this.radUTM.Text = "UTM";
@@ -163,9 +167,10 @@
             this.chkDetails.AutoSize = true;
             this.chkDetails.Enabled = false;
             this.chkDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDetails.Location = new System.Drawing.Point(20, 119);
+            this.chkDetails.Location = new System.Drawing.Point(27, 146);
+            this.chkDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkDetails.Name = "chkDetails";
-            this.chkDetails.Size = new System.Drawing.Size(117, 20);
+            this.chkDetails.Size = new System.Drawing.Size(142, 24);
             this.chkDetails.TabIndex = 0;
             this.chkDetails.TabStop = false;
             this.chkDetails.Text = "Show Details";
@@ -177,9 +182,10 @@
             this.chkFollowPos.AutoSize = true;
             this.chkFollowPos.Enabled = false;
             this.chkFollowPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkFollowPos.Location = new System.Drawing.Point(20, 93);
+            this.chkFollowPos.Location = new System.Drawing.Point(27, 114);
+            this.chkFollowPos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkFollowPos.Name = "chkFollowPos";
-            this.chkFollowPos.Size = new System.Drawing.Size(132, 20);
+            this.chkFollowPos.Size = new System.Drawing.Size(159, 24);
             this.chkFollowPos.TabIndex = 0;
             this.chkFollowPos.TabStop = false;
             this.chkFollowPos.Text = "Follow Position";
@@ -190,9 +196,10 @@
             // 
             this.chkMyPos.AutoSize = true;
             this.chkMyPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMyPos.Location = new System.Drawing.Point(10, 67);
+            this.chkMyPos.Location = new System.Drawing.Point(13, 82);
+            this.chkMyPos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkMyPos.Name = "chkMyPos";
-            this.chkMyPos.Size = new System.Drawing.Size(107, 20);
+            this.chkMyPos.Size = new System.Drawing.Size(129, 24);
             this.chkMyPos.TabIndex = 0;
             this.chkMyPos.TabStop = false;
             this.chkMyPos.Text = "My Position";
@@ -203,9 +210,10 @@
             // 
             this.chkInvert.AutoSize = true;
             this.chkInvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkInvert.Location = new System.Drawing.Point(10, 15);
+            this.chkInvert.Location = new System.Drawing.Point(13, 18);
+            this.chkInvert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkInvert.Name = "chkInvert";
-            this.chkInvert.Size = new System.Drawing.Size(126, 20);
+            this.chkInvert.Size = new System.Drawing.Size(155, 24);
             this.chkInvert.TabIndex = 0;
             this.chkInvert.TabStop = false;
             this.chkInvert.Text = "Invert Controls";
@@ -215,9 +223,10 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClose.Location = new System.Drawing.Point(12, 504);
+            this.btnClose.Location = new System.Drawing.Point(16, 620);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(100, 28);
             this.btnClose.TabIndex = 2;
             this.btnClose.TabStop = false;
             this.btnClose.Text = "Close";
@@ -228,9 +237,10 @@
             // btnSettings
             // 
             this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSettings.Location = new System.Drawing.Point(597, 504);
+            this.btnSettings.Location = new System.Drawing.Point(796, 620);
+            this.btnSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSettings.Size = new System.Drawing.Size(100, 28);
             this.btnSettings.TabIndex = 1;
             this.btnSettings.TabStop = false;
             this.btnSettings.Text = "Settings";
@@ -246,9 +256,10 @@
             this.pnlMoveImage.Controls.Add(this.picRight);
             this.pnlMoveImage.Controls.Add(this.picUp);
             this.pnlMoveImage.Controls.Add(this.picLeft);
-            this.pnlMoveImage.Location = new System.Drawing.Point(597, 12);
+            this.pnlMoveImage.Location = new System.Drawing.Point(796, 15);
+            this.pnlMoveImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlMoveImage.Name = "pnlMoveImage";
-            this.pnlMoveImage.Size = new System.Drawing.Size(75, 75);
+            this.pnlMoveImage.Size = new System.Drawing.Size(100, 92);
             this.pnlMoveImage.TabIndex = 0;
             this.pnlMoveImage.Visible = false;
             // 
@@ -256,9 +267,10 @@
             // 
             this.picCenter.Image = global::TwoTrails.Properties.Resources._8_direction;
             this.picCenter.InitialImage = global::TwoTrails.Properties.Resources._8_direction;
-            this.picCenter.Location = new System.Drawing.Point(25, 25);
+            this.picCenter.Location = new System.Drawing.Point(33, 31);
+            this.picCenter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.picCenter.Name = "picCenter";
-            this.picCenter.Size = new System.Drawing.Size(25, 25);
+            this.picCenter.Size = new System.Drawing.Size(33, 31);
             this.picCenter.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCenter.TabIndex = 0;
             this.picCenter.TabStop = false;
@@ -269,9 +281,10 @@
             // 
             this.picDown.Image = global::TwoTrails.Properties.Resources.arrow_down;
             this.picDown.InitialImage = global::TwoTrails.Properties.Resources.arrow_down;
-            this.picDown.Location = new System.Drawing.Point(25, 50);
+            this.picDown.Location = new System.Drawing.Point(33, 62);
+            this.picDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.picDown.Name = "picDown";
-            this.picDown.Size = new System.Drawing.Size(25, 25);
+            this.picDown.Size = new System.Drawing.Size(33, 31);
             this.picDown.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picDown.TabIndex = 0;
             this.picDown.TabStop = false;
@@ -284,9 +297,10 @@
             // 
             this.picRight.Image = global::TwoTrails.Properties.Resources.arrow_right;
             this.picRight.InitialImage = global::TwoTrails.Properties.Resources.arrow_right;
-            this.picRight.Location = new System.Drawing.Point(50, 25);
+            this.picRight.Location = new System.Drawing.Point(67, 31);
+            this.picRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.picRight.Name = "picRight";
-            this.picRight.Size = new System.Drawing.Size(25, 25);
+            this.picRight.Size = new System.Drawing.Size(33, 31);
             this.picRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRight.TabIndex = 0;
             this.picRight.TabStop = false;
@@ -299,9 +313,10 @@
             // 
             this.picUp.Image = global::TwoTrails.Properties.Resources.arrow_up;
             this.picUp.InitialImage = global::TwoTrails.Properties.Resources.arrow_up;
-            this.picUp.Location = new System.Drawing.Point(25, 0);
+            this.picUp.Location = new System.Drawing.Point(33, 0);
+            this.picUp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.picUp.Name = "picUp";
-            this.picUp.Size = new System.Drawing.Size(25, 25);
+            this.picUp.Size = new System.Drawing.Size(33, 31);
             this.picUp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picUp.TabIndex = 0;
             this.picUp.TabStop = false;
@@ -314,9 +329,10 @@
             // 
             this.picLeft.Image = global::TwoTrails.Properties.Resources.arrow_left;
             this.picLeft.InitialImage = global::TwoTrails.Properties.Resources.arrow_left;
-            this.picLeft.Location = new System.Drawing.Point(0, 25);
+            this.picLeft.Location = new System.Drawing.Point(0, 31);
+            this.picLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.picLeft.Name = "picLeft";
-            this.picLeft.Size = new System.Drawing.Size(25, 25);
+            this.picLeft.Size = new System.Drawing.Size(33, 31);
             this.picLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picLeft.TabIndex = 0;
             this.picLeft.TabStop = false;
@@ -340,13 +356,13 @@
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ctxmsPrint});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(141, 26);
+            this.contextMenuStrip.Size = new System.Drawing.Size(159, 28);
             // 
             // ctxmsPrint
             // 
             this.ctxmsPrint.Name = "ctxmsPrint";
             this.ctxmsPrint.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.ctxmsPrint.Size = new System.Drawing.Size(140, 22);
+            this.ctxmsPrint.Size = new System.Drawing.Size(158, 24);
             this.ctxmsPrint.Text = "Print";
             this.ctxmsPrint.Click += new System.EventHandler(this.ctxmsPrint_Click);
             // 
@@ -354,28 +370,16 @@
             // 
             this.printDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDoc_PrintPage);
             // 
-            // chkLabels
-            // 
-            this.chkLabels.AutoSize = true;
-            this.chkLabels.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLabels.Location = new System.Drawing.Point(10, 41);
-            this.chkLabels.Name = "chkLabels";
-            this.chkLabels.Size = new System.Drawing.Size(115, 20);
-            this.chkLabels.TabIndex = 0;
-            this.chkLabels.TabStop = false;
-            this.chkLabels.Text = "Show Labels";
-            this.chkLabels.UseVisualStyleBackColor = true;
-            this.chkLabels.CheckedChanged += new System.EventHandler(this.chkLabels_CheckedChanged);
-            // 
             // MapForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 562);
+            this.ClientSize = new System.Drawing.Size(912, 692);
             this.ContextMenuStrip = this.contextMenuStrip;
             this.Controls.Add(this.zoomBar);
             this.Controls.Add(this.drawPanel);
-            this.MinimumSize = new System.Drawing.Size(400, 400);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(527, 482);
             this.Name = "MapForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "TwoTrails - Map";
@@ -424,6 +428,5 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ctxmsPrint;
         private System.Drawing.Printing.PrintDocument printDoc;
-        private System.Windows.Forms.CheckBox chkLabels;
     }
 }

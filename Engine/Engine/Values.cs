@@ -150,6 +150,7 @@ namespace TwoTrails.Engine
 #endif
 
         public static readonly string EmptyGuid = "00000000-0000-0000-0000-000000000000";
+        public static readonly string FullGuid = "11111111-1111-1111-1111-111111111111";
         public static readonly TtGroup MainGroup = new TtGroup()
         { Name = "Main Group", CN = EmptyGuid, Description = String.Empty, GroupType = GroupType.General };
 

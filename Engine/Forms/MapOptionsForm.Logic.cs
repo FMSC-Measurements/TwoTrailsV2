@@ -41,8 +41,9 @@ namespace TwoTrails.Forms
             chkAdjMisc.Checked = MapValues.mapAdjMisc;
             chkAdjNav.Checked = MapValues.mapAdjNav;
             //chkGrid.Checked = MapValues.mapGrid;
-            chkLabels.Checked = MapValues.mapLabels;
-            txtSkip.Enabled = MapValues.mapLabels;
+            //chkLabels.Checked = MapValues.mapLabels;
+            txtSkip.Enabled = MapValues.mapPolyLabels != Values.EmptyGuid;
+
 #if DEBUG
             chkLegend.Checked = false;
             MapValues.mapLegend = false;
@@ -97,6 +98,9 @@ namespace TwoTrails.Forms
             lstPolygons.Columns.Add("Area (Ac)", 70, HorizontalAlignment.Left);
             */
 
+            cboLabels.Items.Add("None");
+            cboLabels.Items.Add("All");
+
             if(dal != null)
             {
                 List<TtPolygon> polys = dal.GetPolygons();
@@ -118,7 +122,17 @@ namespace TwoTrails.Forms
                         l.BackColor = Color.LightGray;
 
                     lstPolygons.Items.Add(l);
+                    cboLabels.Items.Add(poly.Name);
+
+                    if (MapValues.mapPolyLabels == poly.CN)
+                        cboLabels.SelectedIndex = i + 2;
                 }
+
+                if (MapValues.mapPolyLabels == Values.EmptyGuid)
+                    cboLabels.SelectedIndex = 0;
+
+                if (MapValues.mapPolyLabels == Values.FullGuid)
+                    cboLabels.SelectedIndex = 1;
 
                 lstPolygons.CheckBoxes = true;
             }
@@ -228,10 +242,22 @@ namespace TwoTrails.Forms
             MapValues.mapLines = chkLines.Checked;
         }
 
-        public void chkLabels_CheckStateChanged2(object sender, EventArgs e)
+        //public void chkLabels_CheckStateChanged2(object sender, EventArgs e)
+        //{
+        //    MapValues.mapLabels = chkLabels.Checked;
+        //    txtSkip.Enabled = MapValues.mapLabels;
+        //}
+
+        private void cboLabels_SelectedIndexChanged2(object sender, EventArgs e)
         {
-            MapValues.mapLabels = chkLabels.Checked;
-            txtSkip.Enabled = MapValues.mapLabels;
+            txtSkip.Enabled = cboLabels.SelectedIndex == 0;
+
+            if (cboLabels.SelectedIndex == 0)
+                MapValues.mapPolyLabels = Values.EmptyGuid;
+            else if (cboLabels.SelectedIndex == 1)
+                MapValues.mapPolyLabels = Values.FullGuid;
+            else if (cboLabels.SelectedIndex > 1)
+                MapValues.mapPolyLabels = allPolyCNs[cboLabels.SelectedIndex - 2];
         }
 
         public void chkGrid_CheckStateChanged2(object sender, EventArgs e)

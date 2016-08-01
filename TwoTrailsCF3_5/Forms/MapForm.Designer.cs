@@ -39,7 +39,6 @@
             this.chkDetails = new System.Windows.Forms.CheckBox();
             this.chkFollowPos = new System.Windows.Forms.CheckBox();
             this.chkMyPos = new System.Windows.Forms.CheckBox();
-            this.chkLabels = new System.Windows.Forms.CheckBox();
             this.chkInvert = new System.Windows.Forms.CheckBox();
             this.picClose = new System.Windows.Forms.PictureBox();
             this.pnlMoveImage = new System.Windows.Forms.Panel();
@@ -122,7 +121,6 @@
             this.pnlSettings.Controls.Add(this.chkDetails);
             this.pnlSettings.Controls.Add(this.chkFollowPos);
             this.pnlSettings.Controls.Add(this.chkMyPos);
-            this.pnlSettings.Controls.Add(this.chkLabels);
             this.pnlSettings.Controls.Add(this.chkInvert);
             this.pnlSettings.Location = new System.Drawing.Point(50, 43);
             this.pnlSettings.Name = "pnlSettings";
@@ -184,18 +182,6 @@
             this.chkMyPos.TabIndex = 1;
             this.chkMyPos.Text = "Show Position";
             this.chkMyPos.CheckStateChanged += new System.EventHandler(this.chkMyPos_CheckStateChanged);
-            // 
-            // chkLabels
-            // 
-            this.chkLabels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkLabels.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.chkLabels.Location = new System.Drawing.Point(3, 34);
-            this.chkLabels.Name = "chkLabels";
-            this.chkLabels.Size = new System.Drawing.Size(128, 20);
-            this.chkLabels.TabIndex = 0;
-            this.chkLabels.Text = "Show Labels";
-            this.chkLabels.CheckStateChanged += new System.EventHandler(this.chkLabels_CheckStateChanged);
             // 
             // chkInvert
             // 
@@ -352,6 +338,5 @@
         private System.Windows.Forms.CheckBox chkDetails;
         private System.Windows.Forms.RadioButton radLatLon;
         private System.Windows.Forms.RadioButton radUTM;
-        private System.Windows.Forms.CheckBox chkLabels;
     }
 }

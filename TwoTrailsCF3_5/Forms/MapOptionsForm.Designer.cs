@@ -38,7 +38,6 @@
             this.chkUseMap = new System.Windows.Forms.CheckBox();
             this.chkLegend = new System.Windows.Forms.CheckBox();
             this.chkLabels = new System.Windows.Forms.CheckBox();
-            this.chkLines = new System.Windows.Forms.CheckBox();
             this.chkPoints = new System.Windows.Forms.CheckBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnBackground = new System.Windows.Forms.Button();
@@ -62,6 +61,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.chkUnadjNav = new System.Windows.Forms.CheckBox();
+            this.cboLabels = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabDisplay.SuspendLayout();
             this.tabElements.SuspendLayout();
@@ -85,6 +85,7 @@
             // tabDisplay
             // 
             this.tabDisplay.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tabDisplay.Controls.Add(this.cboLabels);
             this.tabDisplay.Controls.Add(this.lstPolygons);
             this.tabDisplay.Controls.Add(this.label2);
             this.tabDisplay.Controls.Add(this.txtSkip);
@@ -93,7 +94,6 @@
             this.tabDisplay.Controls.Add(this.chkUseMap);
             this.tabDisplay.Controls.Add(this.chkLegend);
             this.tabDisplay.Controls.Add(this.chkLabels);
-            this.tabDisplay.Controls.Add(this.chkLines);
             this.tabDisplay.Controls.Add(this.chkPoints);
             this.tabDisplay.Controls.Add(this.btnExit);
             this.tabDisplay.Controls.Add(this.btnBackground);
@@ -101,7 +101,7 @@
             this.tabDisplay.Controls.Add(this.label1);
             this.tabDisplay.Location = new System.Drawing.Point(0, 0);
             this.tabDisplay.Name = "tabDisplay";
-            this.tabDisplay.Size = new System.Drawing.Size(240, 269);
+            this.tabDisplay.Size = new System.Drawing.Size(240, 265);
             this.tabDisplay.Text = "Display Options";
             // 
             // lstPolygons
@@ -124,14 +124,14 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.label2.Location = new System.Drawing.Point(136, 168);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 20);
+            this.label2.Size = new System.Drawing.Size(98, 20);
             this.label2.Text = "Skip Labels";
             // 
             // txtSkip
             // 
             this.txtSkip.Location = new System.Drawing.Point(95, 168);
             this.txtSkip.Name = "txtSkip";
-            this.txtSkip.Size = new System.Drawing.Size(35, 21);
+            this.txtSkip.Size = new System.Drawing.Size(35, 25);
             this.txtSkip.TabIndex = 18;
             this.txtSkip.TabStop = false;
             this.txtSkip.TextChanged += new System.EventHandler(this.txtSkip_TextChanged);
@@ -143,10 +143,10 @@
             this.txtBackground.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBackground.Enabled = false;
-            this.txtBackground.Location = new System.Drawing.Point(95, 221);
+            this.txtBackground.Location = new System.Drawing.Point(95, 217);
             this.txtBackground.Name = "txtBackground";
             this.txtBackground.ReadOnly = true;
-            this.txtBackground.Size = new System.Drawing.Size(137, 21);
+            this.txtBackground.Size = new System.Drawing.Size(137, 25);
             this.txtBackground.TabIndex = 17;
             this.txtBackground.TabStop = false;
             this.txtBackground.Visible = false;
@@ -170,7 +170,7 @@
             this.chkUseMap.Enabled = false;
             this.chkUseMap.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.chkUseMap.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.chkUseMap.Location = new System.Drawing.Point(175, 140);
+            this.chkUseMap.Location = new System.Drawing.Point(169, 140);
             this.chkUseMap.Name = "chkUseMap";
             this.chkUseMap.Size = new System.Drawing.Size(110, 20);
             this.chkUseMap.TabIndex = 16;
@@ -207,20 +207,6 @@
             this.chkLabels.Text = "Labels";
             this.chkLabels.CheckStateChanged += new System.EventHandler(this.chkLabels_CheckStateChanged);
             // 
-            // chkLines
-            // 
-            this.chkLines.Checked = true;
-            this.chkLines.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLines.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.chkLines.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.chkLines.Location = new System.Drawing.Point(7, 170);
-            this.chkLines.Name = "chkLines";
-            this.chkLines.Size = new System.Drawing.Size(100, 20);
-            this.chkLines.TabIndex = 13;
-            this.chkLines.TabStop = false;
-            this.chkLines.Text = "Lines";
-            this.chkLines.CheckStateChanged += new System.EventHandler(this.chkLines_CheckStateChanged);
-            // 
             // chkPoints
             // 
             this.chkPoints.Checked = true;
@@ -238,7 +224,7 @@
             // btnExit
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExit.Location = new System.Drawing.Point(7, 246);
+            this.btnExit.Location = new System.Drawing.Point(7, 242);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(83, 20);
             this.btnExit.TabIndex = 10;
@@ -251,7 +237,7 @@
             this.btnBackground.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBackground.Enabled = false;
-            this.btnBackground.Location = new System.Drawing.Point(7, 221);
+            this.btnBackground.Location = new System.Drawing.Point(7, 217);
             this.btnBackground.Name = "btnBackground";
             this.btnBackground.Size = new System.Drawing.Size(83, 20);
             this.btnBackground.TabIndex = 9;
@@ -263,7 +249,7 @@
             // btnDrawMap
             // 
             this.btnDrawMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDrawMap.Location = new System.Drawing.Point(150, 246);
+            this.btnDrawMap.Location = new System.Drawing.Point(150, 242);
             this.btnDrawMap.Name = "btnDrawMap";
             this.btnDrawMap.Size = new System.Drawing.Size(83, 20);
             this.btnDrawMap.TabIndex = 8;
@@ -303,13 +289,13 @@
             this.tabElements.Controls.Add(this.chkUnadjNav);
             this.tabElements.Location = new System.Drawing.Point(0, 0);
             this.tabElements.Name = "tabElements";
-            this.tabElements.Size = new System.Drawing.Size(232, 267);
+            this.tabElements.Size = new System.Drawing.Size(232, 263);
             this.tabElements.Text = "Display Element Options";
             // 
             // btnDraw2
             // 
             this.btnDraw2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDraw2.Location = new System.Drawing.Point(142, 244);
+            this.btnDraw2.Location = new System.Drawing.Point(142, 240);
             this.btnDraw2.Name = "btnDraw2";
             this.btnDraw2.Size = new System.Drawing.Size(83, 20);
             this.btnDraw2.TabIndex = 22;
@@ -320,7 +306,7 @@
             // btnExit2
             // 
             this.btnExit2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExit2.Location = new System.Drawing.Point(7, 244);
+            this.btnExit2.Location = new System.Drawing.Point(7, 240);
             this.btnExit2.Name = "btnExit2";
             this.btnExit2.Size = new System.Drawing.Size(83, 20);
             this.btnExit2.TabIndex = 21;
@@ -480,6 +466,15 @@
             this.chkUnadjNav.TabIndex = 0;
             this.chkUnadjNav.Text = "Navigation Trail";
             this.chkUnadjNav.CheckStateChanged += new System.EventHandler(this.chkUnadjNav_CheckStateChanged);
+            // 
+            // cboLabels
+            // 
+            this.cboLabels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.cboLabels.Location = new System.Drawing.Point(7, 166);
+            this.cboLabels.Name = "cboLabels";
+            this.cboLabels.Size = new System.Drawing.Size(82, 26);
+            this.cboLabels.TabIndex = 23;
+            this.cboLabels.SelectedIndexChanged += new System.EventHandler(this.cboLabels_SelectedIndexChanged);
             // 
             // MapOptionsForm
             // 
@@ -949,7 +944,6 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabDisplay;
         private System.Windows.Forms.CheckBox chkLabels;
-        private System.Windows.Forms.CheckBox chkLines;
         private System.Windows.Forms.CheckBox chkPoints;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnDrawMap;
@@ -982,6 +976,7 @@
         private System.Windows.Forms.Button btnExit2;
         private System.Windows.Forms.Button btnDraw2;
         private System.Windows.Forms.CheckBox chkCloseBnd;
+        private System.Windows.Forms.ComboBox cboLabels;
 
 
 

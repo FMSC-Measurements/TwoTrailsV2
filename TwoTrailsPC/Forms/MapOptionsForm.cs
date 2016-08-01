@@ -45,10 +45,10 @@ namespace TwoTrails.Forms
             chkLines_CheckStateChanged2(sender, e);
         }
 
-        private void chkLabels_CheckedChanged(object sender, EventArgs e)
-        {
-            chkLabels_CheckStateChanged2(sender, e);
-        }
+        //private void chkLabels_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    chkLabels_CheckStateChanged2(sender, e);
+        //}
 
         private void chkLegend_CheckedChanged(object sender, EventArgs e)
         {
@@ -148,6 +148,11 @@ namespace TwoTrails.Forms
         private void chkCloseBnd_CheckedChanged(object sender, EventArgs e)
         {
             chkCloseBnd_CheckedChanged2(sender, e);
+        }
+
+        private void cboLabels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cboLabels_SelectedIndexChanged2(sender, e);
         }
     }
 }
