@@ -1295,7 +1295,7 @@ namespace TwoTrails.Forms
 
         private void btnGEarth_Click2(object sender, EventArgs e)
         {
-            if (TtUtils.IsApplictionInstalled("Google Earth"))
+            if (TtUtils.IsApplictionInstalled("Google Earth") || TtUtils.IsApplictionInstalled("Google Earth Pro"))
             {
                 try
                 {
