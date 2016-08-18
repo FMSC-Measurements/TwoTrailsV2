@@ -1496,10 +1496,7 @@ Check the error log for complete details.", "Import Error");
 
                         _Poly = new TtPolygon(1000 * polyCount + 10);
 
-                        if (files.Count < 2)
-                            _Poly.Name = Path.GetFileNameWithoutExtension(file);
-                        else
-                            _Poly.Name = String.Format("{0} {1}", Path.GetFileNameWithoutExtension(file), polyCount);
+                        _Poly.Name = Path.GetFileNameWithoutExtension(file);
 
                         index = 0;
 
@@ -1568,6 +1565,8 @@ Check the error log for complete details.", "Import Error");
                     }
                     else //else get points out of each features
                     {
+                        int fidInc = 0;
+
                         foreach (Feature feat in features)
                         {
                             tmpPoints.Clear();
@@ -1575,10 +1574,10 @@ Check the error log for complete details.", "Import Error");
                             _Poly = new TtPolygon(1000 * polyCount + 10);
 
 
-                            if (files.Count < 2)
+                            if (features.Count < 2)
                                 _Poly.Name = Path.GetFileNameWithoutExtension(file);
                             else
-                                _Poly.Name = String.Format("{0} {1}", Path.GetFileNameWithoutExtension(file), polyCount);
+                                _Poly.Name = String.Format("{0}-{1}", Path.GetFileNameWithoutExtension(file), fidInc++);
 
                             #region Shape Desc Properties
                             if (useShapeProps)
@@ -1594,24 +1593,20 @@ Check the error log for complete details.", "Import Error");
                                     if (objv.IsEmpty())
                                         continue;
 
-                                    switch (names[i])
+                                    switch (names[i].ToLower())
                                     {
-                                        case "Description":
+                                        case "description":
+                                        case "comment":
                                             if (_Poly.Description.IsEmpty())
                                                 _Poly.Description = objv;
                                             else
                                                 _Poly.Description = String.Format("{0} | {1}", _Poly.Description, objv);
                                             break;
-                                        case "Name":
+                                        case "name":
+                                        case "unit":
                                             _Poly.Name = objv;
                                             break;
-                                        case "Poly":
-                                            if (_Poly.Description.IsEmpty())
-                                                _Poly.Description = objv;
-                                            else
-                                                _Poly.Description = String.Format("{0} | {1}", _Poly.Description, objv);
-                                            break;
-                                        case "Comment":
+                                        case "poly":
                                             if (_Poly.Description.IsEmpty())
                                                 _Poly.Description = objv;
                                             else
