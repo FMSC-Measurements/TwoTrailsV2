@@ -148,11 +148,6 @@ namespace TwoTrails.Forms
             chkInvert_CheckStateChanged2(sender, e);
         }
 
-        private void chkLabels_CheckStateChanged(object sender, EventArgs e)
-        {
-            chkLabels_CheckedChanged2(sender, e);
-        }
-
         private void chkMyPos_CheckStateChanged(object sender, EventArgs e)
         {
             chkMyPos_CheckStateChanged2(sender, e);

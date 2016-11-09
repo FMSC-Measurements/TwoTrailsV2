@@ -37,7 +37,7 @@
             this.chkCloseBnd = new System.Windows.Forms.CheckBox();
             this.chkUseMap = new System.Windows.Forms.CheckBox();
             this.chkLegend = new System.Windows.Forms.CheckBox();
-            this.chkLabels = new System.Windows.Forms.CheckBox();
+            this.cboLabels = new System.Windows.Forms.ComboBox();
             this.chkPoints = new System.Windows.Forms.CheckBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnBackground = new System.Windows.Forms.Button();
@@ -93,7 +93,7 @@
             this.tabDisplay.Controls.Add(this.chkCloseBnd);
             this.tabDisplay.Controls.Add(this.chkUseMap);
             this.tabDisplay.Controls.Add(this.chkLegend);
-            this.tabDisplay.Controls.Add(this.chkLabels);
+            this.tabDisplay.Controls.Add(this.cboLabels);
             this.tabDisplay.Controls.Add(this.chkPoints);
             this.tabDisplay.Controls.Add(this.btnExit);
             this.tabDisplay.Controls.Add(this.btnBackground);
@@ -193,19 +193,15 @@
             this.chkLegend.Text = "Legend";
             this.chkLegend.CheckStateChanged += new System.EventHandler(this.chkLegend_CheckStateChanged);
             // 
-            // chkLabels
+            // cboLabels
             // 
-            this.chkLabels.Checked = true;
-            this.chkLabels.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLabels.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.chkLabels.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.chkLabels.Location = new System.Drawing.Point(7, 198);
-            this.chkLabels.Name = "chkLabels";
-            this.chkLabels.Size = new System.Drawing.Size(100, 20);
-            this.chkLabels.TabIndex = 14;
-            this.chkLabels.TabStop = false;
-            this.chkLabels.Text = "Labels";
-            this.chkLabels.CheckStateChanged += new System.EventHandler(this.chkLabels_CheckStateChanged);
+            this.cboLabels.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.cboLabels.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.cboLabels.Location = new System.Drawing.Point(7, 198);
+            this.cboLabels.Name = "cboLabels";
+            this.cboLabels.Size = new System.Drawing.Size(100, 20);
+            this.cboLabels.TabIndex = 14;
+            this.cboLabels.TabStop = false;
             // 
             // chkPoints
             // 
@@ -508,7 +504,7 @@
             this.chkLines = new System.Windows.Forms.CheckBox();
             this.chkLegend = new System.Windows.Forms.CheckBox();
             this.btnDrawMap = new System.Windows.Forms.Button();
-            this.chkLabels = new System.Windows.Forms.CheckBox();
+            this.cboLabels = new System.Windows.Forms.ComboBox();
             this.tabElements = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -583,7 +579,7 @@
             this.panel1.Controls.Add(this.chkLines);
             this.panel1.Controls.Add(this.chkLegend);
             this.panel1.Controls.Add(this.btnDrawMap);
-            this.panel1.Controls.Add(this.chkLabels);
+            this.panel1.Controls.Add(this.cboLabels);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -703,18 +699,16 @@
             this.btnDrawMap.Text = "Draw Map";
             this.btnDrawMap.Click += new System.EventHandler(this.btnDrawMap_Click);
             // 
-            // chkLabels
+            // cboLabels
             // 
-            this.chkLabels.Checked = true;
-            this.chkLabels.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLabels.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.chkLabels.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.chkLabels.Location = new System.Drawing.Point(240, 102);
-            this.chkLabels.Name = "chkLabels";
-            this.chkLabels.Size = new System.Drawing.Size(80, 20);
-            this.chkLabels.TabIndex = 14;
-            this.chkLabels.Text = "Labels";
-            this.chkLabels.CheckStateChanged += new System.EventHandler(this.chkLabels_CheckStateChanged);
+            this.cboLabels.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.cboLabels.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.cboLabels.Location = new System.Drawing.Point(240, 102);
+            this.cboLabels.Name = "cboLabels";
+            this.cboLabels.Size = new System.Drawing.Size(80, 20);
+            this.cboLabels.TabIndex = 14;
+            this.cboLabels.Text = "Labels";
+            this.cboLabels.SelectedIndexChanged += new System.EventHandler(this.cboLabels_SelectedIndexChanged);
             // 
             // tabElements
             // 
@@ -943,13 +937,14 @@
 
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabDisplay;
-        private System.Windows.Forms.CheckBox chkLabels;
+        private System.Windows.Forms.ComboBox cboLabels;
         private System.Windows.Forms.CheckBox chkPoints;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnDrawMap;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSkip;
+        private System.Windows.Forms.CheckBox chkLines;
         private System.Windows.Forms.CheckBox chkLegend;
         private System.Windows.Forms.TabPage tabElements;
         private System.Windows.Forms.CheckBox chkUnadjBound;
@@ -976,9 +971,5 @@
         private System.Windows.Forms.Button btnExit2;
         private System.Windows.Forms.Button btnDraw2;
         private System.Windows.Forms.CheckBox chkCloseBnd;
-        private System.Windows.Forms.ComboBox cboLabels;
-
-
-
     }
 }
