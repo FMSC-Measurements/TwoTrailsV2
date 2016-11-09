@@ -68,6 +68,8 @@ namespace TwoTrails.Forms
         private bool _saveSettings = true;
 #if !DEBUG
         private bool _closing = false, _loading = true;
+#else
+        private bool _loading;
 #endif
 
         public MainForm()

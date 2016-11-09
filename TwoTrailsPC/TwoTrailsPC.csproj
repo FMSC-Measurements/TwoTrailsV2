@@ -73,9 +73,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="MetaKitWrapper, Version=1.0.5316.28181, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="MetaKitWrapper, Version=1.0.5914.24396, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MetaKitWrapper\Release\MetaKitWrapper.dll</HintPath>
+      <HintPath>.\MetaKitWrapper.dll</HintPath>
     </Reference>
     <Reference Include="NetTopologySuite, Version=1.13.0.0, Culture=neutral, PublicKeyToken=f580a05016ebada1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1036,7 +1036,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)\TT2 Installer\Installer\InsertIcons.exe" "$(TargetPath)" "$(ProjectDir)icons"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
