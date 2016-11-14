@@ -61,11 +61,6 @@ namespace TwoTrails.Forms
             chkLines_CheckStateChanged2(sender, e);
         }
 
-        private void chkLabels_CheckStateChanged(object sender, EventArgs e)
-        {
-            chkLabels_CheckStateChanged2(sender, e);
-        }
-
         private void chkLegend_CheckStateChanged(object sender, EventArgs e)
         {
             chkLegend_CheckStateChanged2(sender, e);
