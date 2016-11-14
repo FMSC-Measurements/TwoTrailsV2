@@ -169,7 +169,7 @@ namespace TwoTrails.Utilities
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.Altitude);
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.AltUnit);
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.FixQuality);
-                Columns.Add(TwoTrailsSchema.TtnmeaSchema.Mode);
+                Columns.Add("Fix");
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.PDOP);
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.HDOP);
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.VDOP);
@@ -259,8 +259,8 @@ namespace TwoTrails.Utilities
                     burstData.Add(burst._Y.ToString());
                     burstData.Add(burst._altitude.ToString());
                     burstData.Add(burst._alt_unit.ToString());
-                    burstData.Add(burst._fix_quality.ToString());//15
-                    burstData.Add(burst._fix.ToString());       
+                    burstData.Add(FormatFixQuality(burst._fix_quality));//15
+                    burstData.Add(FormatFix(burst._fix));       
                     burstData.Add(burst._PDOP.ToString());
                     burstData.Add(burst._HDOP.ToString());
                     burstData.Add(burst._VDOP.ToString());
@@ -287,6 +287,43 @@ namespace TwoTrails.Utilities
 
                 WriteCsvFile("TtNmeaData", Columns, data);
             }
+        }
+
+
+        private static string FormatFix(int value)
+        {
+            string name = "Unknown";
+            switch (value)
+            {
+                case 1: name = "No fix"; break;
+                case 2: name = "2D"; break;
+                case 3: name = "3D"; break;
+                default:
+                    break;
+            }
+
+            return String.Format("{0} ({1})", value, name);
+        }
+
+        private static string FormatFixQuality(int value)
+        {
+            string name = "Unknown";
+            switch (value)
+            {
+                case 0: name = "No fix"; break;
+                case 1: name = "GPS"; break;
+                case 2: name = "GPS DIFF"; break;
+                case 3: name = "PPS"; break;
+                case 4: name = "RTK"; break;
+                case 5: name = "Float RTK"; break;
+                case 6: name = "Estimated"; break;
+                case 7: name = "Manual"; break;
+                case 8: name = "Simulation"; break;
+                default:
+                    break;
+            }
+
+            return String.Format("{0} ({1})", value, name);
         }
 
         public void WriteProject(DataAccessLayer DAL)
