@@ -354,7 +354,7 @@ namespace TwoTrails.Utilities
                 List<string> info = new List<string>();
                 info.Add(DAL.GetProjectID().Scrub());
                 info.Add(DAL.GetProjectDescription().Scrub());
-                info.Add(DAL.GetProjectDistrict().Scrub());
+                info.Add(DAL.GetProjectRegion().Scrub());
                 info.Add(DAL.GetProjectForest().Scrub());
                 info.Add(DAL.GetProjectDistrict().Scrub());
                 info.Add(DAL.GetProjectYear());
@@ -1498,6 +1498,8 @@ namespace TwoTrails.Utilities
 
                 bool hasWayPoints = false;
 
+                TtPoint firstBndPoint = null, lastBntPoint = null;
+
                 foreach (TtPoint point in points)
                 {
                     if (point.IsNavPoint())
@@ -1510,6 +1512,11 @@ namespace TwoTrails.Utilities
                     {
                         BAdjCoords.Add(new Coordinate(point.AdjX, point.AdjY, point.AdjZ));
                         BUnAdjCoords.Add(new Coordinate(point.UnAdjX, point.UnAdjY, point.UnAdjZ));
+
+                        if (firstBndPoint == null)
+                            firstBndPoint = point;
+
+                        lastBntPoint = point;
                     }
 
                     if (point.op == OpType.WayPoint)
@@ -1517,6 +1524,10 @@ namespace TwoTrails.Utilities
                         hasWayPoints = true;
                     }
                 }
+
+                double polyLinePerim = -1;
+                if (firstBndPoint != null)
+                    polyLinePerim = poly.Perimeter - TtUtils.Distance(firstBndPoint, lastBntPoint, true);
 
                 #region Navigation
 
@@ -1534,6 +1545,7 @@ namespace TwoTrails.Utilities
                 attTable.AddAttribute("Poly", "Navigation Adjusted"); 
                 attTable.AddAttribute("CN", poly.CN);
                 attTable.AddAttribute("Perim_M", poly.Perimeter);
+                attTable.AddAttribute("PerimLine_M", polyLinePerim);
 
                 Feature feat = new Feature();
                 DbaseFileHeader dbh;
