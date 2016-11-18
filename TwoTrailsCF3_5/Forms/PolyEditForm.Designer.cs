@@ -190,14 +190,14 @@
             this.label8.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.label8.Location = new System.Drawing.Point(3, 132);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(101, 20);
-            this.label8.Text = "Poly Pt Acc:";
+            this.label8.Size = new System.Drawing.Size(114, 20);
+            this.label8.Text = "Poly Acc (M):";
             // 
             // txtPolyAcc
             // 
-            this.txtPolyAcc.Location = new System.Drawing.Point(79, 131);
+            this.txtPolyAcc.Location = new System.Drawing.Point(84, 131);
             this.txtPolyAcc.Name = "txtPolyAcc";
-            this.txtPolyAcc.Size = new System.Drawing.Size(38, 21);
+            this.txtPolyAcc.Size = new System.Drawing.Size(33, 21);
             this.txtPolyAcc.TabIndex = 35;
             this.txtPolyAcc.TabStop = false;
             this.txtPolyAcc.TextChanged += new System.EventHandler(this.txtPolyAcc_TextChanged);

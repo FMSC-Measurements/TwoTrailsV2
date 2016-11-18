@@ -295,14 +295,14 @@ namespace TwoTrails.Utilities
             string name = "Unknown";
             switch (value)
             {
-                case 1: name = "No fix"; break;
+                case 1: name = "None"; break;
                 case 2: name = "2D"; break;
                 case 3: name = "3D"; break;
                 default:
                     break;
             }
 
-            return String.Format("{0} ({1})", value, name);
+            return String.Format("{0}_{1}", value, name);
         }
 
         private static string FormatFixQuality(int value)
@@ -310,20 +310,20 @@ namespace TwoTrails.Utilities
             string name = "Unknown";
             switch (value)
             {
-                case 0: name = "No fix"; break;
-                case 1: name = "GPS"; break;
-                case 2: name = "GPS DIFF"; break;
-                case 3: name = "PPS"; break;
-                case 4: name = "RTK"; break;
-                case 5: name = "Float RTK"; break;
-                case 6: name = "Estimated"; break;
-                case 7: name = "Manual"; break;
-                case 8: name = "Simulation"; break;
+                case 0: name = "None"; break;   //No fix
+                case 1: name = "GPS"; break;    //GPS
+                case 2: name = "DIFF"; break;   //GPS DIFF
+                case 3: name = "PPS"; break;    //PPS
+                case 4: name = "RTK"; break;    //RTK
+                case 5: name = "FRTK"; break;   //Float RTK
+                case 6: name = "Est"; break;    //Estimated
+                case 7: name = "Man"; break;    //Manual
+                case 8: name = "Sim"; break;    //Simulation
                 default:
                     break;
             }
 
-            return String.Format("{0} ({1})", value, name);
+            return String.Format("{0}_{1}", value, name);
         }
 
         public void WriteProject(DataAccessLayer DAL)
@@ -999,7 +999,7 @@ namespace TwoTrails.Utilities
 
                     adjPm.StyleUrl = sAdjBoundMap.StyleUrl;
                     adjPm.Open = false;
-                    adjPm.Visibility = true;
+                    adjPm.Visibility = false;
                     adjPm.AddPoint(new KmlPoint(adjCoord, AltitudeMode.clampToGround));
 
 

@@ -120,7 +120,7 @@ namespace TwoTrails.BusinessLogic
         public bool DEFAULT_DROP_ZERO { get { return false; } }
         public bool DEFAULT_ROUND { get { return false; } }
         public int DEFAULT_WALK_INCREMENT { get { return 2; } }
-        public int DEFAULT_POINT_ACCURACY { get { return 6; } }
+        public double DEFAULT_POINT_ACCURACY { get { return 6.01d; } }
         public double MIN_POINT_ACCURACY { get { return 0.0001; } }
         public bool DEFAULT_GET_GPS_ON_START { get { return false; } }
 

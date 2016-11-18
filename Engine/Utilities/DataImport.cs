@@ -1577,7 +1577,7 @@ Check the error log for complete details.", "Import Error");
                             if (features.Count < 2)
                                 _Poly.Name = Path.GetFileNameWithoutExtension(file);
                             else
-                                _Poly.Name = String.Format("{0}-{1}", Path.GetFileNameWithoutExtension(file), fidInc++);
+                                _Poly.Name = String.Format("{0}-{1}", fidInc++, Path.GetFileNameWithoutExtension(file));
 
                             #region Shape Desc Properties
                             if (useShapeProps)
@@ -1597,6 +1597,7 @@ Check the error log for complete details.", "Import Error");
                                     {
                                         case "description":
                                         case "comment":
+                                        case "poly":
                                             if (_Poly.Description.IsEmpty())
                                                 _Poly.Description = objv;
                                             else
@@ -1605,12 +1606,6 @@ Check the error log for complete details.", "Import Error");
                                         case "name":
                                         case "unit":
                                             _Poly.Name = objv;
-                                            break;
-                                        case "poly":
-                                            if (_Poly.Description.IsEmpty())
-                                                _Poly.Description = objv;
-                                            else
-                                                _Poly.Description = String.Format("{0} | {1}", _Poly.Description, objv);
                                             break;
                                     }
                                 }
