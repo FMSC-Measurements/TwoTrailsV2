@@ -124,9 +124,9 @@ namespace TwoTrails.Forms
                 case DataImport.FileType.Shape:
                     if (chkShpMulti.Checked)
                         result = DI.ImportShapes(_ShapeFileList.Select(fp => fp.Path).ToList(),
-                            false, false, chkShpElev.Checked, radShpElevFeet.Checked);
+                            false, true, chkShpElev.Checked, radShpElevFeet.Checked);
                     else
-                        result = DI.ImportShape(false, false, chkShpElev.Checked, radShpElevFeet.Checked);
+                        result = DI.ImportShape(false, true, chkShpElev.Checked, radShpElevFeet.Checked);
                     break;
                 case DataImport.FileType.TwoTrails:
                     result = DI.ImportTt(chkLstTtPolys.CheckedItems.Cast<string>().ToList(), chkTtNmea.Checked);

@@ -1588,25 +1588,28 @@ Check the error log for complete details.", "Import Error");
 
                                 for (int i = 0; i < feat.Attributes.Count; i++)
                                 {
-                                    objv = (string)objs[i];
-
-                                    if (objv.IsEmpty())
-                                        continue;
-
-                                    switch (names[i].ToLower())
+                                    if (objs[i] is string)
                                     {
-                                        case "description":
-                                        case "comment":
-                                        case "poly":
-                                            if (_Poly.Description.IsEmpty())
-                                                _Poly.Description = objv;
-                                            else
-                                                _Poly.Description = String.Format("{0} | {1}", _Poly.Description, objv);
-                                            break;
-                                        case "name":
-                                        case "unit":
-                                            _Poly.Name = objv;
-                                            break;
+                                        objv = (string)objs[i];
+
+                                        if (objv.IsEmpty())
+                                            continue;
+
+                                        switch (names[i].ToLower())
+                                        {
+                                            case "description":
+                                            case "comment":
+                                            case "poly":
+                                                if (_Poly.Description.IsEmpty())
+                                                    _Poly.Description = objv;
+                                                else
+                                                    _Poly.Description = String.Format("{0} | {1}", _Poly.Description, objv);
+                                                break;
+                                            case "name":
+                                            case "unit":
+                                                _Poly.Name = objv;
+                                                break;
+                                        }
                                     }
                                 }
                             }
