@@ -404,20 +404,14 @@ namespace Engine.BusinessLogic
             if (!p.Description.IsEmpty())
                 _PolyOutput.AppendLine(String.Format("Description: {0}", p.Description));
 
-            if (p.Area > 0)
-            {
-                _PolyOutput.AppendLine();
-                _PolyOutput.AppendLine(String.Format("The polygon area is: {2}{0:F2} Ha ({1:F2} ac).",
-                    TtUtils.ConvertMeters2ToHa(p.Area), TtUtils.ConvertMeters2ToAcres(p.Area), _options.SaveReport ? "              " : ""));
-            }
-
-            if (p.Perimeter > 0)
-            {
-                _PolyOutput.AppendLine(String.Format("The polygon exterior perimeter is: {0:F0} M ({1:F0} ft).", p.Perimeter,
-                    TtUtils.ConvertToFeetTenths(p.Perimeter, Unit.METERS)));
-                _PolyOutput.AppendLine(String.Format("The polyline perimeter is: {0:F0} M ({1:F0} ft).", _PolyLinePerim,
-                    TtUtils.ConvertToFeetTenths(_PolyLinePerim, Unit.METERS)));
-            }
+            _PolyOutput.AppendLine();
+            _PolyOutput.AppendLine(String.Format("The polygon area is: {2}{0:F2} Ha ({1:F2} ac).",
+                TtUtils.ConvertMeters2ToHa(p.Area), TtUtils.ConvertMeters2ToAcres(p.Area), _options.SaveReport ? "              " : ""));
+        
+            _PolyOutput.AppendLine(String.Format("The polygon exterior perimeter is: {0:F2} M ({1:F0} ft).", p.Perimeter,
+                TtUtils.ConvertToFeetTenths(p.Perimeter, Unit.METERS)));
+            _PolyOutput.AppendLine(String.Format("The polyline perimeter is: {0:F2} M ({1:F0} ft).", _PolyLinePerim,
+                TtUtils.ConvertToFeetTenths(_PolyLinePerim, Unit.METERS)));
 
             if (TotalGpsError > 0)
             {
