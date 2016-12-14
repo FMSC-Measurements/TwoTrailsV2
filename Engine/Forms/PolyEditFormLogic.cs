@@ -310,16 +310,18 @@ namespace TwoTrails.Forms
             int num = 0;
             if (Polygons.Count > 0)
             {
-                try
-                {
-                    num = (int)TtUtils.GetEndingNumber(Polygons.Last().Name);
-                }
-                catch
-                {
-                    num = Polygons.Count;
-                }
+                //try
+                //{
+                //    num = (int)TtUtils.GetEndingNumber(Polygons.Last().Name);
+                //}
+                //catch
+                //{
+                //    num = Polygons.Count;
+                //}
 
-                num++;
+                //num++;
+                num = Polygons.Count + 1;
+
                 p.Name = string.Format("Poly {0}", num);
 
                 TtPolygon lastPoly = Polygons[Polygons.Count - 1];

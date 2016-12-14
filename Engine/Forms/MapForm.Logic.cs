@@ -425,14 +425,16 @@ namespace TwoTrails.Forms
 
             #region Points and Labels
 
-            if (MapValues.mapPoints || MapValues.mapLabels)
+            bool allLabels = MapValues.mapPolyLabels == Values.FullGuid;
+
+            if (MapValues.mapPoints || MapValues.mapPolyLabels != Values.EmptyGuid)
             {
                 int count = 0;
                 bool writeLabel = false;
 
                 foreach (TtPoint point in allPolyPoints)
                 {
-                    writeLabel = (count == 0);
+                    writeLabel = count == 0 && (allLabels || MapValues.mapPolyLabels == point.PolyCN);
 
                     if (point.op != OpType.WayPoint && !(!point.OnBnd && point.op == OpType.SideShot))
                     {
@@ -548,7 +550,8 @@ namespace TwoTrails.Forms
                             pns.Add(new PointName(point.UnAdjX, point.UnAdjY, point.PID.ToString()));
                     }
 
-                    if (MapValues.mapLabels && wLabel)
+                    //??
+                    if (wLabel)
                     {
                         drawPointLabel(g, point.PID.ToString(), font, brushLabel, newPoint);
                     }
@@ -583,7 +586,8 @@ namespace TwoTrails.Forms
                         pns.Add(new PointName(point.UnAdjX, point.UnAdjY, point.PID.ToString()));
                     }
 
-                    if (MapValues.mapLabels && wLabel)
+                    //??
+                    if (wLabel)
                     {
                         drawPointLabel(g, point.PID.ToString(), font, brushLabel, newPoint);
                     }
@@ -630,8 +634,8 @@ namespace TwoTrails.Forms
                         else
                             pns.Add(new PointName(point.UnAdjX, point.UnAdjY, point.PID.ToString()));
                     }
-
-                    if (MapValues.mapLabels && wLabel)
+                    //??
+                    if (wLabel)
                     {
                         drawPointLabel(g, point.PID.ToString(), font, brushLabel, newPoint);
                     }
@@ -1160,7 +1164,7 @@ namespace TwoTrails.Forms
             }
             else
             {
-                if (!MapValues.mapLabels && !ignoreClick)
+                if (MapValues.mapPolyLabels == Values.EmptyGuid && !ignoreClick)
                 {
 #if (PocketPC || WindowsCE || Mobile)
                     int pointClickDist = pnlWidth / 20;
@@ -1529,7 +1533,7 @@ namespace TwoTrails.Forms
                 chkMyPos.Checked = MapValues.mapMyPos;
                 chkFollowPos.Checked = MapValues.mapFollowPos;
                 chkDetails.Checked = MapValues.mapDetails;
-                chkLabels.Checked = MapValues.mapLabels;
+                //chkLabels.Checked = MapValues.mapLabels;
 
                 if (MapValues.mapDetailsUTM)
                 {
@@ -1567,10 +1571,10 @@ namespace TwoTrails.Forms
             MapValues.mapMoveInvert = chkInvert.Checked;
         }
         
-        private void chkLabels_CheckedChanged2(object sender, EventArgs e)
-        {
-            MapValues.mapLabels = chkLabels.Checked;
-        }
+        //private void chkLabels_CheckedChanged2(object sender, EventArgs e)
+        //{
+        //    MapValues.mapLabels = chkLabels.Checked;
+        //}
 
         private void chkMyPos_CheckStateChanged2(object sender, EventArgs e)
         {

@@ -292,7 +292,7 @@ namespace TwoTrails.Forms
                 lastPointSaved = true;
             }
 
-            btnCapture.Text = "Add SS";
+            btnCapture.Text = "Commit SS";
 
             SideShotPoint ss = new SideShotPoint();
 

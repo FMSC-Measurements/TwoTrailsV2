@@ -97,9 +97,9 @@
             // txtPolyAcc
             // 
             this.txtPolyAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPolyAcc.Location = new System.Drawing.Point(108, 156);
+            this.txtPolyAcc.Location = new System.Drawing.Point(123, 156);
             this.txtPolyAcc.Name = "txtPolyAcc";
-            this.txtPolyAcc.Size = new System.Drawing.Size(54, 22);
+            this.txtPolyAcc.Size = new System.Drawing.Size(39, 22);
             this.txtPolyAcc.TabIndex = 0;
             this.txtPolyAcc.TabStop = false;
             this.txtPolyAcc.TextChanged += new System.EventHandler(this.txtPolyAcc_TextChanged);
@@ -215,9 +215,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(11, 159);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(91, 16);
+            this.label5.Size = new System.Drawing.Size(117, 16);
             this.label5.TabIndex = 2;
-            this.label5.Text = "Poly Pt Acc:";
+            this.label5.Text = "Poly Pt Acc (M):";
             // 
             // label6
             // 
@@ -269,6 +269,7 @@
             this.actionsControlPolygons.MiscButtonText = "Misc";
             this.actionsControlPolygons.Name = "actionsControlPolygons";
             this.actionsControlPolygons.NewEnabled = true;
+            this.actionsControlPolygons.OkEnabled = true;
             this.actionsControlPolygons.Size = new System.Drawing.Size(330, 47);
             this.actionsControlPolygons.TabIndex = 4;
             this.actionsControlPolygons.TabStop = false;
@@ -299,6 +300,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(332, 295);
+            this.Controls.Add(this.txtPolyAcc);
             this.Controls.Add(this.actionsControlPolygons);
             this.Controls.Add(this.pointNavigationCtrl1);
             this.Controls.Add(this.label10);
@@ -314,7 +316,6 @@
             this.Controls.Add(this.chkLock);
             this.Controls.Add(this.txtStartIndex);
             this.Controls.Add(this.txtInc);
-            this.Controls.Add(this.txtPolyAcc);
             this.Controls.Add(this.txtPerimFt);
             this.Controls.Add(this.txtAreaAC);
             this.Controls.Add(this.txtPerimMet);

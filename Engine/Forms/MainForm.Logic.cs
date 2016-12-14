@@ -68,6 +68,8 @@ namespace TwoTrails.Forms
         private bool _saveSettings = true;
 #if !DEBUG
         private bool _closing = false, _loading = true;
+#else
+        private bool _loading;
 #endif
 
         public MainForm()
@@ -1295,7 +1297,38 @@ namespace TwoTrails.Forms
 
         private void btnGEarth_Click2(object sender, EventArgs e)
         {
-            if (TtUtils.IsApplictionInstalled("Google Earth"))
+            try
+            {
+                if (TtUtils.IsApplictionInstalled("Google Earth") || TtUtils.IsApplictionInstalled("Google Earth Pro"))
+                {
+                    try
+                    {
+                        if (!System.IO.Directory.Exists(Values.DataExport.SelectedPath))
+                            System.IO.Directory.CreateDirectory(Values.DataExport.SelectedPath);
+                        KmlUtilities.KmlDocument doc = Values.DataExport.CreateKmlDoc(data);
+                        string file = Values.DataExport.WriteKmzFile(doc);
+
+                        if (System.IO.File.Exists(file))
+                        {
+                            System.Diagnostics.Process.Start(file);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        TtUtils.WriteError(ex.Message, "MainFormLogic:GoogleEarth");
+                        MessageBox.Show("An Error launching Google Earth has occured. Please see log file for details.");
+                    }
+                }
+                else
+                {
+                    if (MessageBox.Show("Google Earth is not installed. Would you like to install it now?", "Google Earth Not Found", MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1) == DialogResult.OK)
+                    {
+                        System.Diagnostics.Process.Start("www.google.com/earth/");
+                    }
+                }
+            }
+            catch
             {
                 try
                 {
@@ -1312,15 +1345,7 @@ namespace TwoTrails.Forms
                 catch (Exception ex)
                 {
                     TtUtils.WriteError(ex.Message, "MainFormLogic:GoogleEarth");
-                    MessageBox.Show("An Error launching Google Earth has occured. Please see log file for details.");
-                }
-            }
-            else
-            {
-                if(MessageBox.Show("Google Earth is not installed. Would you like to install it now?", "Google Earth Not Found", MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1) == DialogResult.OK)
-                {
-                    System.Diagnostics.Process.Start("www.google.com/earth/");
+                    MessageBox.Show("An error has occured. Please see Error log for details.");
                 }
             }
         }

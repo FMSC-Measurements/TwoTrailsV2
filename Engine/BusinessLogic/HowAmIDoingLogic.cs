@@ -47,6 +47,7 @@ namespace Engine.BusinessLogic
         double TotalTravError;
         double TotalGpsError;
         double TotalError;
+        double _PolyLinePerim;
 
         public HowAmIDoingLogic(HowAmIDoingOptions options)
         {
@@ -117,6 +118,7 @@ namespace Engine.BusinessLogic
             {
                 _PointOutput = new StringBuilder();
                 _PolyOutput = new StringBuilder();
+                _PolyLinePerim = 0;
 
                 _writer.WriteLine();
 
@@ -132,29 +134,30 @@ namespace Engine.BusinessLogic
                     _LastTtPoint = null;
                     _Legs = new List<Leg>();
 
-                    for (int j = 0; j < points.Count; j++)
+                    TtPoint firstBndPoint = null, lastBndPoint = null;
+                    foreach (TtPoint point in points)
                     {
-                        OutputPointSummary(points[j], false, showpoints);
-                    }
+                        OutputPointSummary(point, false, showpoints);
 
-                    TtPoint pt = points[0];
-
-                    for (int k = 0; k < points.Count; k++)
-                    {
-                        if (points[k].OnBnd)
+                        if (point.OnBnd)
                         {
-                            pt = points[k];
-                            break;
+                            if (firstBndPoint == null)
+                                firstBndPoint = point;
+
+                            lastBndPoint = point;
                         }
                     }
 
-                    if (!pt.SameAdjLocation(_LastTtBndPt))
+                    if (!lastBndPoint.SameAdjLocation(_LastTtBndPt))
                     {
                         //if (_LastTtPoint.op == OpType.SideShot || pt.op == OpType.SideShot)
                         //     _Legs.Add(new Leg(_LastTtPoint, pt, polys[_LastTtPoint.PolyCN].PolyAccu, polys[pt.PolyCN].PolyAccu));
                         //else
-                            _Legs.Add(new Leg(_LastTtBndPt, pt, polys));
+                        _Legs.Add(new Leg(_LastTtBndPt, lastBndPoint, polys));
                     }
+
+                    if (firstBndPoint != null)
+                        _PolyLinePerim = poly.Perimeter - TtUtils.Distance(firstBndPoint, lastBndPoint, true);
 
                     foreach(Leg leg in _Legs)
                     {
@@ -401,26 +404,14 @@ namespace Engine.BusinessLogic
             if (!p.Description.IsEmpty())
                 _PolyOutput.AppendLine(String.Format("Description: {0}", p.Description));
 
-            if (p.Area > 0)
-            {
-                _PolyOutput.AppendLine();
-                _PolyOutput.AppendLine(String.Format("The polygon area is: {2}{0:F2} Ha ({1:F2} ac).",
-                    TtUtils.ConvertMeters2ToHa(p.Area), TtUtils.ConvertMeters2ToAcres(p.Area), _options.SaveReport ? "              " : ""));
-                _PolyOutput.AppendLine(String.Format("The polygon exterior perimeter is: {0:F0} M ({1:F0} ft).", p.Perimeter,
-                    TtUtils.ConvertToFeetTenths(p.Perimeter, Unit.METERS)));
-            }
-
-            /*
-            if (TotalError > 0)
-            {
-                _PolyOutput.AppendLine(String.Format("The polygon area-error area is: {2}{0:F5} Ha ({1:F4} ac).",
-                    TtUtils.ConvertMeters2ToHa(TotalError), TtUtils.ConvertMeters2ToAcres(TotalError),
-                _options.SaveReport ? "     " : ""));
-
-                _PolyOutput.AppendLine(String.Format("Ratio of area-error-area to area is: {0:F2}%.",
-                    TotalError / p.Area * 100));
-            }
-            */
+            _PolyOutput.AppendLine();
+            _PolyOutput.AppendLine(String.Format("The polygon area is: {2}{0:F2} Ha ({1:F2} ac).",
+                TtUtils.ConvertMeters2ToHa(p.Area), TtUtils.ConvertMeters2ToAcres(p.Area), _options.SaveReport ? "              " : ""));
+        
+            _PolyOutput.AppendLine(String.Format("The polygon exterior perimeter is: {0:F2} M ({1:F0} ft).", p.Perimeter,
+                TtUtils.ConvertToFeetTenths(p.Perimeter, Unit.METERS)));
+            _PolyOutput.AppendLine(String.Format("The polyline perimeter is: {0:F2} M ({1:F0} ft).", _PolyLinePerim,
+                TtUtils.ConvertToFeetTenths(_PolyLinePerim, Unit.METERS)));
 
             if (TotalGpsError > 0)
             {

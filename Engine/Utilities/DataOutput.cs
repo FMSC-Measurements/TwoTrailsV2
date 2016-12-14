@@ -169,7 +169,7 @@ namespace TwoTrails.Utilities
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.Altitude);
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.AltUnit);
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.FixQuality);
-                Columns.Add(TwoTrailsSchema.TtnmeaSchema.Mode);
+                Columns.Add("Fix");
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.PDOP);
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.HDOP);
                 Columns.Add(TwoTrailsSchema.TtnmeaSchema.VDOP);
@@ -259,8 +259,8 @@ namespace TwoTrails.Utilities
                     burstData.Add(burst._Y.ToString());
                     burstData.Add(burst._altitude.ToString());
                     burstData.Add(burst._alt_unit.ToString());
-                    burstData.Add(burst._fix_quality.ToString());//15
-                    burstData.Add(burst._fix.ToString());       
+                    burstData.Add(FormatFixQuality(burst._fix_quality));//15
+                    burstData.Add(FormatFix(burst._fix));       
                     burstData.Add(burst._PDOP.ToString());
                     burstData.Add(burst._HDOP.ToString());
                     burstData.Add(burst._VDOP.ToString());
@@ -289,6 +289,43 @@ namespace TwoTrails.Utilities
             }
         }
 
+
+        private static string FormatFix(int value)
+        {
+            string name = "Unknown";
+            switch (value)
+            {
+                case 1: name = "None"; break;
+                case 2: name = "2D"; break;
+                case 3: name = "3D"; break;
+                default:
+                    break;
+            }
+
+            return String.Format("{0}_{1}", value, name);
+        }
+
+        private static string FormatFixQuality(int value)
+        {
+            string name = "Unknown";
+            switch (value)
+            {
+                case 0: name = "None"; break;   //No fix
+                case 1: name = "GPS"; break;    //GPS
+                case 2: name = "DIFF"; break;   //GPS DIFF
+                case 3: name = "PPS"; break;    //PPS
+                case 4: name = "RTK"; break;    //RTK
+                case 5: name = "FRTK"; break;   //Float RTK
+                case 6: name = "Est"; break;    //Estimated
+                case 7: name = "Man"; break;    //Manual
+                case 8: name = "Sim"; break;    //Simulation
+                default:
+                    break;
+            }
+
+            return String.Format("{0}_{1}", value, name);
+        }
+
         public void WriteProject(DataAccessLayer DAL)
         {
             if (Values.Settings.ProjectOptions != null && Values.Settings.DeviceOptions != null)
@@ -315,12 +352,12 @@ namespace TwoTrails.Utilities
 
                 #region Add Data
                 List<string> info = new List<string>();
-                info.Add(Values.Settings.ProjectOptions.ProjectName.Scrub());
-                info.Add(Values.Settings.ProjectOptions.Description.Scrub());
-                info.Add(Values.Settings.ProjectOptions.Region.Scrub());
-                info.Add(Values.Settings.ProjectOptions.Forest.Scrub());
-                info.Add(Values.Settings.ProjectOptions.District.Scrub());
-                info.Add(Values.Settings.ProjectOptions.Year);
+                info.Add(DAL.GetProjectID().Scrub());
+                info.Add(DAL.GetProjectDescription().Scrub());
+                info.Add(DAL.GetProjectRegion().Scrub());
+                info.Add(DAL.GetProjectForest().Scrub());
+                info.Add(DAL.GetProjectDistrict().Scrub());
+                info.Add(DAL.GetProjectYear());
                 info.Add(Values.Settings.ProjectOptions.DropZero.ToString());
                 info.Add(Values.Settings.DeviceOptions.GpsComPort.Scrub());
                 info.Add(Values.Settings.DeviceOptions.GpsBaud.ToString());
@@ -962,7 +999,7 @@ namespace TwoTrails.Utilities
 
                     adjPm.StyleUrl = sAdjBoundMap.StyleUrl;
                     adjPm.Open = false;
-                    adjPm.Visibility = true;
+                    adjPm.Visibility = false;
                     adjPm.AddPoint(new KmlPoint(adjCoord, AltitudeMode.clampToGround));
 
 
@@ -1461,6 +1498,8 @@ namespace TwoTrails.Utilities
 
                 bool hasWayPoints = false;
 
+                TtPoint firstBndPoint = null, lastBntPoint = null;
+
                 foreach (TtPoint point in points)
                 {
                     if (point.IsNavPoint())
@@ -1473,6 +1512,11 @@ namespace TwoTrails.Utilities
                     {
                         BAdjCoords.Add(new Coordinate(point.AdjX, point.AdjY, point.AdjZ));
                         BUnAdjCoords.Add(new Coordinate(point.UnAdjX, point.UnAdjY, point.UnAdjZ));
+
+                        if (firstBndPoint == null)
+                            firstBndPoint = point;
+
+                        lastBntPoint = point;
                     }
 
                     if (point.op == OpType.WayPoint)
@@ -1480,6 +1524,10 @@ namespace TwoTrails.Utilities
                         hasWayPoints = true;
                     }
                 }
+
+                double polyLinePerim = -1;
+                if (firstBndPoint != null)
+                    polyLinePerim = poly.Perimeter - TtUtils.Distance(firstBndPoint, lastBntPoint, true);
 
                 #region Navigation
 
@@ -1497,6 +1545,7 @@ namespace TwoTrails.Utilities
                 attTable.AddAttribute("Poly", "Navigation Adjusted"); 
                 attTable.AddAttribute("CN", poly.CN);
                 attTable.AddAttribute("Perim_M", poly.Perimeter);
+                attTable.AddAttribute("PerimLine_M", polyLinePerim);
 
                 Feature feat = new Feature();
                 DbaseFileHeader dbh;
