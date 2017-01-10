@@ -53,9 +53,10 @@
             // 
             this.textBoxX.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjX", true));
             this.textBoxX.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxX.Location = new System.Drawing.Point(30, 3);
+            this.textBoxX.Location = new System.Drawing.Point(40, 4);
+            this.textBoxX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxX.Name = "textBoxX";
-            this.textBoxX.Size = new System.Drawing.Size(205, 21);
+            this.textBoxX.Size = new System.Drawing.Size(272, 24);
             this.textBoxX.TabIndex = 0;
             this.textBoxX.TextChanged += new System.EventHandler(this.textBoxX_TextChanged);
             // 
@@ -68,9 +69,10 @@
             // 
             this.textBoxY.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjY", true));
             this.textBoxY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxY.Location = new System.Drawing.Point(30, 30);
+            this.textBoxY.Location = new System.Drawing.Point(40, 37);
+            this.textBoxY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxY.Name = "textBoxY";
-            this.textBoxY.Size = new System.Drawing.Size(205, 21);
+            this.textBoxY.Size = new System.Drawing.Size(272, 24);
             this.textBoxY.TabIndex = 1;
             this.textBoxY.TextChanged += new System.EventHandler(this.textBoxY_TextChanged);
             // 
@@ -78,18 +80,20 @@
             // 
             this.textBoxZ.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "UnAdjZ", true));
             this.textBoxZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxZ.Location = new System.Drawing.Point(30, 57);
+            this.textBoxZ.Location = new System.Drawing.Point(40, 70);
+            this.textBoxZ.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxZ.Name = "textBoxZ";
-            this.textBoxZ.Size = new System.Drawing.Size(205, 21);
+            this.textBoxZ.Size = new System.Drawing.Size(272, 24);
             this.textBoxZ.TabIndex = 2;
             this.textBoxZ.TextChanged += new System.EventHandler(this.textBoxZ_TextChanged);
             // 
             // btnMisc
             // 
             this.btnMisc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMisc.Location = new System.Drawing.Point(240, 84);
+            this.btnMisc.Location = new System.Drawing.Point(320, 103);
+            this.btnMisc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnMisc.Name = "btnMisc";
-            this.btnMisc.Size = new System.Drawing.Size(75, 46);
+            this.btnMisc.Size = new System.Drawing.Size(100, 57);
             this.btnMisc.TabIndex = 1;
             this.btnMisc.TabStop = false;
             this.btnMisc.Text = "Misc";
@@ -99,9 +103,10 @@
             // btnDelNmea
             // 
             this.btnDelNmea.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelNmea.Location = new System.Drawing.Point(160, 84);
+            this.btnDelNmea.Location = new System.Drawing.Point(213, 103);
+            this.btnDelNmea.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDelNmea.Name = "btnDelNmea";
-            this.btnDelNmea.Size = new System.Drawing.Size(75, 46);
+            this.btnDelNmea.Size = new System.Drawing.Size(100, 57);
             this.btnDelNmea.TabIndex = 2;
             this.btnDelNmea.TabStop = false;
             this.btnDelNmea.Text = "Delete NMEA";
@@ -113,9 +118,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 4);
+            this.label1.Location = new System.Drawing.Point(4, 5);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(21, 16);
+            this.label1.Size = new System.Drawing.Size(27, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "X:";
             // 
@@ -123,9 +129,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 33);
+            this.label2.Location = new System.Drawing.Point(4, 41);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(22, 16);
+            this.label2.Size = new System.Drawing.Size(26, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "Y:";
             // 
@@ -133,9 +140,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(4, 60);
+            this.label3.Location = new System.Drawing.Point(5, 74);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(21, 16);
+            this.label3.Size = new System.Drawing.Size(25, 20);
             this.label3.TabIndex = 3;
             this.label3.Text = "Z:";
             // 
@@ -143,9 +151,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(17, 87);
+            this.label4.Location = new System.Drawing.Point(23, 107);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 16);
+            this.label4.Size = new System.Drawing.Size(102, 20);
             this.label4.TabIndex = 3;
             this.label4.Text = "RMSE (M):";
             // 
@@ -153,19 +162,21 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(6, 141);
+            this.label5.Location = new System.Drawing.Point(8, 174);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(92, 16);
+            this.label5.Size = new System.Drawing.Size(123, 20);
             this.label5.TabIndex = 3;
-            this.label5.Text = "Manual Acc:";
+            this.label5.Text = "Man Acc (M):";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(4, 114);
+            this.label6.Location = new System.Drawing.Point(5, 140);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(94, 16);
+            this.label6.Size = new System.Drawing.Size(116, 20);
             this.label6.TabIndex = 3;
             this.label6.Text = "NSSDA Acc:";
             // 
@@ -173,9 +184,10 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(241, 14);
+            this.label7.Location = new System.Drawing.Point(321, 17);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 30);
+            this.label7.Size = new System.Drawing.Size(89, 36);
             this.label7.TabIndex = 4;
             this.label7.Text = "UTM\r\n(METERS)";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -184,9 +196,10 @@
             // 
             this.txtElevation.AutoSize = true;
             this.txtElevation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtElevation.Location = new System.Drawing.Point(241, 60);
+            this.txtElevation.Location = new System.Drawing.Point(321, 74);
+            this.txtElevation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.txtElevation.Name = "txtElevation";
-            this.txtElevation.Size = new System.Drawing.Size(47, 15);
+            this.txtElevation.Size = new System.Drawing.Size(58, 18);
             this.txtElevation.TabIndex = 5;
             this.txtElevation.Text = "          ";
             this.txtElevation.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -196,9 +209,10 @@
             this.txtRMSE.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "RMSEr", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.##"));
             this.txtRMSE.Enabled = false;
             this.txtRMSE.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRMSE.Location = new System.Drawing.Point(104, 84);
+            this.txtRMSE.Location = new System.Drawing.Point(139, 103);
+            this.txtRMSE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtRMSE.Name = "txtRMSE";
-            this.txtRMSE.Size = new System.Drawing.Size(50, 21);
+            this.txtRMSE.Size = new System.Drawing.Size(65, 24);
             this.txtRMSE.TabIndex = 0;
             this.txtRMSE.TabStop = false;
             // 
@@ -207,9 +221,10 @@
             this.txtAcc.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "NSSDA_RMSEr", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, "0", "#.##"));
             this.txtAcc.Enabled = false;
             this.txtAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAcc.Location = new System.Drawing.Point(104, 111);
+            this.txtAcc.Location = new System.Drawing.Point(139, 137);
+            this.txtAcc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtAcc.Name = "txtAcc";
-            this.txtAcc.Size = new System.Drawing.Size(50, 21);
+            this.txtAcc.Size = new System.Drawing.Size(65, 24);
             this.txtAcc.TabIndex = 0;
             this.txtAcc.TabStop = false;
             // 
@@ -217,16 +232,17 @@
             // 
             this.txtManAcc.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSourcePoint, "ManualAccuracy", true));
             this.txtManAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtManAcc.Location = new System.Drawing.Point(104, 138);
+            this.txtManAcc.Location = new System.Drawing.Point(139, 170);
+            this.txtManAcc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtManAcc.Name = "txtManAcc";
-            this.txtManAcc.Size = new System.Drawing.Size(50, 21);
+            this.txtManAcc.Size = new System.Drawing.Size(65, 24);
             this.txtManAcc.TabIndex = 0;
             this.txtManAcc.TabStop = false;
             this.txtManAcc.TextChanged += new System.EventHandler(this.txtManAcc_TextChanged);
             // 
             // GpsInfoControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.txtElevation);
             this.Controls.Add(this.label7);
@@ -244,8 +260,9 @@
             this.Controls.Add(this.textBoxZ);
             this.Controls.Add(this.textBoxY);
             this.Controls.Add(this.textBoxX);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "GpsInfoControl";
-            this.Size = new System.Drawing.Size(330, 170);
+            this.Size = new System.Drawing.Size(440, 209);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourcePoint)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

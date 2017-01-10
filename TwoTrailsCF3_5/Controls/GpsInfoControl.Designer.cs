@@ -183,7 +183,7 @@
             this.label6.Location = new System.Drawing.Point(4, 108);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 20);
-            this.label6.Text = "Manual Acc:";
+            this.label6.Text = "Man Acc (M):";
             // 
             // txtManAcc
             // 
@@ -402,7 +402,7 @@
             this.label6.Location = new System.Drawing.Point(4, 96);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 20);
-            this.label6.Text = "Manual Acc:";
+            this.label6.Text = "Man Acc (M):";
             // 
             // txtManAcc
             // 
