@@ -30,6 +30,7 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabDisplay = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.lstPolygons = new System.Windows.Forms.ListView();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSkip = new System.Windows.Forms.TextBox();
@@ -61,7 +62,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.chkUnadjNav = new System.Windows.Forms.CheckBox();
-            this.cboLabels = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabDisplay.SuspendLayout();
             this.tabElements.SuspendLayout();
@@ -85,7 +85,7 @@
             // tabDisplay
             // 
             this.tabDisplay.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.tabDisplay.Controls.Add(this.cboLabels);
+            this.tabDisplay.Controls.Add(this.label6);
             this.tabDisplay.Controls.Add(this.lstPolygons);
             this.tabDisplay.Controls.Add(this.label2);
             this.tabDisplay.Controls.Add(this.txtSkip);
@@ -103,6 +103,15 @@
             this.tabDisplay.Name = "tabDisplay";
             this.tabDisplay.Size = new System.Drawing.Size(240, 265);
             this.tabDisplay.Text = "Display Options";
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(9, 163);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(80, 20);
+            this.label6.Text = "Labels:";
             // 
             // lstPolygons
             // 
@@ -195,13 +204,15 @@
             // 
             // cboLabels
             // 
+            this.cboLabels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboLabels.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.cboLabels.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.cboLabels.Location = new System.Drawing.Point(7, 198);
+            this.cboLabels.ForeColor = System.Drawing.Color.Black;
+            this.cboLabels.Location = new System.Drawing.Point(7, 185);
             this.cboLabels.Name = "cboLabels";
-            this.cboLabels.Size = new System.Drawing.Size(100, 20);
-            this.cboLabels.TabIndex = 14;
+            this.cboLabels.Size = new System.Drawing.Size(82, 26);
+            this.cboLabels.TabIndex = 23;
             this.cboLabels.TabStop = false;
+            this.cboLabels.SelectedIndexChanged += new System.EventHandler(this.cboLabels_SelectedIndexChanged);
             // 
             // chkPoints
             // 
@@ -463,15 +474,6 @@
             this.chkUnadjNav.Text = "Navigation Trail";
             this.chkUnadjNav.CheckStateChanged += new System.EventHandler(this.chkUnadjNav_CheckStateChanged);
             // 
-            // cboLabels
-            // 
-            this.cboLabels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.cboLabels.Location = new System.Drawing.Point(7, 166);
-            this.cboLabels.Name = "cboLabels";
-            this.cboLabels.Size = new System.Drawing.Size(82, 26);
-            this.cboLabels.TabIndex = 23;
-            this.cboLabels.SelectedIndexChanged += new System.EventHandler(this.cboLabels_SelectedIndexChanged);
-            // 
             // MapOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -505,6 +507,7 @@
             this.chkLegend = new System.Windows.Forms.CheckBox();
             this.btnDrawMap = new System.Windows.Forms.Button();
             this.cboLabels = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabElements = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -549,7 +552,7 @@
             this.tabDisplay.Controls.Add(this.panel1);
             this.tabDisplay.Location = new System.Drawing.Point(0, 0);
             this.tabDisplay.Name = "tabDisplay";
-            this.tabDisplay.Size = new System.Drawing.Size(320, 189);
+            this.tabDisplay.Size = new System.Drawing.Size(320, 185);
             this.tabDisplay.Text = "Display Options";
             // 
             // lstPolygons
@@ -580,10 +583,11 @@
             this.panel1.Controls.Add(this.chkLegend);
             this.panel1.Controls.Add(this.btnDrawMap);
             this.panel1.Controls.Add(this.cboLabels);
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(320, 189);
+            this.panel1.Size = new System.Drawing.Size(320, 185);
             // 
             // label1
             // 
@@ -598,7 +602,7 @@
             // btnExit
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExit.Location = new System.Drawing.Point(7, 166);
+            this.btnExit.Location = new System.Drawing.Point(7, 162);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(83, 20);
             this.btnExit.TabIndex = 10;
@@ -610,9 +614,9 @@
             this.txtBackground.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBackground.Enabled = false;
-            this.txtBackground.Location = new System.Drawing.Point(110, 141);
+            this.txtBackground.Location = new System.Drawing.Point(110, 137);
             this.txtBackground.Name = "txtBackground";
-            this.txtBackground.Size = new System.Drawing.Size(53, 21);
+            this.txtBackground.Size = new System.Drawing.Size(53, 25);
             this.txtBackground.TabIndex = 17;
             this.txtBackground.Visible = false;
             // 
@@ -621,7 +625,7 @@
             this.btnBackground.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBackground.Enabled = false;
-            this.btnBackground.Location = new System.Drawing.Point(7, 141);
+            this.btnBackground.Location = new System.Drawing.Point(7, 137);
             this.btnBackground.Name = "btnBackground";
             this.btnBackground.Size = new System.Drawing.Size(97, 20);
             this.btnBackground.TabIndex = 9;
@@ -633,9 +637,9 @@
             // 
             this.txtSkip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSkip.Location = new System.Drawing.Point(188, 141);
+            this.txtSkip.Location = new System.Drawing.Point(175, 137);
             this.txtSkip.Name = "txtSkip";
-            this.txtSkip.Size = new System.Drawing.Size(45, 21);
+            this.txtSkip.Size = new System.Drawing.Size(45, 25);
             this.txtSkip.TabIndex = 18;
             this.txtSkip.TextChanged += new System.EventHandler(this.txtSkip_TextChanged);
             this.txtSkip.GotFocus += new System.EventHandler(this.txtSkip_GotFocus);
@@ -645,9 +649,9 @@
             // 
             this.label2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label2.Location = new System.Drawing.Point(239, 141);
+            this.label2.Location = new System.Drawing.Point(223, 141);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 20);
+            this.label2.Size = new System.Drawing.Size(103, 20);
             this.label2.Text = "Skip Labels";
             // 
             // chkPoints
@@ -656,7 +660,7 @@
             this.chkPoints.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPoints.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.chkPoints.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.chkPoints.Location = new System.Drawing.Point(240, 24);
+            this.chkPoints.Location = new System.Drawing.Point(237, 24);
             this.chkPoints.Name = "chkPoints";
             this.chkPoints.Size = new System.Drawing.Size(80, 20);
             this.chkPoints.TabIndex = 12;
@@ -669,7 +673,7 @@
             this.chkLines.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLines.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.chkLines.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.chkLines.Location = new System.Drawing.Point(240, 50);
+            this.chkLines.Location = new System.Drawing.Point(237, 50);
             this.chkLines.Name = "chkLines";
             this.chkLines.Size = new System.Drawing.Size(80, 20);
             this.chkLines.TabIndex = 13;
@@ -682,9 +686,9 @@
             this.chkLegend.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLegend.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.chkLegend.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.chkLegend.Location = new System.Drawing.Point(239, 76);
+            this.chkLegend.Location = new System.Drawing.Point(236, 76);
             this.chkLegend.Name = "chkLegend";
-            this.chkLegend.Size = new System.Drawing.Size(74, 20);
+            this.chkLegend.Size = new System.Drawing.Size(97, 20);
             this.chkLegend.TabIndex = 16;
             this.chkLegend.Text = "Legend";
             this.chkLegend.CheckStateChanged += new System.EventHandler(this.chkLegend_CheckStateChanged);
@@ -692,7 +696,7 @@
             // btnDrawMap
             // 
             this.btnDrawMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDrawMap.Location = new System.Drawing.Point(230, 166);
+            this.btnDrawMap.Location = new System.Drawing.Point(230, 162);
             this.btnDrawMap.Name = "btnDrawMap";
             this.btnDrawMap.Size = new System.Drawing.Size(83, 20);
             this.btnDrawMap.TabIndex = 8;
@@ -701,14 +705,23 @@
             // 
             // cboLabels
             // 
+            this.cboLabels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboLabels.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.cboLabels.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.cboLabels.Location = new System.Drawing.Point(240, 102);
+            this.cboLabels.ForeColor = System.Drawing.Color.Black;
+            this.cboLabels.Location = new System.Drawing.Point(236, 114);
             this.cboLabels.Name = "cboLabels";
-            this.cboLabels.Size = new System.Drawing.Size(80, 20);
+            this.cboLabels.Size = new System.Drawing.Size(80, 26);
             this.cboLabels.TabIndex = 14;
-            this.cboLabels.Text = "Labels";
             this.cboLabels.SelectedIndexChanged += new System.EventHandler(this.cboLabels_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(238, 94);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(80, 20);
+            this.label6.Text = "Labels:";
             // 
             // tabElements
             // 
@@ -716,7 +729,7 @@
             this.tabElements.Controls.Add(this.panel2);
             this.tabElements.Location = new System.Drawing.Point(0, 0);
             this.tabElements.Name = "tabElements";
-            this.tabElements.Size = new System.Drawing.Size(320, 189);
+            this.tabElements.Size = new System.Drawing.Size(312, 183);
             this.tabElements.Text = "Display Element Options";
             // 
             // panel2
@@ -742,7 +755,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(320, 189);
+            this.panel2.Size = new System.Drawing.Size(312, 183);
             // 
             // label3
             // 
@@ -962,8 +975,6 @@
         private System.Windows.Forms.RadioButton radLatLon;
         private System.Windows.Forms.CheckBox chkDetails;
         private System.Windows.Forms.RadioButton radUTM;
-        private System.Windows.Forms.TextBox txtBackground;
-        private System.Windows.Forms.Button btnBackground;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox chkUseMap;
@@ -971,5 +982,8 @@
         private System.Windows.Forms.Button btnExit2;
         private System.Windows.Forms.Button btnDraw2;
         private System.Windows.Forms.CheckBox chkCloseBnd;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtBackground;
+        private System.Windows.Forms.Button btnBackground;
     }
 }

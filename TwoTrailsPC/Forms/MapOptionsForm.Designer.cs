@@ -56,6 +56,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.chkCloseBnd = new System.Windows.Forms.CheckBox();
             this.cboLabels = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnExit
@@ -266,7 +267,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 324);
+            this.label3.Location = new System.Drawing.Point(129, 315);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(85, 17);
@@ -278,10 +279,10 @@
             this.txtSkip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSkip.Enabled = false;
-            this.txtSkip.Location = new System.Drawing.Point(112, 320);
+            this.txtSkip.Location = new System.Drawing.Point(222, 312);
             this.txtSkip.Margin = new System.Windows.Forms.Padding(4);
             this.txtSkip.Name = "txtSkip";
-            this.txtSkip.Size = new System.Drawing.Size(132, 22);
+            this.txtSkip.Size = new System.Drawing.Size(77, 22);
             this.txtSkip.TabIndex = 25;
             this.txtSkip.TabStop = false;
             this.txtSkip.TextChanged += new System.EventHandler(this.txtSkip_TextChanged);
@@ -316,7 +317,7 @@
             // chkLegend
             // 
             this.chkLegend.AutoSize = true;
-            this.chkLegend.Location = new System.Drawing.Point(4, 292);
+            this.chkLegend.Location = new System.Drawing.Point(4, 264);
             this.chkLegend.Margin = new System.Windows.Forms.Padding(4);
             this.chkLegend.Name = "chkLegend";
             this.chkLegend.Size = new System.Drawing.Size(78, 21);
@@ -397,7 +398,7 @@
             // chkCloseBnd
             // 
             this.chkCloseBnd.AutoSize = true;
-            this.chkCloseBnd.Location = new System.Drawing.Point(253, 322);
+            this.chkCloseBnd.Location = new System.Drawing.Point(307, 311);
             this.chkCloseBnd.Margin = new System.Windows.Forms.Padding(4);
             this.chkCloseBnd.Name = "chkCloseBnd";
             this.chkCloseBnd.Size = new System.Drawing.Size(141, 21);
@@ -411,17 +412,27 @@
             // 
             this.cboLabels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboLabels.FormattingEnabled = true;
-            this.cboLabels.Location = new System.Drawing.Point(4, 264);
+            this.cboLabels.Location = new System.Drawing.Point(4, 312);
             this.cboLabels.Name = "cboLabels";
             this.cboLabels.Size = new System.Drawing.Size(121, 24);
             this.cboLabels.TabIndex = 44;
             this.cboLabels.SelectedIndexChanged += new System.EventHandler(this.cboLabels_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 290);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 17);
+            this.label5.TabIndex = 45;
+            this.label5.Text = "Labels:";
             // 
             // MapOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 374);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.cboLabels);
             this.Controls.Add(this.chkCloseBnd);
             this.Controls.Add(this.radUTM);
@@ -494,5 +505,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chkCloseBnd;
         private System.Windows.Forms.ComboBox cboLabels;
+        private System.Windows.Forms.Label label5;
     }
 }
