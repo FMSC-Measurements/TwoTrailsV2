@@ -135,7 +135,7 @@ namespace Engine.BusinessLogic
                     _Legs = new List<Leg>();
 
                     TtPoint firstBndPoint = null, lastBndPoint = null;
-                    foreach (TtPoint point in points)
+                    foreach (TtPoint point in points.Where(p => p.OnBnd))
                     {
                         OutputPointSummary(point, false, showpoints);
 
@@ -148,12 +148,12 @@ namespace Engine.BusinessLogic
                         }
                     }
 
-                    if (!lastBndPoint.SameAdjLocation(_LastTtBndPt))
+                    if (!firstBndPoint.SameAdjLocation(_LastTtBndPt))
                     {
                         //if (_LastTtPoint.op == OpType.SideShot || pt.op == OpType.SideShot)
                         //     _Legs.Add(new Leg(_LastTtPoint, pt, polys[_LastTtPoint.PolyCN].PolyAccu, polys[pt.PolyCN].PolyAccu));
                         //else
-                        _Legs.Add(new Leg(_LastTtBndPt, lastBndPoint, polys));
+                        _Legs.Add(new Leg(_LastTtBndPt, firstBndPoint, polys));
                     }
 
                     if (firstBndPoint != null)
