@@ -35,10 +35,10 @@ namespace TwoTrails.Forms
                     chkLock.Enabled = true;
                     textBoxDesc.Text = _updatedPolygon.Description;
                     textBoxID.Text = _updatedPolygon.Name;
-                    txtPerimMet.Text = _updatedPolygon.Perimeter.ToString("0.000");
-                    txtPerimFt.Text = TtUtils.ConvertToFeetTenths(_updatedPolygon.Perimeter, Unit.METERS).ToString("0.000");
-                    txtAreaHA.Text = TtUtils.ConvertMeters2ToHa(_updatedPolygon.Area).ToString("0.000");
-                    txtAreaAC.Text = TtUtils.ConvertMeters2ToAcres(_updatedPolygon.Area).ToString("0.000");
+                    txtPerimMet.Text = _updatedPolygon.Perimeter.ToString("0.###    ");
+                    txtPerimFt.Text = TtUtils.ConvertToFeetTenths(_updatedPolygon.Perimeter, Unit.METERS).ToString("0.###");
+                    txtAreaHA.Text = TtUtils.ConvertMeters2ToHa(_updatedPolygon.Area).ToString("0.#####");
+                    txtAreaAC.Text = TtUtils.ConvertMeters2ToAcres(_updatedPolygon.Area).ToString("0.#####");
                     txtInc.Text = _updatedPolygon.IncrementBy.ToString();
                     txtStartIndex.Text = _updatedPolygon.PointStartIndex.ToString();
 

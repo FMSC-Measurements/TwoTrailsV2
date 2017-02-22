@@ -50,7 +50,6 @@ namespace TwoTrails.Forms
 #else
             chkLegend.Checked = MapValues.mapLegend;
 #endif
-            chkLines.Checked = MapValues.mapLines;
             chkPoints.Checked = MapValues.mapPoints;
             chkUnadjBound.Checked = MapValues.mapUnadjBound;
             chkUnadjMisc.Checked = MapValues.mapUnadjMisc;

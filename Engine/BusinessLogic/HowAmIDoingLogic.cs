@@ -135,7 +135,7 @@ namespace Engine.BusinessLogic
                     _Legs = new List<Leg>();
 
                     TtPoint firstBndPoint = null, lastBndPoint = null;
-                    foreach (TtPoint point in points)
+                    foreach (TtPoint point in points)//.Where(p => p.OnBnd))
                     {
                         OutputPointSummary(point, false, showpoints);
 
@@ -148,12 +148,12 @@ namespace Engine.BusinessLogic
                         }
                     }
 
-                    if (!lastBndPoint.SameAdjLocation(_LastTtBndPt))
+                    if (!firstBndPoint.SameAdjLocation(_LastTtBndPt))
                     {
                         //if (_LastTtPoint.op == OpType.SideShot || pt.op == OpType.SideShot)
                         //     _Legs.Add(new Leg(_LastTtPoint, pt, polys[_LastTtPoint.PolyCN].PolyAccu, polys[pt.PolyCN].PolyAccu));
                         //else
-                        _Legs.Add(new Leg(_LastTtBndPt, lastBndPoint, polys));
+                        _Legs.Add(new Leg(_LastTtBndPt, firstBndPoint, polys));
                     }
 
                     if (firstBndPoint != null)
@@ -338,12 +338,12 @@ namespace Engine.BusinessLogic
                     }
                 case TwoTrails.Engine.OpType.SideShot:
                     {
-                        if (showpoints)
+                        if (showpoints && !fromQuondam)
                         {
                             _PointOutput.AppendLine(String.Format("Point {0}: {2} SideShot from Point {1}.", pt.PID, lastGpsPtName, pt.OnBnd ? " " : "*"));
                         }
 
-                        if (_LastTtBndPt != null)
+                        if (_LastTtBndPt != null && (pt.OnBnd || fromQuondam))
                         {
                             _Legs.Add(new Leg(_LastTtBndPt, pt, polys));
                         }
@@ -384,8 +384,9 @@ namespace Engine.BusinessLogic
 
                         if (showpoints)
                         {
-                            _PointOutput.AppendLine(String.Format("Point {0}: {2} Quondam to Point {1} in {3}.", pt.PID,
-                                qp.ParentPID, pt.OnBnd ? " " : "*", qp.ParentPoly));
+                            _PointOutput.AppendLine(String.Format("Point {0}: {2} Quondam to Point {1}{3}.", pt.PID,
+                                qp.ParentPID, pt.OnBnd ? " " : "*",
+                                qp.ParentPoly != qp.PolyName ? String.Format(" in {0}", qp.ParentPoly) : String.Empty));
                         }
 
                         _LastTtPoint = pt;
@@ -405,7 +406,7 @@ namespace Engine.BusinessLogic
                 _PolyOutput.AppendLine(String.Format("Description: {0}", p.Description));
 
             _PolyOutput.AppendLine();
-            _PolyOutput.AppendLine(String.Format("The polygon area is: {2}{0:F2} Ha ({1:F2} ac).",
+            _PolyOutput.AppendLine(String.Format("The polygon area is: {2}{0:F3} Ha ({1:F2} ac).",
                 TtUtils.ConvertMeters2ToHa(p.Area), TtUtils.ConvertMeters2ToAcres(p.Area), _options.SaveReport ? "              " : ""));
         
             _PolyOutput.AppendLine(String.Format("The polygon exterior perimeter is: {0:F2} M ({1:F0} ft).", p.Perimeter,
@@ -416,7 +417,7 @@ namespace Engine.BusinessLogic
             if (TotalGpsError > 0)
             {
                 _PolyOutput.AppendLine();
-                _PolyOutput.AppendLine(String.Format("GPS Contribution to area-error area: {2}{0:F2} Ha ({1:F2} ac).",
+                _PolyOutput.AppendLine(String.Format("GPS Contribution to area-error area: {2}{0:F3} Ha ({1:F2} ac).",
                     TtUtils.ConvertMeters2ToHa(TotalGpsError), TtUtils.ConvertMeters2ToAcres(TotalGpsError),
                     _options.SaveReport ? "              " : ""));
 
@@ -427,7 +428,7 @@ namespace Engine.BusinessLogic
             if (TotalTravError > 0)
             {
                 _PolyOutput.AppendLine(" ");
-                _PolyOutput.AppendLine(String.Format("Traverse Contribution to area-error area: {2}{0:F2} Ha ({1:F2} ac).",
+                _PolyOutput.AppendLine(String.Format("Traverse Contribution to area-error area: {2}{0:F3} Ha ({1:F2} ac).",
                     TtUtils.ConvertMeters2ToHa(TotalTravError), TtUtils.ConvertMeters2ToAcres(TotalTravError),
                     _options.SaveReport ? "         " : ""));
 
