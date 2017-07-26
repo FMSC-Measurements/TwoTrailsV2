@@ -148,7 +148,7 @@ namespace Engine.BusinessLogic
                         }
                     }
 
-                    if (!firstBndPoint.SameAdjLocation(_LastTtBndPt))
+                    if (firstBndPoint != null && !firstBndPoint.SameAdjLocation(_LastTtBndPt))
                     {
                         //if (_LastTtPoint.op == OpType.SideShot || pt.op == OpType.SideShot)
                         //     _Legs.Add(new Leg(_LastTtPoint, pt, polys[_LastTtPoint.PolyCN].PolyAccu, polys[pt.PolyCN].PolyAccu));
