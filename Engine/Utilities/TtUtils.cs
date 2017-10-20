@@ -1603,15 +1603,11 @@ namespace TwoTrails.Utilities
                         break;
                     }
                 case OpType.SideShot:
-                    {
-                        ((SideShotPoint)p).SlopeDistance = TtUtils.ConvertDistance(((SideShotPoint)p).SlopeDistance, UomDistance.Meters, meta.uomDistance);
-                        ((SideShotPoint)p).SlopeAngle = TtUtils.ConvertAngle(((SideShotPoint)p).SlopeAngle, UomSlope.Degrees, meta.uomSlope);
-                        break;
-                    }
                 case OpType.Traverse:
                     {
-                        ((TravPoint)p).SlopeDistance = TtUtils.ConvertDistance(((TravPoint)p).SlopeDistance, UomDistance.Meters, meta.uomDistance);
-                        ((TravPoint)p).SlopeAngle = TtUtils.ConvertAngle(((TravPoint)p).SlopeAngle, UomSlope.Degrees, meta.uomSlope);
+                        SideShotPoint ssp = p as SideShotPoint;
+                        ssp.SlopeDistance = TtUtils.ConvertDistance(ssp.SlopeDistance, UomDistance.Meters, meta.uomDistance);
+                        ssp.SlopeAngle = TtUtils.ConvertAngle(ssp.SlopeAngle, UomSlope.Degrees, meta.uomSlope);
                         break;
                     }
                 case OpType.Quondam:

@@ -249,6 +249,9 @@ namespace TwoTrails.Controls
             try
             {
                 _current.ForwardAz = Convert.ToDouble(textBoxFAz.Text);
+
+                while (_current.ForwardAz < 0)
+                    _current.ForwardAz += 360;
             }
             catch
             {
@@ -268,6 +271,9 @@ namespace TwoTrails.Controls
             try
             {
                 _current.BackwardAz = Convert.ToDouble(textBoxBAz.Text);
+
+                while (_current.BackwardAz < 0)
+                    _current.BackwardAz += 360;
             }
             catch
             {
