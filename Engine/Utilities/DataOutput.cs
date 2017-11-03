@@ -1545,7 +1545,7 @@ namespace TwoTrails.Utilities
                 attTable.AddAttribute("Poly", "Navigation Adjusted"); 
                 attTable.AddAttribute("CN", poly.CN);
                 attTable.AddAttribute("Perim_M", poly.Perimeter);
-                attTable.AddAttribute("PerimLine_M", polyLinePerim);
+                attTable.AddAttribute("PerimLineM", polyLinePerim);
 
                 Feature feat = new Feature();
                 DbaseFileHeader dbh;
