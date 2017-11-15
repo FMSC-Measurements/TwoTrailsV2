@@ -29,7 +29,7 @@ namespace TwoTrails.Forms
         NmeaBurst CurrentNmea;
         NmeaBurst LastNmea;
 
-        private bool logging, _locked;
+        private bool logging, _locked, _isInsert;
         private int logged, _index;
 
         private bool _sound;
@@ -39,13 +39,15 @@ namespace TwoTrails.Forms
 
         private int _increment;
 
+        List<TtPoint> _AdjustInsertPoints;
+
         private SoundPlayer player;
 
 #if (PocketPC || WindowsCE || Mobile)
         private AnimationCtrl animation;
 #endif
 
-        public void Init(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int currIndex)
+        public void Init(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int currIndex, bool isInsert)
         {
             this.Icon = Properties.Resources.Map;
             TtUtils.ShowWaitCursor();
@@ -68,6 +70,7 @@ namespace TwoTrails.Forms
 
             logged = 0;
             _locked = true;
+            _isInsert = isInsert;
 
             _sound = true;
 #if (PocketPC || WindowsCE || Mobile)
@@ -94,6 +97,12 @@ namespace TwoTrails.Forms
 
 
             List<TtPoint> points = DAL.GetPointsInPolygon(Polygon);
+
+            if (isInsert)
+            {
+                _AdjustInsertPoints = points.Where(p => p.Index >= currIndex).ToList();
+            }
+
             _index = currIndex;
 
             if (_index > 0)
@@ -123,7 +132,6 @@ namespace TwoTrails.Forms
 
             gpsInfoAdvCtrl.SetZone(_currmeta.Zone);
             gpsInfoAdvCtrl.StartControl();
-
 
             TtUtils.HideWaitCursor();
         }
@@ -193,6 +201,15 @@ namespace TwoTrails.Forms
 
                 if (CurrentPoint != null)
                 {
+                    if (_isInsert)
+                    {
+                        long index = CurrentPoint.Index;
+                        foreach (TtPoint p in _AdjustInsertPoints)
+                            p.Index = ++index;
+
+                        DAL.SavePoints(_AdjustInsertPoints);
+                    }
+
                     DAL.InsertPoint(CurrentPoint);
                     DAL.SaveNmeaBurst(CurrentNmea, CurrentPoint.CN);
 

@@ -20,7 +20,7 @@ namespace TwoTrails.Forms
         #region Variables
 
         private const double RMSE95_COEF = 1.7308;
-        private bool logging, _locked, checkMeta;
+        private bool logging, _locked, checkMeta, _isInsert;
         private int logged, _index, currentZone;
 
         private DataAccessLayer DAL;
@@ -32,13 +32,14 @@ namespace TwoTrails.Forms
         TtPoint LastPoint;
         List<NmeaBurst> CurrentNmea;
         List<NmeaBurst> LastNmea;
+        List<TtPoint> _AdjustInsertPoints;
         TtPolygon Polygon;
         private bool OnBound, takingSideshot = false, lastPointSaved = false;
         private int ignore;
 
         #endregion
 
-        public void Init(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, TtPoint currentPoint, int currIndex)
+        public void Init(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, TtPoint currentPoint, int currIndex, bool isInsert)
         {
             this.Icon = Properties.Resources.Map;
             TtUtils.ShowWaitCursor();
@@ -81,6 +82,8 @@ namespace TwoTrails.Forms
             _index = currIndex;
             LastPoint = currentPoint;
 
+            _isInsert = isInsert;
+
             gpsInfoAdvCtrl.SetZone(CurrMeta.Zone);
             gpsInfoAdvCtrl.StartControl();
 
@@ -92,10 +95,6 @@ namespace TwoTrails.Forms
                 }
             }
 
-            T5Group = new TtGroup();
-            T5Group.Name = String.Format("Take5_{0}", T5Group.CN.Truncate(8));
-            T5Group.GroupType = GroupType.Take5;
-
             if(!Values.GPSA.IsBusy)
                 Values.GPSA.OpenGps(Values.Settings.DeviceOptions.GpsComPort, Values.Settings.DeviceOptions.GpsBaud);
             TtUtils.HideWaitCursor();
@@ -103,6 +102,11 @@ namespace TwoTrails.Forms
             if (dal.GetPointCount(poly.CN) < 1)
             {
                 checkMeta = true;
+            }
+
+            if (isInsert)
+            {
+                _AdjustInsertPoints = dal.GetPointsInPolygon(poly.CN).Where(p => p.Index >= currIndex).ToList();
             }
         }
 
@@ -134,11 +138,29 @@ namespace TwoTrails.Forms
                 {
                     TtUtils.ShowWaitCursor();
 
-                    DAL.InsertGroup(T5Group);
+                    if (T5Group == null)
+                    {
+                        T5Group = new TtGroup();
+                        T5Group.Name = String.Format("Take5_{0}", T5Group.CN.Truncate(8));
+                        T5Group.GroupType = GroupType.Take5;
+
+                        DAL.InsertGroup(T5Group);
+                    }
+
                     point.GroupCN = T5Group.CN;
                     point.GroupName = T5Group.Name;
 
                     point = TtUtils.SaveConversion(point, CurrMeta);
+
+                    if (_isInsert)
+                    {
+                        long index = point.Index;
+                        foreach (TtPoint p in _AdjustInsertPoints)
+                            p.Index = ++index;
+
+                        DAL.SavePoints(_AdjustInsertPoints);
+                    }
+
                     DAL.InsertPoint(point);
                     DAL.SaveNmeaBursts(LastNmea, point.CN);
                     TtUtils.HideWaitCursor();

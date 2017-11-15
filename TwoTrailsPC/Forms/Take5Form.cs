@@ -13,11 +13,11 @@ namespace TwoTrails.Forms
 {
     public partial class Take5Form : Form
     {
-        public Take5Form(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, TtPoint lastPoint, int cIndex)
+        public Take5Form(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, TtPoint lastPoint, int cIndex, bool isInsert)
         {
             InitializeComponent();
 
-            Init(poly, dal, meta, lastPoint, cIndex);
+            Init(poly, dal, meta, lastPoint, cIndex, isInsert);
         }
 
         private void txtPID_TextChanged(object sender, EventArgs e)
