@@ -217,9 +217,9 @@ namespace TwoTrails.BusinessObjects
             azToUse = 90 - azToUse;
             double x, y, z;
 
-            x = startingX + (HorizontalDistance * Math.Cos(azToUse * (Math.PI / 180)));
-            y = startingY + (HorizontalDistance * Math.Sin(azToUse * (Math.PI / 180)));
-            z = startingZ + (HorizontalDistance * Math.Tan(SlopeAngle));
+            x = startingX + (HorizontalDistance * Math.Cos(azToUse * TtUtils.Degrees2Radians_Coeff));
+            y = startingY + (HorizontalDistance * Math.Sin(azToUse * TtUtils.Degrees2Radians_Coeff));
+            z = startingZ + (SlopeDistance * Math.Sin(SlopeAngle * TtUtils.Degrees2Radians_Coeff));
 
             if(isUnadjusted)
             {
