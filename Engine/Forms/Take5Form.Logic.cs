@@ -19,7 +19,6 @@ namespace TwoTrails.Forms
     {
         #region Variables
 
-        private const double RMSE95_COEF = 1.7308;
         private bool logging, _locked, checkMeta, _isInsert;
         private int logged, _index, currentZone;
 
@@ -176,15 +175,6 @@ namespace TwoTrails.Forms
                 double x = 0, y = 0, z = 0;
                 int count = 0;
 
-                //moved to capture
-                /*
-                if (!lastPointSaved)
-                {
-                    SaveLastPoint(CurrentPoint);
-                    lastPointSaved = true;
-                }
-                */
-
                 if (SetupPoint())
                 {
                     NmeaBurst tmpBurst;
@@ -224,7 +214,7 @@ namespace TwoTrails.Forms
                         dRMSEx = Math.Sqrt(dRMSEx / count);
                         dRMSEy = Math.Sqrt(dRMSEy / count);
                         dRMSEr = Math.Sqrt(Math.Pow(dRMSEx, 2) + Math.Pow(dRMSEy, 2));
-                        dRMSEr *= RMSE95_COEF;
+                        dRMSEr *= Values.RMSE95_COEF;
 
                         CurrentPoint.UnAdjX = x;
                         CurrentPoint.UnAdjY = y;

@@ -57,7 +57,7 @@ namespace TwoTrails.Forms
 
         private void btnBackground_Click(object sender, EventArgs e)
         {
-            btnBackground_Click2(sender, e);
+            //btnBackground_Click2(sender, e);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -132,7 +132,7 @@ namespace TwoTrails.Forms
 
         private void chkUseMap_CheckedChanged(object sender, EventArgs e)
         {
-            chkUseMap_CheckedChanged2(sender, e);
+            //chkUseMap_CheckedChanged2(sender, e);
         }
 
         private void txtSkip_TextChanged(object sender, EventArgs e)
@@ -151,6 +151,11 @@ namespace TwoTrails.Forms
         }
 
         private void cboLabels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cboLabels_SelectedIndexChanged2(sender, e);
+        }
+
+        private void cboT5_SelectedIndexChanged(object sender, EventArgs e)
         {
             cboLabels_SelectedIndexChanged2(sender, e);
         }

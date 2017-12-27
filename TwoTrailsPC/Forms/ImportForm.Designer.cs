@@ -90,9 +90,10 @@
             // btnOpen
             // 
             this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpen.Location = new System.Drawing.Point(256, 12);
+            this.btnOpen.Location = new System.Drawing.Point(341, 15);
+            this.btnOpen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(75, 23);
+            this.btnOpen.Size = new System.Drawing.Size(100, 28);
             this.btnOpen.TabIndex = 0;
             this.btnOpen.Text = "Open";
             this.btnOpen.UseVisualStyleBackColor = true;
@@ -102,10 +103,11 @@
             // 
             this.txtFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFile.Location = new System.Drawing.Point(36, 14);
+            this.txtFile.Location = new System.Drawing.Point(48, 17);
+            this.txtFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtFile.Name = "txtFile";
             this.txtFile.ReadOnly = true;
-            this.txtFile.Size = new System.Drawing.Size(214, 20);
+            this.txtFile.Size = new System.Drawing.Size(284, 22);
             this.txtFile.TabIndex = 1;
             this.txtFile.TabStop = false;
             // 
@@ -113,9 +115,10 @@
             // 
             this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImport.Enabled = false;
-            this.btnImport.Location = new System.Drawing.Point(256, 232);
+            this.btnImport.Location = new System.Drawing.Point(341, 286);
+            this.btnImport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(75, 23);
+            this.btnImport.Size = new System.Drawing.Size(100, 28);
             this.btnImport.TabIndex = 0;
             this.btnImport.TabStop = false;
             this.btnImport.Text = "Import";
@@ -125,9 +128,10 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.Location = new System.Drawing.Point(7, 232);
+            this.btnCancel.Location = new System.Drawing.Point(9, 286);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(100, 28);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.TabStop = false;
             this.btnCancel.Text = "Exit";
@@ -137,9 +141,10 @@
             // btnHelp
             // 
             this.btnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnHelp.Location = new System.Drawing.Point(88, 232);
+            this.btnHelp.Location = new System.Drawing.Point(117, 286);
+            this.btnHelp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Size = new System.Drawing.Size(75, 23);
+            this.btnHelp.Size = new System.Drawing.Size(100, 28);
             this.btnHelp.TabIndex = 0;
             this.btnHelp.TabStop = false;
             this.btnHelp.Text = "Help";
@@ -155,9 +160,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 15);
+            this.label1.Location = new System.Drawing.Point(5, 18);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 16);
+            this.label1.Size = new System.Drawing.Size(40, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "File";
             // 
@@ -171,10 +177,11 @@
             this.tabControl.Controls.Add(this.tabGPX);
             this.tabControl.Controls.Add(this.tabTwoTrails1);
             this.tabControl.Controls.Add(this.tabTwoTrails2);
-            this.tabControl.Location = new System.Drawing.Point(0, 40);
+            this.tabControl.Location = new System.Drawing.Point(0, 49);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(338, 186);
+            this.tabControl.Size = new System.Drawing.Size(451, 229);
             this.tabControl.TabIndex = 3;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
@@ -191,10 +198,11 @@
             this.tabShape.Controls.Add(this.btnShpAdd);
             this.tabShape.Controls.Add(this.btnShpRemove);
             this.tabShape.Controls.Add(this.chkShpElev);
-            this.tabShape.Location = new System.Drawing.Point(4, 22);
+            this.tabShape.Location = new System.Drawing.Point(4, 25);
+            this.tabShape.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabShape.Name = "tabShape";
-            this.tabShape.Padding = new System.Windows.Forms.Padding(3);
-            this.tabShape.Size = new System.Drawing.Size(330, 160);
+            this.tabShape.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabShape.Size = new System.Drawing.Size(443, 200);
             this.tabShape.TabIndex = 1;
             this.tabShape.Text = "Shape";
             this.tabShape.UseVisualStyleBackColor = true;
@@ -204,9 +212,10 @@
             this.lblShpZone.AutoSize = true;
             this.lblShpZone.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblShpZone.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblShpZone.Location = new System.Drawing.Point(265, 22);
+            this.lblShpZone.Location = new System.Drawing.Point(353, 27);
+            this.lblShpZone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblShpZone.Name = "lblShpZone";
-            this.lblShpZone.Size = new System.Drawing.Size(16, 16);
+            this.lblShpZone.Size = new System.Drawing.Size(19, 20);
             this.lblShpZone.TabIndex = 7;
             this.lblShpZone.Text = "0";
             this.lblShpZone.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -216,9 +225,10 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(221, 22);
+            this.label4.Location = new System.Drawing.Point(295, 27);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 16);
+            this.label4.Size = new System.Drawing.Size(55, 20);
             this.label4.TabIndex = 7;
             this.label4.Text = "Zone:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -228,9 +238,10 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(197, 3);
+            this.label3.Location = new System.Drawing.Point(263, 4);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(128, 16);
+            this.label3.Size = new System.Drawing.Size(157, 20);
             this.label3.TabIndex = 7;
             this.label3.Text = "UTM Format Only";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -241,9 +252,10 @@
             this.radShpElevMeters.AutoSize = true;
             this.radShpElevMeters.Enabled = false;
             this.radShpElevMeters.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radShpElevMeters.Location = new System.Drawing.Point(258, 138);
+            this.radShpElevMeters.Location = new System.Drawing.Point(355, 170);
+            this.radShpElevMeters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radShpElevMeters.Name = "radShpElevMeters";
-            this.radShpElevMeters.Size = new System.Drawing.Size(69, 19);
+            this.radShpElevMeters.Size = new System.Drawing.Size(81, 22);
             this.radShpElevMeters.TabIndex = 5;
             this.radShpElevMeters.Text = "Meters";
             this.radShpElevMeters.UseVisualStyleBackColor = true;
@@ -255,9 +267,10 @@
             this.radShpElevFeet.Checked = true;
             this.radShpElevFeet.Enabled = false;
             this.radShpElevFeet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radShpElevFeet.Location = new System.Drawing.Point(199, 138);
+            this.radShpElevFeet.Location = new System.Drawing.Point(274, 170);
+            this.radShpElevFeet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radShpElevFeet.Name = "radShpElevFeet";
-            this.radShpElevFeet.Size = new System.Drawing.Size(53, 19);
+            this.radShpElevFeet.Size = new System.Drawing.Size(62, 22);
             this.radShpElevFeet.TabIndex = 6;
             this.radShpElevFeet.TabStop = true;
             this.radShpElevFeet.Text = "Feet";
@@ -267,9 +280,11 @@
             // 
             this.lstShpFiles.Enabled = false;
             this.lstShpFiles.FormattingEnabled = true;
-            this.lstShpFiles.Location = new System.Drawing.Point(3, 22);
+            this.lstShpFiles.ItemHeight = 16;
+            this.lstShpFiles.Location = new System.Drawing.Point(4, 27);
+            this.lstShpFiles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstShpFiles.Name = "lstShpFiles";
-            this.lstShpFiles.Size = new System.Drawing.Size(189, 108);
+            this.lstShpFiles.Size = new System.Drawing.Size(251, 132);
             this.lstShpFiles.TabIndex = 0;
             this.lstShpFiles.TabStop = false;
             // 
@@ -277,9 +292,10 @@
             // 
             this.chkShpMulti.AutoSize = true;
             this.chkShpMulti.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkShpMulti.Location = new System.Drawing.Point(6, 2);
+            this.chkShpMulti.Location = new System.Drawing.Point(8, 2);
+            this.chkShpMulti.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkShpMulti.Name = "chkShpMulti";
-            this.chkShpMulti.Size = new System.Drawing.Size(185, 20);
+            this.chkShpMulti.Size = new System.Drawing.Size(224, 24);
             this.chkShpMulti.TabIndex = 3;
             this.chkShpMulti.TabStop = false;
             this.chkShpMulti.Text = "Import Multiple Shapes";
@@ -289,9 +305,10 @@
             // btnShpClear
             // 
             this.btnShpClear.Enabled = false;
-            this.btnShpClear.Location = new System.Drawing.Point(3, 134);
+            this.btnShpClear.Location = new System.Drawing.Point(4, 165);
+            this.btnShpClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnShpClear.Name = "btnShpClear";
-            this.btnShpClear.Size = new System.Drawing.Size(59, 23);
+            this.btnShpClear.Size = new System.Drawing.Size(79, 28);
             this.btnShpClear.TabIndex = 1;
             this.btnShpClear.TabStop = false;
             this.btnShpClear.Text = "Clear";
@@ -301,9 +318,10 @@
             // btnShpAdd
             // 
             this.btnShpAdd.Enabled = false;
-            this.btnShpAdd.Location = new System.Drawing.Point(133, 134);
+            this.btnShpAdd.Location = new System.Drawing.Point(177, 165);
+            this.btnShpAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnShpAdd.Name = "btnShpAdd";
-            this.btnShpAdd.Size = new System.Drawing.Size(59, 23);
+            this.btnShpAdd.Size = new System.Drawing.Size(79, 28);
             this.btnShpAdd.TabIndex = 1;
             this.btnShpAdd.TabStop = false;
             this.btnShpAdd.Text = "Add";
@@ -313,9 +331,10 @@
             // btnShpRemove
             // 
             this.btnShpRemove.Enabled = false;
-            this.btnShpRemove.Location = new System.Drawing.Point(68, 134);
+            this.btnShpRemove.Location = new System.Drawing.Point(91, 165);
+            this.btnShpRemove.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnShpRemove.Name = "btnShpRemove";
-            this.btnShpRemove.Size = new System.Drawing.Size(59, 23);
+            this.btnShpRemove.Size = new System.Drawing.Size(79, 28);
             this.btnShpRemove.TabIndex = 1;
             this.btnShpRemove.TabStop = false;
             this.btnShpRemove.Text = "Remove";
@@ -327,9 +346,10 @@
             this.chkShpElev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShpElev.AutoSize = true;
             this.chkShpElev.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkShpElev.Location = new System.Drawing.Point(199, 121);
+            this.chkShpElev.Location = new System.Drawing.Point(280, 149);
+            this.chkShpElev.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkShpElev.Name = "chkShpElev";
-            this.chkShpElev.Size = new System.Drawing.Size(92, 20);
+            this.chkShpElev.Size = new System.Drawing.Size(108, 24);
             this.chkShpElev.TabIndex = 4;
             this.chkShpElev.TabStop = false;
             this.chkShpElev.Text = "Elevation";
@@ -342,10 +362,11 @@
             this.tabText.Controls.Add(this.label2);
             this.tabText.Controls.Add(this.radTxtUTM);
             this.tabText.Controls.Add(this.radTxtLatLng);
-            this.tabText.Location = new System.Drawing.Point(4, 22);
+            this.tabText.Location = new System.Drawing.Point(4, 25);
+            this.tabText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabText.Name = "tabText";
-            this.tabText.Padding = new System.Windows.Forms.Padding(3);
-            this.tabText.Size = new System.Drawing.Size(330, 160);
+            this.tabText.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabText.Size = new System.Drawing.Size(443, 200);
             this.tabText.TabIndex = 0;
             this.tabText.Text = "Text - CSV";
             this.tabText.UseVisualStyleBackColor = true;
@@ -363,9 +384,11 @@
             this.groupBox1.Controls.Add(this.chkTxtPID);
             this.groupBox1.Controls.Add(this.chkTxtMultiPoly);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 33);
+            this.groupBox1.Location = new System.Drawing.Point(0, 41);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(327, 127);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(436, 156);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Contains";
@@ -375,9 +398,10 @@
             // 
             this.radTxtElevMeters.AutoSize = true;
             this.radTxtElevMeters.Enabled = false;
-            this.radTxtElevMeters.Location = new System.Drawing.Point(168, 97);
+            this.radTxtElevMeters.Location = new System.Drawing.Point(224, 119);
+            this.radTxtElevMeters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radTxtElevMeters.Name = "radTxtElevMeters";
-            this.radTxtElevMeters.Size = new System.Drawing.Size(69, 19);
+            this.radTxtElevMeters.Size = new System.Drawing.Size(81, 22);
             this.radTxtElevMeters.TabIndex = 1;
             this.radTxtElevMeters.Text = "Meters";
             this.radTxtElevMeters.UseVisualStyleBackColor = true;
@@ -387,9 +411,10 @@
             this.radTxtElevFeet.AutoSize = true;
             this.radTxtElevFeet.Checked = true;
             this.radTxtElevFeet.Enabled = false;
-            this.radTxtElevFeet.Location = new System.Drawing.Point(109, 97);
+            this.radTxtElevFeet.Location = new System.Drawing.Point(145, 119);
+            this.radTxtElevFeet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radTxtElevFeet.Name = "radTxtElevFeet";
-            this.radTxtElevFeet.Size = new System.Drawing.Size(53, 19);
+            this.radTxtElevFeet.Size = new System.Drawing.Size(62, 22);
             this.radTxtElevFeet.TabIndex = 1;
             this.radTxtElevFeet.TabStop = true;
             this.radTxtElevFeet.Text = "Feet";
@@ -399,9 +424,10 @@
             // 
             this.chkTxtElev.AutoSize = true;
             this.chkTxtElev.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTxtElev.Location = new System.Drawing.Point(11, 98);
+            this.chkTxtElev.Location = new System.Drawing.Point(15, 121);
+            this.chkTxtElev.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkTxtElev.Name = "chkTxtElev";
-            this.chkTxtElev.Size = new System.Drawing.Size(92, 20);
+            this.chkTxtElev.Size = new System.Drawing.Size(108, 24);
             this.chkTxtElev.TabIndex = 0;
             this.chkTxtElev.TabStop = false;
             this.chkTxtElev.Text = "Elevation";
@@ -412,9 +438,10 @@
             // 
             this.chkTxtIndex.AutoSize = true;
             this.chkTxtIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTxtIndex.Location = new System.Drawing.Point(11, 72);
+            this.chkTxtIndex.Location = new System.Drawing.Point(15, 89);
+            this.chkTxtIndex.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkTxtIndex.Name = "chkTxtIndex";
-            this.chkTxtIndex.Size = new System.Drawing.Size(81, 20);
+            this.chkTxtIndex.Size = new System.Drawing.Size(95, 24);
             this.chkTxtIndex.TabIndex = 0;
             this.chkTxtIndex.TabStop = false;
             this.chkTxtIndex.Text = "Indexes";
@@ -424,9 +451,10 @@
             // 
             this.chkUseCmt.AutoSize = true;
             this.chkUseCmt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkUseCmt.Location = new System.Drawing.Point(168, 72);
+            this.chkUseCmt.Location = new System.Drawing.Point(224, 89);
+            this.chkUseCmt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkUseCmt.Name = "chkUseCmt";
-            this.chkUseCmt.Size = new System.Drawing.Size(99, 20);
+            this.chkUseCmt.Size = new System.Drawing.Size(120, 24);
             this.chkUseCmt.TabIndex = 0;
             this.chkUseCmt.TabStop = false;
             this.chkUseCmt.Text = "Comments";
@@ -436,9 +464,10 @@
             // 
             this.chkUseOnBound.AutoSize = true;
             this.chkUseOnBound.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkUseOnBound.Location = new System.Drawing.Point(168, 46);
+            this.chkUseOnBound.Location = new System.Drawing.Point(224, 57);
+            this.chkUseOnBound.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkUseOnBound.Name = "chkUseOnBound";
-            this.chkUseOnBound.Size = new System.Drawing.Size(105, 20);
+            this.chkUseOnBound.Size = new System.Drawing.Size(128, 24);
             this.chkUseOnBound.TabIndex = 0;
             this.chkUseOnBound.TabStop = false;
             this.chkUseOnBound.Text = "Has OnBnd";
@@ -448,9 +477,10 @@
             // 
             this.chkTxtPID.AutoSize = true;
             this.chkTxtPID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTxtPID.Location = new System.Drawing.Point(11, 46);
+            this.chkTxtPID.Location = new System.Drawing.Point(15, 57);
+            this.chkTxtPID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkTxtPID.Name = "chkTxtPID";
-            this.chkTxtPID.Size = new System.Drawing.Size(89, 20);
+            this.chkTxtPID.Size = new System.Drawing.Size(109, 24);
             this.chkTxtPID.TabIndex = 0;
             this.chkTxtPID.TabStop = false;
             this.chkTxtPID.Text = "Point IDs";
@@ -460,9 +490,10 @@
             // 
             this.chkTxtMultiPoly.AutoSize = true;
             this.chkTxtMultiPoly.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTxtMultiPoly.Location = new System.Drawing.Point(11, 20);
+            this.chkTxtMultiPoly.Location = new System.Drawing.Point(15, 25);
+            this.chkTxtMultiPoly.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkTxtMultiPoly.Name = "chkTxtMultiPoly";
-            this.chkTxtMultiPoly.Size = new System.Drawing.Size(150, 20);
+            this.chkTxtMultiPoly.Size = new System.Drawing.Size(179, 24);
             this.chkTxtMultiPoly.TabIndex = 0;
             this.chkTxtMultiPoly.TabStop = false;
             this.chkTxtMultiPoly.Text = "Multiple Polygons";
@@ -472,9 +503,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(8, 8);
+            this.label2.Location = new System.Drawing.Point(11, 10);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 16);
+            this.label2.Size = new System.Drawing.Size(123, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Point Format:";
             this.label2.Visible = false;
@@ -483,9 +515,10 @@
             // 
             this.radTxtUTM.AutoSize = true;
             this.radTxtUTM.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radTxtUTM.Location = new System.Drawing.Point(191, 7);
+            this.radTxtUTM.Location = new System.Drawing.Point(255, 9);
+            this.radTxtUTM.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radTxtUTM.Name = "radTxtUTM";
-            this.radTxtUTM.Size = new System.Drawing.Size(59, 20);
+            this.radTxtUTM.Size = new System.Drawing.Size(69, 24);
             this.radTxtUTM.TabIndex = 0;
             this.radTxtUTM.Text = "UTM";
             this.radTxtUTM.UseVisualStyleBackColor = true;
@@ -496,9 +529,10 @@
             this.radTxtLatLng.AutoSize = true;
             this.radTxtLatLng.Checked = true;
             this.radTxtLatLng.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radTxtLatLng.Location = new System.Drawing.Point(113, 7);
+            this.radTxtLatLng.Location = new System.Drawing.Point(151, 9);
+            this.radTxtLatLng.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radTxtLatLng.Name = "radTxtLatLng";
-            this.radTxtLatLng.Size = new System.Drawing.Size(72, 20);
+            this.radTxtLatLng.Size = new System.Drawing.Size(88, 24);
             this.radTxtLatLng.TabIndex = 0;
             this.radTxtLatLng.TabStop = true;
             this.radTxtLatLng.Text = "LatLng";
@@ -510,10 +544,11 @@
             this.tabGPX.Controls.Add(this.radGpxElevMeters);
             this.tabGPX.Controls.Add(this.radGpxElevFeet);
             this.tabGPX.Controls.Add(this.chkGpxElev);
-            this.tabGPX.Location = new System.Drawing.Point(4, 22);
+            this.tabGPX.Location = new System.Drawing.Point(4, 25);
+            this.tabGPX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabGPX.Name = "tabGPX";
-            this.tabGPX.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGPX.Size = new System.Drawing.Size(330, 160);
+            this.tabGPX.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabGPX.Size = new System.Drawing.Size(443, 200);
             this.tabGPX.TabIndex = 2;
             this.tabGPX.Text = "GPX";
             this.tabGPX.UseVisualStyleBackColor = true;
@@ -524,9 +559,10 @@
             this.radGpxElevMeters.AutoSize = true;
             this.radGpxElevMeters.Enabled = false;
             this.radGpxElevMeters.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radGpxElevMeters.Location = new System.Drawing.Point(258, 138);
+            this.radGpxElevMeters.Location = new System.Drawing.Point(355, 170);
+            this.radGpxElevMeters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radGpxElevMeters.Name = "radGpxElevMeters";
-            this.radGpxElevMeters.Size = new System.Drawing.Size(69, 19);
+            this.radGpxElevMeters.Size = new System.Drawing.Size(81, 22);
             this.radGpxElevMeters.TabIndex = 8;
             this.radGpxElevMeters.Text = "Meters";
             this.radGpxElevMeters.UseVisualStyleBackColor = true;
@@ -538,9 +574,10 @@
             this.radGpxElevFeet.Checked = true;
             this.radGpxElevFeet.Enabled = false;
             this.radGpxElevFeet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radGpxElevFeet.Location = new System.Drawing.Point(199, 138);
+            this.radGpxElevFeet.Location = new System.Drawing.Point(274, 170);
+            this.radGpxElevFeet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radGpxElevFeet.Name = "radGpxElevFeet";
-            this.radGpxElevFeet.Size = new System.Drawing.Size(53, 19);
+            this.radGpxElevFeet.Size = new System.Drawing.Size(62, 22);
             this.radGpxElevFeet.TabIndex = 9;
             this.radGpxElevFeet.TabStop = true;
             this.radGpxElevFeet.Text = "Feet";
@@ -551,9 +588,10 @@
             this.chkGpxElev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkGpxElev.AutoSize = true;
             this.chkGpxElev.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkGpxElev.Location = new System.Drawing.Point(199, 121);
+            this.chkGpxElev.Location = new System.Drawing.Point(280, 149);
+            this.chkGpxElev.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkGpxElev.Name = "chkGpxElev";
-            this.chkGpxElev.Size = new System.Drawing.Size(92, 20);
+            this.chkGpxElev.Size = new System.Drawing.Size(108, 24);
             this.chkGpxElev.TabIndex = 7;
             this.chkGpxElev.TabStop = false;
             this.chkGpxElev.Text = "Elevation";
@@ -565,10 +603,11 @@
             this.tabTwoTrails1.Controls.Add(this.groupBox3);
             this.tabTwoTrails1.Controls.Add(this.label6);
             this.tabTwoTrails1.Controls.Add(this.chkLstTtPolys);
-            this.tabTwoTrails1.Location = new System.Drawing.Point(4, 22);
+            this.tabTwoTrails1.Location = new System.Drawing.Point(4, 25);
+            this.tabTwoTrails1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabTwoTrails1.Name = "tabTwoTrails1";
-            this.tabTwoTrails1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTwoTrails1.Size = new System.Drawing.Size(330, 160);
+            this.tabTwoTrails1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabTwoTrails1.Size = new System.Drawing.Size(443, 200);
             this.tabTwoTrails1.TabIndex = 3;
             this.tabTwoTrails1.Text = "TwoTrails 1.0";
             this.tabTwoTrails1.UseVisualStyleBackColor = true;
@@ -577,9 +616,11 @@
             // 
             this.groupBox3.Controls.Add(this.chkTtNmea);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(167, 17);
+            this.groupBox3.Location = new System.Drawing.Point(223, 21);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(160, 139);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Size = new System.Drawing.Size(213, 171);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Include";
@@ -587,10 +628,13 @@
             // chkTtNmea
             // 
             this.chkTtNmea.AutoSize = true;
+            this.chkTtNmea.Checked = true;
+            this.chkTtNmea.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTtNmea.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTtNmea.Location = new System.Drawing.Point(6, 20);
+            this.chkTtNmea.Location = new System.Drawing.Point(8, 25);
+            this.chkTtNmea.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkTtNmea.Name = "chkTtNmea";
-            this.chkTtNmea.Size = new System.Drawing.Size(70, 20);
+            this.chkTtNmea.Size = new System.Drawing.Size(83, 24);
             this.chkTtNmea.TabIndex = 0;
             this.chkTtNmea.TabStop = false;
             this.chkTtNmea.Text = "NMEA";
@@ -600,9 +644,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(22, 4);
+            this.label6.Location = new System.Drawing.Point(29, 5);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(121, 16);
+            this.label6.Size = new System.Drawing.Size(144, 20);
             this.label6.TabIndex = 4;
             this.label6.Text = "Select Polygons";
             // 
@@ -611,9 +656,10 @@
             this.chkLstTtPolys.CheckOnClick = true;
             this.chkLstTtPolys.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkLstTtPolys.FormattingEnabled = true;
-            this.chkLstTtPolys.Location = new System.Drawing.Point(4, 23);
+            this.chkLstTtPolys.Location = new System.Drawing.Point(5, 28);
+            this.chkLstTtPolys.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkLstTtPolys.Name = "chkLstTtPolys";
-            this.chkLstTtPolys.Size = new System.Drawing.Size(156, 132);
+            this.chkLstTtPolys.Size = new System.Drawing.Size(207, 156);
             this.chkLstTtPolys.TabIndex = 3;
             this.chkLstTtPolys.TabStop = false;
             // 
@@ -622,10 +668,11 @@
             this.tabTwoTrails2.Controls.Add(this.groupBox2);
             this.tabTwoTrails2.Controls.Add(this.label5);
             this.tabTwoTrails2.Controls.Add(this.chkLstTt2Polys);
-            this.tabTwoTrails2.Location = new System.Drawing.Point(4, 22);
+            this.tabTwoTrails2.Location = new System.Drawing.Point(4, 25);
+            this.tabTwoTrails2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabTwoTrails2.Name = "tabTwoTrails2";
-            this.tabTwoTrails2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTwoTrails2.Size = new System.Drawing.Size(330, 160);
+            this.tabTwoTrails2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabTwoTrails2.Size = new System.Drawing.Size(443, 200);
             this.tabTwoTrails2.TabIndex = 4;
             this.tabTwoTrails2.Text = "TwoTrails V2";
             this.tabTwoTrails2.UseVisualStyleBackColor = true;
@@ -635,9 +682,11 @@
             this.groupBox2.Controls.Add(this.chkTt2Nmea);
             this.groupBox2.Controls.Add(this.chkTt2Groups);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(167, 17);
+            this.groupBox2.Location = new System.Drawing.Point(223, 21);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(160, 139);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(213, 171);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Include";
@@ -645,10 +694,13 @@
             // chkTt2Nmea
             // 
             this.chkTt2Nmea.AutoSize = true;
+            this.chkTt2Nmea.Checked = true;
+            this.chkTt2Nmea.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTt2Nmea.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTt2Nmea.Location = new System.Drawing.Point(6, 46);
+            this.chkTt2Nmea.Location = new System.Drawing.Point(8, 57);
+            this.chkTt2Nmea.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkTt2Nmea.Name = "chkTt2Nmea";
-            this.chkTt2Nmea.Size = new System.Drawing.Size(70, 20);
+            this.chkTt2Nmea.Size = new System.Drawing.Size(83, 24);
             this.chkTt2Nmea.TabIndex = 0;
             this.chkTt2Nmea.TabStop = false;
             this.chkTt2Nmea.Text = "NMEA";
@@ -657,10 +709,13 @@
             // chkTt2Groups
             // 
             this.chkTt2Groups.AutoSize = true;
+            this.chkTt2Groups.Checked = true;
+            this.chkTt2Groups.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTt2Groups.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkTt2Groups.Location = new System.Drawing.Point(6, 20);
+            this.chkTt2Groups.Location = new System.Drawing.Point(8, 25);
+            this.chkTt2Groups.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkTt2Groups.Name = "chkTt2Groups";
-            this.chkTt2Groups.Size = new System.Drawing.Size(77, 20);
+            this.chkTt2Groups.Size = new System.Drawing.Size(92, 24);
             this.chkTt2Groups.TabIndex = 0;
             this.chkTt2Groups.TabStop = false;
             this.chkTt2Groups.Text = "Groups";
@@ -670,9 +725,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(22, 4);
+            this.label5.Location = new System.Drawing.Point(29, 5);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(121, 16);
+            this.label5.Size = new System.Drawing.Size(144, 20);
             this.label5.TabIndex = 1;
             this.label5.Text = "Select Polygons";
             // 
@@ -681,17 +737,18 @@
             this.chkLstTt2Polys.CheckOnClick = true;
             this.chkLstTt2Polys.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkLstTt2Polys.FormattingEnabled = true;
-            this.chkLstTt2Polys.Location = new System.Drawing.Point(4, 23);
+            this.chkLstTt2Polys.Location = new System.Drawing.Point(5, 28);
+            this.chkLstTt2Polys.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkLstTt2Polys.Name = "chkLstTt2Polys";
-            this.chkLstTt2Polys.Size = new System.Drawing.Size(156, 132);
+            this.chkLstTt2Polys.Size = new System.Drawing.Size(207, 156);
             this.chkLstTt2Polys.TabIndex = 0;
             this.chkLstTt2Polys.TabStop = false;
             // 
             // ImportForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 261);
+            this.ClientSize = new System.Drawing.Size(448, 313);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtFile);
@@ -699,10 +756,11 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.btnOpen);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(354, 299);
+            this.MaximumSize = new System.Drawing.Size(466, 358);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(354, 299);
+            this.MinimumSize = new System.Drawing.Size(466, 358);
             this.Name = "ImportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Import Data";

@@ -46,23 +46,22 @@
             this.chkAdjBound = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtSkip = new System.Windows.Forms.TextBox();
-            this.txtBackground = new System.Windows.Forms.TextBox();
-            this.btnBackground = new System.Windows.Forms.Button();
             this.chkLegend = new System.Windows.Forms.CheckBox();
             this.chkLines = new System.Windows.Forms.CheckBox();
             this.chkPoints = new System.Windows.Forms.CheckBox();
             this.lstPolygons = new System.Windows.Forms.ListView();
-            this.chkUseMap = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.chkCloseBnd = new System.Windows.Forms.CheckBox();
             this.cboLabels = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cboT5 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnExit
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExit.Location = new System.Drawing.Point(4, 350);
+            this.btnExit.Location = new System.Drawing.Point(4, 342);
             this.btnExit.Margin = new System.Windows.Forms.Padding(4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(100, 28);
@@ -75,7 +74,7 @@
             // btnDrawMap
             // 
             this.btnDrawMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDrawMap.Location = new System.Drawing.Point(603, 350);
+            this.btnDrawMap.Location = new System.Drawing.Point(602, 342);
             this.btnDrawMap.Margin = new System.Windows.Forms.Padding(4);
             this.btnDrawMap.Name = "btnDrawMap";
             this.btnDrawMap.Size = new System.Drawing.Size(100, 28);
@@ -287,33 +286,6 @@
             this.txtSkip.TabStop = false;
             this.txtSkip.TextChanged += new System.EventHandler(this.txtSkip_TextChanged);
             // 
-            // txtBackground
-            // 
-            this.txtBackground.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBackground.Location = new System.Drawing.Point(112, 352);
-            this.txtBackground.Margin = new System.Windows.Forms.Padding(4);
-            this.txtBackground.Name = "txtBackground";
-            this.txtBackground.ReadOnly = true;
-            this.txtBackground.Size = new System.Drawing.Size(277, 22);
-            this.txtBackground.TabIndex = 26;
-            this.txtBackground.TabStop = false;
-            this.txtBackground.Visible = false;
-            // 
-            // btnBackground
-            // 
-            this.btnBackground.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBackground.Location = new System.Drawing.Point(399, 350);
-            this.btnBackground.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBackground.Name = "btnBackground";
-            this.btnBackground.Size = new System.Drawing.Size(100, 28);
-            this.btnBackground.TabIndex = 24;
-            this.btnBackground.TabStop = false;
-            this.btnBackground.Text = "Background";
-            this.btnBackground.UseVisualStyleBackColor = true;
-            this.btnBackground.Visible = false;
-            this.btnBackground.Click += new System.EventHandler(this.btnBackground_Click);
-            // 
             // chkLegend
             // 
             this.chkLegend.AutoSize = true;
@@ -369,21 +341,6 @@
             this.lstPolygons.View = System.Windows.Forms.View.Details;
             this.lstPolygons.SelectedIndexChanged += new System.EventHandler(this.lstPolygons_SelectedIndexChanged);
             // 
-            // chkUseMap
-            // 
-            this.chkUseMap.AutoSize = true;
-            this.chkUseMap.Enabled = false;
-            this.chkUseMap.Location = new System.Drawing.Point(507, 354);
-            this.chkUseMap.Margin = new System.Windows.Forms.Padding(4);
-            this.chkUseMap.Name = "chkUseMap";
-            this.chkUseMap.Size = new System.Drawing.Size(97, 21);
-            this.chkUseMap.TabIndex = 42;
-            this.chkUseMap.TabStop = false;
-            this.chkUseMap.Text = "Use Image";
-            this.chkUseMap.UseVisualStyleBackColor = true;
-            this.chkUseMap.Visible = false;
-            this.chkUseMap.CheckedChanged += new System.EventHandler(this.chkUseMap_CheckedChanged);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -427,11 +384,32 @@
             this.label5.TabIndex = 45;
             this.label5.Text = "Labels:";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(129, 348);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 17);
+            this.label6.TabIndex = 46;
+            this.label6.Text = "Take5 Poly:";
+            // 
+            // cboT5
+            // 
+            this.cboT5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboT5.FormattingEnabled = true;
+            this.cboT5.Location = new System.Drawing.Point(218, 345);
+            this.cboT5.Name = "cboT5";
+            this.cboT5.Size = new System.Drawing.Size(121, 24);
+            this.cboT5.TabIndex = 47;
+            this.cboT5.SelectedIndexChanged += new System.EventHandler(this.cboT5_SelectedIndexChanged);
+            // 
             // MapOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 374);
+            this.Controls.Add(this.cboT5);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cboLabels);
             this.Controls.Add(this.chkCloseBnd);
@@ -452,15 +430,12 @@
             this.Controls.Add(this.chkAdjBound);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtSkip);
-            this.Controls.Add(this.txtBackground);
-            this.Controls.Add(this.btnBackground);
             this.Controls.Add(this.chkLegend);
             this.Controls.Add(this.chkLines);
             this.Controls.Add(this.chkPoints);
             this.Controls.Add(this.lstPolygons);
             this.Controls.Add(this.btnDrawMap);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.chkUseMap);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(722, 419);
@@ -495,16 +470,15 @@
         private System.Windows.Forms.CheckBox chkAdjBound;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtSkip;
-        private System.Windows.Forms.TextBox txtBackground;
-        private System.Windows.Forms.Button btnBackground;
         private System.Windows.Forms.CheckBox chkLegend;
         private System.Windows.Forms.CheckBox chkLines;
         private System.Windows.Forms.CheckBox chkPoints;
         private System.Windows.Forms.ListView lstPolygons;
-        private System.Windows.Forms.CheckBox chkUseMap;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chkCloseBnd;
         private System.Windows.Forms.ComboBox cboLabels;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cboT5;
     }
 }

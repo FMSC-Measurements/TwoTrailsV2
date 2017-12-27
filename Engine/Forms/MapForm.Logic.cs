@@ -21,8 +21,6 @@ namespace TwoTrails.Forms
 
     public partial class MapForm : Form
     {
-        public DelegateGotBurst m_DelegateGotBurst;
-
         public struct PolyWPoints
         {
             public TtPolygon polygon;
@@ -33,15 +31,10 @@ namespace TwoTrails.Forms
                 this.polygon = poly;
                 this.points = DAL.GetPointsInPolygon(poly.CN);
 
-                for (int i = 0; i < points.Count; i++)
+                foreach (TtPoint point in points)
                 {
-                    //points[i].AdjX *= -1;
-                    points[i].AdjY *= -1;
-                    //points[i].AdjZ *= -1;
-
-                    //points[i].UnAdjX *= -1;
-                    points[i].UnAdjY *= -1;
-                    //points[i].UnAdjZ *= -1;
+                    point.AdjY *= -1;
+                    point.UnAdjY *= -1;
                 }
             }
         }
@@ -71,7 +64,7 @@ namespace TwoTrails.Forms
         private List<string> polyCNs;
         private List<PolyWPoints> polys;
         private List<TtPoint> allPolyPoints;
-        DataAccessLayer DAL;
+        private DataAccessLayer DAL;
         private int pnlWidth, pnlHeight;
         private double zoomSize, offSetX, offSetY, moveOffsetX, moveOffsetY;
         private double myGpsPosX, myGpsPosY;
@@ -89,22 +82,25 @@ namespace TwoTrails.Forms
         private bool ignoreMyPos = false;
         private int direction, count;
         private long lastDraw = 0;
+        private bool t5Enabled = false;
+        private PolyWPoints t5PWP;
+
 
         private List<PointName> pns = new List<PointName>();
         bool drawPN = false, ignoreClick = false;
         PointName clickedPN;
 
-        private Image _MapBackgroud;
+        //private Image _MapBackgroud;
 
 
         public void loadMapData(List<string> p, DataAccessLayer d)
         {
             TtUtils.ShowWaitCursor();
 
-            m_DelegateGotBurst = new DelegateGotBurst(getLoc);
-
             polyCNs = p;
             DAL = d;
+
+            t5Enabled = !MapValues.mapPolyT5.IsEmpty() && MapValues.mapPolyT5 != Values.EmptyGuid;
 
             font = new Font(FontFamily.GenericSansSerif, 8, FontStyle.Regular);
             brushLabel = new SolidBrush(Color.Black);
@@ -127,59 +123,64 @@ namespace TwoTrails.Forms
             brushUnadjMiscPoint = new SolidBrush(Color.LightGreen);
 
             polys = new List<PolyWPoints>();
+            PolyWPoints pwp;
             foreach (string pCN in polyCNs)
             {
-                polys.Add(new PolyWPoints(DAL.GetPolygonByCn(pCN), DAL));
+                pwp = new PolyWPoints(DAL.GetPolygonByCn(pCN), DAL);
+                polys.Add(pwp);
+
+                if (t5Enabled && pCN == MapValues.mapPolyT5)
+                    t5PWP = pwp;
             }
 
-            allPolyPoints = DAL.getPointsByCNs(polyCNs);
+            allPolyPoints = polys.SelectMany(poly => poly.points).ToList();
+            
 
-            for (int i = 0; i < allPolyPoints.Count; i++)
-            {
-                allPolyPoints[i] = InvertPoint(allPolyPoints[i]);
-            }
+            //if (MapValues.mapHasBackground)
+            //{
+            //    if (System.IO.File.Exists(MapValues.mapBackgroundCoordsFile))
+            //    {
+            //        try
+            //        {
+            //            using (System.IO.StreamReader sr = new System.IO.StreamReader(MapValues.mapBackgroundCoordsFile))
+            //            {
+            //                string pos = string.Empty;
+            //                for (int i = 0; i < 5; i++)
+            //                {
+            //                    pos = sr.ReadLine();
+            //                }
 
-            if (MapValues.mapHasBackground)
-            {
-                if (System.IO.File.Exists(MapValues.mapBackgroundCoordsFile))
-                {
-                    try
-                    {
-                        using (System.IO.StreamReader sr = new System.IO.StreamReader(MapValues.mapBackgroundCoordsFile))
-                        {
-                            string pos = string.Empty;
-                            for (int i = 0; i < 5; i++)
-                            {
-                                pos = sr.ReadLine();
-                            }
+            //                if (pos.IsDouble())
+            //                {
+            //                    double x = pos.ToDouble();
+            //                    pos = sr.ReadLine();
+            //                    double y = pos.ToDouble();
 
-                            if (pos.IsDouble())
-                            {
-                                double x = pos.ToDouble();
-                                pos = sr.ReadLine();
-                                double y = pos.ToDouble();
+            //                    MapValues.mapBackgroundCoords = new Point((int)x, (int)y);
 
-                                MapValues.mapBackgroundCoords = new Point((int)x, (int)y);
+            //                #if (PocketPC || WindowsCE || Mobile)
+            //                    Bitmap bmp = new Bitmap(MapValues.mapBackground);
+            //                    _MapBackgroud = Image.FromHbitmap(bmp.GetHbitmap());
+            //                #else
+            //                    _MapBackgroud = Image.FromFile(MapValues.mapBackground);
+            //                #endif
+            //                }
+            //            }
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            MapValues.mapHasBackground = false;
+            //            TtUtils.WriteError(ex.Message, "MapForm:InitValues:MapBackground", ex.StackTrace);
+            //            MessageBox.Show("Map Background Error, see log for details.");
+            //        }
+            //    }
+            //    else
+            //        MapValues.mapHasBackground = false;
+            //}
 
-                            #if (PocketPC || WindowsCE || Mobile)
-                                Bitmap bmp = new Bitmap(MapValues.mapBackground);
-                                _MapBackgroud = Image.FromHbitmap(bmp.GetHbitmap());
-                            #else
-                                _MapBackgroud = Image.FromFile(MapValues.mapBackground);
-                            #endif
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MapValues.mapHasBackground = false;
-                        TtUtils.WriteError(ex.Message, "MapForm:InitValues:MapBackground", ex.StackTrace);
-                        MessageBox.Show("Map Background Error, see log for details.");
-                    }
-                }
-                else
-                    MapValues.mapHasBackground = false;
-            }
+
+            btnT5.Visible = t5Enabled;
+            progT5.Visible = t5Enabled;
 
             loaded = true;
 
@@ -369,26 +370,26 @@ namespace TwoTrails.Forms
 
             #region MapSwitches
 
-            if (MapValues.mapHasBackground)
-            {
-                try
-                {
-                    Size size = new Size((int)(_MapBackgroud.Width * increaseSize),
-                        (int)(_MapBackgroud.Height * increaseSize));
+            //if (MapValues.mapHasBackground)
+            //{
+            //    try
+            //    {
+            //        Size size = new Size((int)(_MapBackgroud.Width * increaseSize),
+            //            (int)(_MapBackgroud.Height * increaseSize));
 
-                    Point p = calcPointLocation(MapValues.mapBackgroundCoords.X,
-                            MapValues.mapBackgroundCoords.Y * -1);
+            //        Point p = calcPointLocation(MapValues.mapBackgroundCoords.X,
+            //                MapValues.mapBackgroundCoords.Y * -1);
 
-                    p.X -= (int)(sideLength * .2);
-                    p.Y -= (int)(sideLength * .2);
+            //        p.X -= (int)(sideLength * .2);
+            //        p.Y -= (int)(sideLength * .2);
 
-                    g.DrawImage(_MapBackgroud.ResizeImage(size), p.X, p.Y);
-                }
-                catch (Exception ex)
-                {
-                    TtUtils.WriteError(ex.Message, "MapForm:Draw:DrawBackgroud");
-                }
-            }
+            //        g.DrawImage(_MapBackgroud.ResizeImage(size), p.X, p.Y);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        TtUtils.WriteError(ex.Message, "MapForm:Draw:DrawBackgroud");
+            //    }
+            //}
 
             if (MapValues.mapGrid)
             {
@@ -1136,15 +1137,6 @@ namespace TwoTrails.Forms
         {
             return inScreen(p.X, p.Y);
         }
-
-        private TtPoint InvertPoint(TtPoint point)
-        {
-            //Invert the point from positive to negative (windows forms 0,0 starts at top left)
-            point.AdjY *= -1;
-            point.UnAdjY *= -1;
-
-            return point;
-        }
         #endregion
 
 
@@ -1566,6 +1558,21 @@ namespace TwoTrails.Forms
             }
         }
 
+        private void btnT5_Click2(object sender, EventArgs e)
+        {
+            if (!logging)
+            {
+                btnT5.Text = "Cancel";
+                logging = true;
+                t5Nmea = new List<NmeaBurst>();
+
+            }
+            else
+            {
+                btnT5.Text = "Take 5";
+            }
+        }
+
         private void chkInvert_CheckStateChanged2(object sender, EventArgs e)
         {
             MapValues.mapMoveInvert = chkInvert.Checked;
@@ -1694,11 +1701,15 @@ namespace TwoTrails.Forms
 
                 drawPanel.Refresh(); 
             }
+
+            if (t5Enabled)
+                T5NmeaBurstRecieved(b);
+
         }
 
         private void GPSA_BurstReceived(TwoTrails.GpsAccess.NmeaBurst b)
         {
-            this.Invoke(m_DelegateGotBurst, b);
+            this.Invoke(new DelegateGotBurst(getLoc), b);
         }
 
         public void startGPSTracking()
@@ -1716,6 +1727,251 @@ namespace TwoTrails.Forms
 
             if(!Values.Settings.DeviceOptions.KeepGpsOn)
                 Values.GPSA.CloseGps();
+        }
+        #endregion
+
+
+        #region Take5
+
+
+        private bool logging, _locked;
+        private int logged, currentZone, ignore;
+        private long _index;
+
+        TtGroup T5Group;
+
+        TtMetaData CurrMeta;
+        Take5Point CurrentPoint;
+        TtPoint LastPoint;
+
+        List<NmeaBurst> t5Nmea;
+
+        private void initT5()
+        {
+            logging = false;
+            _index = 0;
+            ignore = 0;
+
+            progT5.Value = 0;
+            progT5.Minimum = 0;
+            progT5.Maximum = Values.Settings.DeviceOptions.Take5NmeaAmount;
+
+            logged = 0;
+            _locked = true;
+
+            t5Nmea = new List<NmeaBurst>();
+            CurrentPoint = null;
+            CurrMeta = DAL.GetMetaDataByCN(Values.EmptyGuid);
+
+            if (t5PWP.points.Count() > 0)
+            {
+                LastPoint = t5PWP.points.Last();
+                _index = LastPoint.Index + 1;
+            }
+            else
+            {
+                LastPoint = null;
+                _index = 0;
+            }
+        }
+
+        private void SavePoint(TtPoint point)
+        {
+            if (point != null)
+            {
+                if (TtUtils.PointHasValue(point) || !Values.Settings.ProjectOptions.DropZero)
+                {
+                    TtUtils.ShowWaitCursor();
+
+                    if (T5Group == null)
+                    {
+                        T5Group = new TtGroup();
+                        T5Group.Name = String.Format("Take5_{0}", T5Group.CN.Truncate(8));
+                        T5Group.GroupType = GroupType.Take5;
+
+                        DAL.InsertGroup(T5Group);
+                    }
+
+                    point.GroupCN = T5Group.CN;
+                    point.GroupName = T5Group.Name;
+
+                    point = TtUtils.SaveConversion(point, CurrMeta);
+
+                    DAL.InsertPoint(point);
+                    DAL.SaveNmeaBursts(t5Nmea, point.CN);
+                    TtUtils.HideWaitCursor();
+                    LastPoint = point;
+
+                    Take5Point invPoint = new Take5Point(point);
+                    invPoint.AdjY *= -1;
+                    invPoint.UnAdjY *= -1;
+                    t5PWP.points.Add(invPoint);
+                    allPolyPoints.Add(invPoint);
+
+                    drawPanel.Refresh(); 
+                }
+            }
+        }
+
+        private void CreateNewTake5Point()
+        {
+            if (t5Nmea.Count >= Values.Settings.DeviceOptions.Take5NmeaAmount)
+            {
+                double x = 0, y = 0, z = 0;
+                int count = 0;
+
+                if (SetupPoint())
+                {
+                    NmeaBurst tmpBurst;
+
+                    try
+                    {
+                        for (int i = 0; i < t5Nmea.Count; i++)
+                        {
+                            if (t5Nmea[i]._Used)
+                            {
+                                tmpBurst = t5Nmea[i];
+
+                                x += tmpBurst._X;
+                                y += tmpBurst._Y;
+                                z += tmpBurst._Z;
+                                count++;
+                            }
+                        }
+
+                        x /= count;
+                        y /= count;
+                        z /= count;
+
+                        double dRMSEx = 0, dRMSEy = 0, dRMSEr = 0;
+
+                        for (int i = 0; i < t5Nmea.Count; i++)
+                        {
+                            tmpBurst = t5Nmea[i];
+
+                            if (tmpBurst._Used)
+                            {
+                                dRMSEx += Math.Pow(tmpBurst._X - x, 2);
+                                dRMSEy += Math.Pow(tmpBurst._Y - y, 2);
+                            }
+                        }
+
+                        dRMSEx = Math.Sqrt(dRMSEx / count);
+                        dRMSEy = Math.Sqrt(dRMSEy / count);
+                        dRMSEr = Math.Sqrt(Math.Pow(dRMSEx, 2) + Math.Pow(dRMSEy, 2));
+                        dRMSEr *= Values.RMSE95_COEF;
+
+                        CurrentPoint.UnAdjX = x;
+                        CurrentPoint.UnAdjY = y;
+                        CurrentPoint.UnAdjZ = z;
+                        CurrentPoint.RMSEr = (dRMSEr > Values.Settings.DeviceOptions.MIN_POINT_ACCURACY) ?
+                            dRMSEr : Values.Settings.DeviceOptions.DEFAULT_POINT_ACCURACY;
+                        CurrentPoint.Time = DateTime.Now;
+                        CurrentPoint.MetaDefCN = CurrMeta.CN;
+
+                        SavePoint(CurrentPoint);
+
+                        this.GuiInvoke(() =>
+                        {
+                            btnT5.Text = "Take 5";
+                        });
+
+                        t5Nmea = new List<NmeaBurst>();
+                    }
+                    catch (Exception ex)
+                    {
+                        TtUtils.WriteError(ex.Message, "MapForm:CreateNewTake5Point", ex.StackTrace);
+                    }
+                }
+                else
+                {
+                    TtUtils.WriteError("SetupPoint Failed, the CurentPoint is NULL", "MapForm");
+                }
+            }
+            else
+            {
+                TtUtils.WriteError("CreateNewTake5Point Called without enough Nmea Data", "MapForm");
+            }
+        }
+
+        private bool SetupPoint()
+        {
+            CurrentPoint = new Take5Point();
+
+            try
+            {
+                if (LastPoint != null)
+                    CurrentPoint.PID = PointNaming.NamePoint(LastPoint, t5PWP.polygon);
+                else
+                    CurrentPoint.PID = PointNaming.NameFirstPoint(t5PWP.polygon);
+
+                CurrentPoint.PolyCN = t5PWP.polygon.CN;
+                CurrentPoint.PolyName = t5PWP.polygon.Name;
+                CurrentPoint.OnBnd = true;
+                CurrentPoint.Index = _index;
+                CurrentPoint.GroupCN = Values.MainGroup.CN;
+                CurrentPoint.GroupName = Values.MainGroup.Name;
+                _index++;
+            }
+            catch (Exception ex)
+            {
+                TtUtils.WriteError(ex.Message, "MapForm:SetupPoint", ex.StackTrace);
+                return false;
+            }
+
+            return true;
+        }
+
+
+        private void T5NmeaBurstRecieved(GpsAccess.NmeaBurst b)
+        {
+            if (logging)
+            {
+                if (logged < Values.Settings.DeviceOptions.Take5NmeaAmount &&
+                    (Values.Settings.DeviceOptions.IgnoreFirst ?
+                        (Values.Settings.DeviceOptions.IgnoreFirstX - 1 < ignore) : true))
+                {
+                    b.CalcZone(CurrMeta.Zone);
+
+                    if (TtUtils.FilterBurst(b, Values.Settings.DeviceOptions.Filter_T5_FixType,
+                        Values.Settings.DeviceOptions.Filter_T5_DOP_TYPE,
+                        Values.Settings.DeviceOptions.Filter_T5_DOP_VALUE))
+                    {
+                        b._Used = true;
+                        logged++;
+                    }
+                    else
+                    {
+                        b._Used = false;
+                    }
+
+                    t5Nmea.Add(b);
+
+                    this.GuiInvoke(() => { progT5.Value = logged; });
+
+                    if (logged == Values.Settings.DeviceOptions.Take5NmeaAmount)
+                    {
+                        logging = false;
+                        CreateNewTake5Point();
+                    }
+
+                    if (Values.Settings.DeviceOptions.Take5FailTrigger &&
+                        t5Nmea.Count == Values.Settings.DeviceOptions.Take5NmeaAmount +
+                            Values.Settings.DeviceOptions.Take5FailTriggerAmount)
+                    {
+                        logging = false;
+
+                        foreach (NmeaBurst burst in t5Nmea)
+                        {
+                            burst._Used = true;
+                        }
+
+                        CreateNewTake5Point();
+                    }
+                }
+                else
+                    ignore++;
+            }
         }
 
         #endregion

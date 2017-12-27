@@ -208,5 +208,10 @@ namespace TwoTrails.Forms
         {
             drawPanel_MouseDown2(sender, e);
         }
+
+        private void btnT5_Click(object sender, EventArgs e)
+        {
+            btnT5_Click2(sender, e);
+        }
     }
 }

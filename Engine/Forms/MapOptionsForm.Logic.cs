@@ -59,12 +59,12 @@ namespace TwoTrails.Forms
             chkFollowPos.Checked = MapValues.mapFollowPos;
             chkDetails.Checked = MapValues.mapDetails;
 
-            txtBackground.Text = MapValues.mapBackground;
-            if (!MapValues.mapBackground.IsEmpty())
-            {
-                chkUseMap.Enabled = true;
-                chkUseMap.Checked = MapValues.mapHasBackground;
-            }
+            //txtBackground.Text = MapValues.mapBackground;
+            //if (!MapValues.mapBackground.IsEmpty())
+            //{
+            //    chkUseMap.Enabled = true;
+            //    chkUseMap.Checked = MapValues.mapHasBackground;
+            //}
 
             if (MapValues.mapDetailsUTM)
             {
@@ -100,6 +100,8 @@ namespace TwoTrails.Forms
             cboLabels.Items.Add("None");
             cboLabels.Items.Add("All");
 
+            cboT5.Items.Add("No Poly");
+
             if(dal != null)
             {
                 List<TtPolygon> polys = dal.GetPolygons();
@@ -122,6 +124,7 @@ namespace TwoTrails.Forms
 
                     lstPolygons.Items.Add(l);
                     cboLabels.Items.Add(poly.Name);
+                    cboT5.Items.Add(poly.Name);
 
                     if (MapValues.mapPolyLabels == poly.CN)
                         cboLabels.SelectedIndex = i + 2;
@@ -129,6 +132,9 @@ namespace TwoTrails.Forms
 
                 if (MapValues.mapPolyLabels == Values.EmptyGuid)
                     cboLabels.SelectedIndex = 0;
+
+                if (MapValues.mapPolyT5 == Values.EmptyGuid)
+                    cboT5.SelectedIndex = 0;
 
                 if (MapValues.mapPolyLabels == Values.FullGuid)
                     cboLabels.SelectedIndex = 1;
@@ -190,46 +196,46 @@ namespace TwoTrails.Forms
             }
         }
 
-        public void btnBackground_Click2(object sender, EventArgs e)
-        {
-            using (System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog())
-            {
-                ofd.Filter = "Image Files|*.jpg;*.bmp;*.png";
+        //public void btnBackground_Click2(object sender, EventArgs e)
+        //{
+        //    using (System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog())
+        //    {
+        //        ofd.Filter = "Image Files|*.jpg;*.bmp;*.png";
 
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    string file = System.IO.Path.GetFileNameWithoutExtension(ofd.FileName);
-                    string worldFile = String.Format("{0}{1}", file, ".jgw");
+        //        if (ofd.ShowDialog() == DialogResult.OK)
+        //        {
+        //            string file = System.IO.Path.GetFileNameWithoutExtension(ofd.FileName);
+        //            string worldFile = String.Format("{0}{1}", file, ".jgw");
 
-                    worldFile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ofd.FileName), worldFile);
+        //            worldFile = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ofd.FileName), worldFile);
 
-                    if (System.IO.File.Exists(worldFile))
-                    {
-                        txtBackground.Text = ofd.FileName;
-                        txtBackground.SelectionStart = ofd.FileName.Length;
-                        chkUseMap.Checked = true;
-                        chkUseMap.Enabled = true;
+        //            if (System.IO.File.Exists(worldFile))
+        //            {
+        //                txtBackground.Text = ofd.FileName;
+        //                txtBackground.SelectionStart = ofd.FileName.Length;
+        //                chkUseMap.Checked = true;
+        //                chkUseMap.Enabled = true;
 
-                        MapValues.mapHasBackground = true;
-                        MapValues.mapBackground = ofd.FileName;
-                        MapValues.mapBackgroundCoordsFile = worldFile;
-                    }
-                    else
-                    {
-                        MessageBox.Show("World Projection File (.jgw) must be in same folder as the image file.");
+        //                MapValues.mapHasBackground = true;
+        //                MapValues.mapBackground = ofd.FileName;
+        //                MapValues.mapBackgroundCoordsFile = worldFile;
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("World Projection File (.jgw) must be in same folder as the image file.");
 
-                        MapValues.mapHasBackground = false;
-                        MapValues.mapBackground = String.Empty;
-                        MapValues.mapBackgroundCoordsFile = String.Empty;
-                    }
-                }
-            }
-        }
+        //                MapValues.mapHasBackground = false;
+        //                MapValues.mapBackground = String.Empty;
+        //                MapValues.mapBackgroundCoordsFile = String.Empty;
+        //            }
+        //        }
+        //    }
+        //}
 
-        private void chkUseMap_CheckedChanged2(object sender, EventArgs e)
-        {
-            MapValues.mapHasBackground = chkUseMap.Checked;
-        }
+        //private void chkUseMap_CheckedChanged2(object sender, EventArgs e)
+        //{
+        //    MapValues.mapHasBackground = chkUseMap.Checked;
+        //}
 
         public void chkPoints_CheckStateChanged2(object sender, EventArgs e)
         {
@@ -257,6 +263,14 @@ namespace TwoTrails.Forms
                 MapValues.mapPolyLabels = Values.FullGuid;
             else if (cboLabels.SelectedIndex > 1)
                 MapValues.mapPolyLabels = allPolyCNs[cboLabels.SelectedIndex - 2];
+        }
+
+        private void cboT5_SelectedIndexChanged2(object sender, EventArgs e)
+        {
+            if (cboT5.SelectedIndex == 0)
+                MapValues.mapPolyT5 = Values.EmptyGuid;
+            else if (cboLabels.SelectedIndex > 0)
+                MapValues.mapPolyT5 = allPolyCNs[cboT5.SelectedIndex - 1];
         }
 
         public void chkGrid_CheckStateChanged2(object sender, EventArgs e)
