@@ -182,6 +182,9 @@ namespace TwoTrails.Forms
             btnT5.Visible = t5Enabled;
             progT5.Visible = t5Enabled;
 
+            if (t5Enabled)
+                initT5();
+
             loaded = true;
 
             TtUtils.HideWaitCursor();
@@ -1563,12 +1566,15 @@ namespace TwoTrails.Forms
             if (!logging)
             {
                 btnT5.Text = "Cancel";
+                logged = 0;
                 logging = true;
+                progT5.Value = 0;
                 t5Nmea = new List<NmeaBurst>();
 
             }
             else
             {
+                logging = false;
                 btnT5.Text = "Take 5";
             }
         }
@@ -1732,10 +1738,8 @@ namespace TwoTrails.Forms
 
 
         #region Take5
-
-
-        private bool logging, _locked;
-        private int logged, currentZone, ignore;
+        private bool logging;
+        private int logged, ignore;
         private long _index;
 
         TtGroup T5Group;
@@ -1782,18 +1786,6 @@ namespace TwoTrails.Forms
                 if (TtUtils.PointHasValue(point) || !Values.Settings.ProjectOptions.DropZero)
                 {
                     TtUtils.ShowWaitCursor();
-
-                    if (T5Group == null)
-                    {
-                        T5Group = new TtGroup();
-                        T5Group.Name = String.Format("Take5_{0}", T5Group.CN.Truncate(8));
-                        T5Group.GroupType = GroupType.Take5;
-
-                        DAL.InsertGroup(T5Group);
-                    }
-
-                    point.GroupCN = T5Group.CN;
-                    point.GroupName = T5Group.Name;
 
                     point = TtUtils.SaveConversion(point, CurrMeta);
 
@@ -1874,6 +1866,7 @@ namespace TwoTrails.Forms
                         this.GuiInvoke(() =>
                         {
                             btnT5.Text = "Take 5";
+                            progT5.Value = 0;
                         });
 
                         t5Nmea = new List<NmeaBurst>();
@@ -1909,8 +1902,19 @@ namespace TwoTrails.Forms
                 CurrentPoint.PolyName = t5PWP.polygon.Name;
                 CurrentPoint.OnBnd = true;
                 CurrentPoint.Index = _index;
-                CurrentPoint.GroupCN = Values.MainGroup.CN;
-                CurrentPoint.GroupName = Values.MainGroup.Name;
+
+                if (T5Group == null)
+                {
+                    T5Group = new TtGroup();
+                    T5Group.Name = String.Format("Take5_{0}", T5Group.CN.Truncate(8));
+                    T5Group.GroupType = GroupType.Take5;
+
+                    DAL.InsertGroup(T5Group);
+                }
+
+                CurrentPoint.GroupCN = T5Group.CN;
+                CurrentPoint.GroupName = T5Group.Name;
+
                 _index++;
             }
             catch (Exception ex)
