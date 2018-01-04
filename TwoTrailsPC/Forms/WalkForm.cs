@@ -13,11 +13,11 @@ namespace TwoTrails.Forms
 {
     public partial class WalkForm : Form
     {
-        public WalkForm(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int cIndex)
+        public WalkForm(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int cIndex, bool isInsert)
         {
             InitializeComponent();
 
-            Init(poly, dal, meta, cIndex);
+            Init(poly, dal, meta, cIndex, isInsert);
         }
 
         private void txtFreq_TextChanged(object sender, EventArgs e)

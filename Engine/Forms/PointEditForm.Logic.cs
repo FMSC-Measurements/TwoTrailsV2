@@ -1714,22 +1714,33 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
         {
             if (Values.Settings.DeviceOptions.GpsConfigured)    //if gps is configured
             {
+                bool isInsert = false;
+                if (_Points.Count > 0 && CurrPointIndex < _Points.Count - 1)
+                {
+                    if (MessageBox.Show("You are about to insert a Take5 that is not at the end of the polygon. Do you want to continue?", "Take 5 Inserting in middle",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                        return;
+                    isInsert = true;
+                }
+
                 try
                 {
                     SavePoint();
                     using (Take5Form form = new Take5Form(pointInfoCtrl.Polygon, DAL, CurrMeta,
-                        _Points.Count > 1 ? _Points[CurrPointIndex] : null, CurrPointIndex))
+                        _Points.Count > 1 ? _Points[CurrPointIndex] : null, CurrPointIndex, isInsert))
                     {
-                        if (form.ShowDialog() == DialogResult.OK)
-                        {
-                            LoadPoints();
+                        DialogResult res = form.ShowDialog();
+
+                        LoadPoints();
+
+                        if (res == DialogResult.OK)
                             MoveToLastPoint();
-                            pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
-                            AdjustNavControls();
-                            LockControls(true);
-                            TtUtils.HideWaitCursor();
-                            _adjust = true;
-                        }
+
+                        pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
+                        AdjustNavControls();
+                        LockControls(true);
+                        TtUtils.HideWaitCursor();
+                        _adjust = true;
                     }
                 }
                 catch (Exception ex)
@@ -1740,7 +1751,7 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
                 finally
                 {
                     GC.Collect();
-                }
+                } 
             }
             else
             {
@@ -1766,21 +1777,33 @@ Slope Distacne must contain a value greater than 0. Are you want to save this po
         {
             if (Values.Settings.DeviceOptions.GpsConfigured)
             {
+                bool isInsert = false;
+
+                if (_Points.Count > 0 && CurrPointIndex < _Points.Count - 1)
+                {
+                    if (MessageBox.Show("You are about to insert a Walk that is not at the end of the polygon. Do you want to continue?", "Walk Inserting in middle",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                        return;
+                    isInsert = true;
+                }
+
                 try
                 {
                     SavePoint();
-                    using (WalkForm form = new WalkForm(pointInfoCtrl.Polygon, DAL, CurrMeta, CurrPointIndex))
+                    using (WalkForm form = new WalkForm(pointInfoCtrl.Polygon, DAL, CurrMeta, CurrPointIndex, isInsert))
                     {
-                        if (form.ShowDialog() == DialogResult.OK)
-                        {
-                            LoadPoints();
+                        DialogResult res = form.ShowDialog();
+
+                        LoadPoints();
+
+                        if (res == DialogResult.OK)
                             MoveToLastPoint();
-                            pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
-                            AdjustNavControls();
-                            LockControls(true);
-                            TtUtils.HideWaitCursor();
-                            _adjust = true;
-                        }
+
+                        pointNavigationCtrl.UpdatePointList(_PointCNs, CurrPointIndex);
+                        AdjustNavControls();
+                        LockControls(true);
+                        TtUtils.HideWaitCursor();
+                        _adjust = true;
                     }
                 }
                 catch (Exception ex)

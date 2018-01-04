@@ -12,10 +12,10 @@ namespace TwoTrails.Engine
         {
             if (!isSetup)
             {
-                mapBackground = String.Empty;
-                mapHasBackground = false;
-                mapBackgroundCoords = new System.Drawing.Point(0, 0);
-                mapBackgroundCoordsFile = String.Empty;
+                //mapBackground = String.Empty;
+                //mapHasBackground = false;
+                //mapBackgroundCoords = new System.Drawing.Point(0, 0);
+                //mapBackgroundCoordsFile = String.Empty;
 
                 mapUnadjNav = false;
                 mapAdjBound = true;
@@ -25,6 +25,7 @@ namespace TwoTrails.Engine
                 mapLegend = false;
 
                 mapPolyLabels = Values.EmptyGuid;
+                mapPolyT5 = Values.EmptyGuid;
 
                 mapDetailsUTM = true;
 
@@ -67,29 +68,29 @@ namespace TwoTrails.Engine
             get;
         }
 
-        public static string mapBackground
-        {
-            set;
-            get;
-        }
+        //public static string mapBackground
+        //{
+        //    set;
+        //    get;
+        //}
 
-        public static string mapBackgroundCoordsFile
-        {
-            set;
-            get;
-        }
+        //public static string mapBackgroundCoordsFile
+        //{
+        //    set;
+        //    get;
+        //}
 
-        public static bool mapHasBackground
-        {
-            set;
-            get;
-        }
+        //public static bool mapHasBackground
+        //{
+        //    set;
+        //    get;
+        //}
 
-        public static System.Drawing.Point mapBackgroundCoords
-        {
-            set;
-            get;
-        }
+        //public static System.Drawing.Point mapBackgroundCoords
+        //{
+        //    set;
+        //    get;
+        //}
 
         public static bool mapAxis
         {
@@ -108,6 +109,8 @@ namespace TwoTrails.Engine
             get;
             set;
         }
+
+        public static string mapPolyT5 { get; set; }
         #endregion
 
         #region ElementOptions

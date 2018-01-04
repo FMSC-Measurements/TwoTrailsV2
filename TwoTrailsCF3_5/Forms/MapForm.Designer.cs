@@ -49,6 +49,8 @@
             this.picUp = new System.Windows.Forms.PictureBox();
             this.tmrMovePad = new System.Windows.Forms.Timer();
             this.constMove = new System.Windows.Forms.Timer();
+            this.btnT5 = new System.Windows.Forms.Button();
+            this.progT5 = new System.Windows.Forms.ProgressBar();
             this.drawPanel.SuspendLayout();
             this.pnlSettings.SuspendLayout();
             this.pnlMoveImage.SuspendLayout();
@@ -74,11 +76,13 @@
             // drawPanel
             // 
             this.drawPanel.BackColor = System.Drawing.Color.Transparent;
-            this.drawPanel.Controls.Add(this.lblLoc);
-            this.drawPanel.Controls.Add(this.btnSettings);
             this.drawPanel.Controls.Add(this.pnlSettings);
-            this.drawPanel.Controls.Add(this.picClose);
             this.drawPanel.Controls.Add(this.pnlMoveImage);
+            this.drawPanel.Controls.Add(this.picClose);
+            this.drawPanel.Controls.Add(this.progT5);
+            this.drawPanel.Controls.Add(this.lblLoc);
+            this.drawPanel.Controls.Add(this.btnT5);
+            this.drawPanel.Controls.Add(this.btnSettings);
             this.drawPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawPanel.Location = new System.Drawing.Point(0, 0);
             this.drawPanel.Name = "drawPanel";
@@ -295,6 +299,28 @@
             this.constMove.Interval = 250;
             this.constMove.Tick += new System.EventHandler(this.constMove_Tick);
             // 
+            // btnT5
+            // 
+            this.btnT5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnT5.Location = new System.Drawing.Point(87, 241);
+            this.btnT5.Name = "btnT5";
+            this.btnT5.Size = new System.Drawing.Size(72, 20);
+            this.btnT5.TabIndex = 3;
+            this.btnT5.TabStop = false;
+            this.btnT5.Text = "Take 5";
+            this.btnT5.Visible = false;
+            this.btnT5.Click += new System.EventHandler(this.btnT5_Click);
+            // 
+            // progT5
+            // 
+            this.progT5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.progT5.Location = new System.Drawing.Point(3, 215);
+            this.progT5.Name = "progT5";
+            this.progT5.Size = new System.Drawing.Size(234, 20);
+            this.progT5.Visible = false;
+            // 
             // MapForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -338,5 +364,7 @@
         private System.Windows.Forms.CheckBox chkDetails;
         private System.Windows.Forms.RadioButton radLatLon;
         private System.Windows.Forms.RadioButton radUTM;
+        private System.Windows.Forms.ProgressBar progT5;
+        private System.Windows.Forms.Button btnT5;
     }
 }

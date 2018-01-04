@@ -303,12 +303,12 @@ namespace TwoTrails.Utilities
 
         public static double DegreesToPercent(double d)
         {
-            return Math.Tan(d * Math.PI / 180.0) * 100;
+            return Math.Tan(d * Degrees2Radians_Coeff) * 100;
         }
 
         public static double PercentToDegrees(double d)
         {
-            return Math.Atan(d / 100.0) * 180.0 / Math.PI;
+            return Math.Atan(d / 100.0) * Radians2Degrees_Coeff;
         }
 
         public static double DegreesToRadian(double d)

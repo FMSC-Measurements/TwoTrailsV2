@@ -13,14 +13,14 @@ namespace TwoTrails.Forms
 {
     public partial class WalkForm : Form
     {
-        public WalkForm(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int currIndex)
+        public WalkForm(TtPolygon poly, DataAccessLayer dal, TtMetaData meta, int currIndex, bool isInsert)
         {
             if(Engine.Values.WideScreen)
                 InitializeComponentWide();
             else
                 InitializeComponent();
 
-            Init(poly, dal, meta, currIndex);
+            Init(poly, dal, meta, currIndex, isInsert);
         }
 
         private void btnOk_Click(object sender, EventArgs e)

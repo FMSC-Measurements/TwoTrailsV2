@@ -143,6 +143,8 @@ namespace TwoTrails.Engine
         public static Utilities.DataOutput DataExport;
         //public static GroupManager GroupManager;
 
+        public const double RMSE95_COEF = 1.7308;
+
 #if(PocketPC || WindowsCE || Mobile)
         public static readonly string DefaultSaveFolder = Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 #else
