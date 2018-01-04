@@ -1761,7 +1761,6 @@ namespace TwoTrails.Forms
             progT5.Maximum = Values.Settings.DeviceOptions.Take5NmeaAmount;
 
             logged = 0;
-            _locked = true;
 
             t5Nmea = new List<NmeaBurst>();
             CurrentPoint = null;

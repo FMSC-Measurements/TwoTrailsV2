@@ -157,7 +157,7 @@ namespace TwoTrails.Forms
 
         private void cboT5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cboLabels_SelectedIndexChanged2(sender, e);
+            cboT5_SelectedIndexChanged2(sender, e);
         }
     }
 }

@@ -269,7 +269,7 @@ namespace TwoTrails.Forms
         {
             if (cboT5.SelectedIndex == 0)
                 MapValues.mapPolyT5 = Values.EmptyGuid;
-            else if (cboLabels.SelectedIndex > 0)
+            else if (cboT5.SelectedIndex > 0)
                 MapValues.mapPolyT5 = allPolyCNs[cboT5.SelectedIndex - 1];
         }
 

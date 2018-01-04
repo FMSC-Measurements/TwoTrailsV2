@@ -43,7 +43,7 @@ namespace TwoTrails.Forms
 
         private void btnBackground_Click(object sender, EventArgs e)
         {
-            btnBackground_Click2(sender, e);
+            //btnBackground_Click2(sender, e);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
