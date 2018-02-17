@@ -1674,7 +1674,7 @@ namespace TwoTrails.Forms
             myGpsPosX = b._X;
             myGpsPosY = b._Y;
 
-            if (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond - lastDraw > 999)
+            if (DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond - lastDraw > 900)
             {
                 if (b.IsValid)
                     ignoreMyPos = false;
@@ -1787,6 +1787,9 @@ namespace TwoTrails.Forms
                     TtUtils.ShowWaitCursor();
 
                     point = TtUtils.SaveConversion(point, CurrMeta);
+
+                    point.CalculatePoint();
+                    point.AdjustPoint();
 
                     DAL.InsertPoint(point);
                     DAL.SaveNmeaBursts(t5Nmea, point.CN);

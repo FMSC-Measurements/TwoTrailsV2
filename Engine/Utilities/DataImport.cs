@@ -69,7 +69,7 @@ namespace TwoTrails.Utilities
 
             if (File.Exists(_FileName))
             {
-                switch(System.IO.Path.GetExtension(_FileName).Trim('.'))
+                switch(System.IO.Path.GetExtension(_FileName).Trim('.').ToLower())
                 {
                     case "kml":
                         _FileType = FileType.GoogleEarth;
