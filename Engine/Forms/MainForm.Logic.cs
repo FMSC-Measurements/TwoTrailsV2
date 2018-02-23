@@ -1299,7 +1299,7 @@ namespace TwoTrails.Forms
         {
             try
             {
-                if (TtUtils.IsApplictionInstalled("Google Earth") || TtUtils.IsApplictionInstalled("Google Earth Pro"))
+                if (TtUtils.IsExtensionsOpenable("kml"))//TtUtils.IsApplictionInstalled("Google Earth") || TtUtils.IsApplictionInstalled("Google Earth Pro"))
                 {
                     try
                     {

@@ -2881,6 +2881,15 @@ namespace TwoTrails.Utilities
             // NOT FOUND
             return false;
         }
+
+        public static bool IsExtensionsOpenable(string ext)
+        {
+            string handler = null;
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(String.Format("SOFTWARE\\Classes\\.{0}", ext.Trim('.').ToLower()));
+            if (key != null && (handler = key.GetValue("", "None") as string) != null && handler != "None")
+                return true;
+            return false;
+        }
 #endif
 
         public static decimal FindDifference(decimal n1, decimal n2)
