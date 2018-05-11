@@ -228,10 +228,7 @@ namespace TwoTrails.Forms
         {
             if (_FileType != DataImport.FileType.NotImplementedType)
             {
-                if (Import())
-                {
-                    MessageBox.Show("Data Imported.");
-                }
+                MessageBox.Show(Import() ? "Data Imported." : "Data Failed to Import. Check log file for details.");
             }
         }
 

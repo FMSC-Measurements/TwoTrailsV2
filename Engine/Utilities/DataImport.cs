@@ -1258,7 +1258,7 @@ Check the error log for complete details.", "Import Error");
         {
             try
             {
-                Dictionary<string, TtMetaData> metas = new Dictionary<string, TtMetaData>();
+                Dictionary<string, TtMetaData> metas = dal.GetMetaData().ToDictionary(m => m.CN, m => m);
                 List<TtMetaData> tmpMeta = importDal.GetMetaData();
 
                 foreach (TtMetaData meta in tmpMeta)
@@ -1275,7 +1275,21 @@ Check the error log for complete details.", "Import Error");
                 Dictionary<string, TtPoint> tmpPoints = new Dictionary<string, TtPoint>();
                 Dictionary<string, TtGroup> groups = dal.GetGroups().ToDictionary(g => g.CN, g => g);
 
-                List<TwoTrails.GpsAccess.NmeaBurst> nmea = new List<TwoTrails.GpsAccess.NmeaBurst>();
+                String metaConvertGuid = null;
+
+                if (importedMetas.ContainsKey(Values.EmptyGuid))
+                {
+                    TtMetaData im = importedMetas[Values.EmptyGuid];
+                    TtMetaData m = metas[Values.EmptyGuid];
+
+                    if (m != im)
+                    {
+                        metaConvertGuid = Guid.NewGuid().ToString();
+                        im.CN = metaConvertGuid;
+                        metas.Add(metaConvertGuid, im);
+                        dal.InsertMetaData(im);
+                    }
+                }
 
                 Action<TtPoint> parsePoint = null;
                 parsePoint = (TtPoint ip) =>
@@ -1287,16 +1301,11 @@ Check the error log for complete details.", "Import Error");
                     {
                         try
                         {
-                            if (groups.ContainsKey(ip.GroupCN))
+                            if (!groups.ContainsKey(ip.GroupCN))
                             {
-                                ip.GroupCN = ip.GroupCN;
-                                ip.GroupName = groups[ip.GroupCN].Name;
-                            }
-                            else
-                            {
-                                dal.InsertGroup(importDal.GetGroupByCN(ip.GroupCN));
-                                ip.GroupCN = ip.GroupCN;
-                                ip.GroupName = groups[ip.GroupCN].Name;
+                                TtGroup g = importDal.GetGroupByCN(ip.GroupCN);
+                                dal.InsertGroup(g);
+                                groups.Add(g.CN, g);
                             }
                         }
                         catch
@@ -1311,6 +1320,9 @@ Check the error log for complete details.", "Import Error");
                         ip.GroupName = Values.MainGroup.Name;
                     }
 
+                    if (ip.MetaDefCN == Values.EmptyGuid && metaConvertGuid != null)
+                        ip.MetaDefCN = metaConvertGuid;
+
                     if (!metas.ContainsKey(ip.MetaDefCN))
                     {
                         metas.Add(ip.MetaDefCN, importedMetas[ip.MetaDefCN]);
@@ -1319,7 +1331,7 @@ Check the error log for complete details.", "Import Error");
 
                     if (useNmea && ip.IsGpsType())
                     {
-                        nmea.AddRange(importDal.GetNmeaBurstsByPointCN(ip.CN));
+                        dal.SaveNmeaBursts(importDal.GetNmeaBurstsByPointCN(ip.CN), ip.CN);
                     }
                     else if (ip.op == OpType.Quondam)
                     {

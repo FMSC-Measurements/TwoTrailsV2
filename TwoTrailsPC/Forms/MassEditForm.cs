@@ -1423,7 +1423,7 @@ namespace TwoTrails.Forms
                         if (p.AdjX < w)
                             w = p.AdjX;
 
-                        ae += p.AdjX;
+                        ae += p.AdjX; //is this doubling point 0
                         an += p.AdjY;
 
                         if (_MetaData[selctedPoints[i].MetaDefCN].uomElevation == UomElevation.Meters)
