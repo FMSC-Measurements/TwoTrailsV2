@@ -21,7 +21,7 @@ namespace TwoTrails.Forms
 
     public partial class MapForm : Form
     {
-        public struct PolyWPoints
+        public class PolyWPoints
         {
             public TtPolygon polygon;
             public List<TtPoint> points;
@@ -101,6 +101,9 @@ namespace TwoTrails.Forms
             DAL = d;
 
             t5Enabled = !MapValues.mapPolyT5.IsEmpty() && MapValues.mapPolyT5 != Values.EmptyGuid;
+
+            if (t5Enabled && !polyCNs.Contains(MapValues.mapPolyT5))
+                polyCNs.Add(MapValues.mapPolyT5);
 
             font = new Font(FontFamily.GenericSansSerif, 8, FontStyle.Regular);
             brushLabel = new SolidBrush(Color.Black);
