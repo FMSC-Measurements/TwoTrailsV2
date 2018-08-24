@@ -1671,7 +1671,7 @@ namespace TwoTrails.Utilities
                 #endregion
 
                 #region Adj
-                if (BAdjCoords.Count > 3)
+                if (BAdjCoords.Count > 2)
                 {
                     FileName = _File + "_BndAdj";
                     geoFac = new GeometryFactory();
@@ -1714,7 +1714,7 @@ namespace TwoTrails.Utilities
                 #endregion
 
                 #region UnAdj
-                if (BUnAdjCoords.Count > 3)
+                if (BUnAdjCoords.Count > 2)
                 {
                     FileName = _File + "_BndUnAdj";
                     geoFac = new GeometryFactory();

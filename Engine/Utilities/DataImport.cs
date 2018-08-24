@@ -1570,6 +1570,8 @@ Check the error log for complete details.", "Import Error");
                             }
 
                             _Points.AddRange(tmpPoints);
+
+                            tmpPoints.Clear();
                         }
                             
                         _Polygons.Add(_Poly.CN, _Poly);

@@ -129,57 +129,64 @@ namespace Engine.BusinessLogic
                 _LastTtPoint = null;
                 _LastTtBndPt = null;
 
-                if (points.Count > 0)
+                try
                 {
-                    _LastTtPoint = null;
-                    _Legs = new List<Leg>();
-
-                    TtPoint firstBndPoint = null, lastBndPoint = null;
-                    foreach (TtPoint point in points)//.Where(p => p.OnBnd))
+                    if (points.Count > 0)
                     {
-                        OutputPointSummary(point, false, showpoints);
+                        _LastTtPoint = null;
+                        _Legs = new List<Leg>();
 
-                        if (point.OnBnd)
+                        TtPoint firstBndPoint = null, lastBndPoint = null;
+                        foreach (TtPoint point in points)//.Where(p => p.OnBnd))
                         {
-                            if (firstBndPoint == null)
-                                firstBndPoint = point;
+                            OutputPointSummary(point, false, showpoints);
 
-                            lastBndPoint = point;
+                            if (point.OnBnd)
+                            {
+                                if (firstBndPoint == null)
+                                    firstBndPoint = point;
+
+                                lastBndPoint = point;
+                            }
                         }
-                    }
 
-                    if (firstBndPoint != null && !firstBndPoint.SameAdjLocation(_LastTtBndPt))
+                        if (firstBndPoint != null && !firstBndPoint.SameAdjLocation(_LastTtBndPt))
+                        {
+                            //if (_LastTtPoint.op == OpType.SideShot || pt.op == OpType.SideShot)
+                            //     _Legs.Add(new Leg(_LastTtPoint, pt, polys[_LastTtPoint.PolyCN].PolyAccu, polys[pt.PolyCN].PolyAccu));
+                            //else
+                            _Legs.Add(new Leg(_LastTtBndPt, firstBndPoint, polys));
+                        }
+
+                        if (firstBndPoint != null)
+                            _PolyLinePerim = poly.Perimeter - TtUtils.Distance(firstBndPoint, lastBndPoint, true);
+
+                        foreach (Leg leg in _Legs)
+                        {
+                            TotalGpsError += leg.GetAreaError();
+                        }
+
+                        TotalError = TotalGpsError + TotalTravError;
+
+                        OutputPolygonSummary(poly);
+                        _PolyOutput.AppendLine();
+                    }
+                    else
                     {
-                        //if (_LastTtPoint.op == OpType.SideShot || pt.op == OpType.SideShot)
-                        //     _Legs.Add(new Leg(_LastTtPoint, pt, polys[_LastTtPoint.PolyCN].PolyAccu, polys[pt.PolyCN].PolyAccu));
-                        //else
-                        _Legs.Add(new Leg(_LastTtBndPt, firstBndPoint, polys));
+                        OutputPolygonSummary(poly);
+                        _PolyOutput.AppendLine();
+
+                        _PolyOutput.AppendLine("No Used Points in Polygon.");
                     }
 
-                    if (firstBndPoint != null)
-                        _PolyLinePerim = poly.Perimeter - TtUtils.Distance(firstBndPoint, lastBndPoint, true);
+                    _writer.Write(_PolyOutput);
 
-                    foreach(Leg leg in _Legs)
-                    {
-                        TotalGpsError += leg.GetAreaError();
-                    }
-
-                    TotalError = TotalGpsError + TotalTravError;
-
-                    OutputPolygonSummary(poly);
-                    _PolyOutput.AppendLine();
+                    _writer.WriteLine(_PointOutput);
                 }
-                else
+                catch (Exception ex)
                 {
-                    OutputPolygonSummary(poly);
-                    _PolyOutput.AppendLine();
-
-                    _PolyOutput.AppendLine("No Used Points in Polygon.");
+                    _writer.WriteLine("Error Generating Polygon Stats");
                 }
-
-                _writer.Write(_PolyOutput);
-
-                _writer.WriteLine(_PointOutput);
             }
 
             _writer.Close();
@@ -362,6 +369,9 @@ namespace Engine.BusinessLogic
                 case TwoTrails.Engine.OpType.Quondam:
                     {
                         QuondamPoint qp = pt as QuondamPoint;
+
+                        if (qp.ParentPoint == null)
+                            throw new Exception(String.Format("Quondam {0} does not have a parent point. PCN: {1}", qp.PID, qp.ParentCN));
 
                         if (qp.ParentOp == OpType.Traverse && _LastTtPoint != null)
                         {
