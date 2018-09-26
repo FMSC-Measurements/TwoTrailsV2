@@ -141,6 +141,7 @@
     <Compile Include="DataAccess\DataAccessUpgrader.cs" />
     <Compile Include="DataAccess\MediaAccessLayer.cs" />
     <Compile Include="DataAccess\TwoTrailsSchema.cs" />
+    <Compile Include="Engine\APIKeys.cs" />
     <Compile Include="Engine\MapValues.cs" />
     <Compile Include="Engine\Operation.cs" />
     <Compile Include="Engine\Values.cs" />
