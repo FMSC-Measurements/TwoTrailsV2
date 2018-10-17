@@ -111,7 +111,7 @@ namespace TwoTrails.Forms
 
         private void pointNavigationCtrl1_JumpPoint(object sender)
         {
-            pointNavigationCtrl1_JumpPoint(sender);
+            pointNavigationCtrl1_JumpPoint2(sender);
         }
 
         private void txtInc_TextChanged(object sender, EventArgs e)

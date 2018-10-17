@@ -613,7 +613,45 @@ namespace TwoTrails.Forms
 
         private void pointNavigationCtrl1_JumpPoint2(object sender)
         {
-            //
+            List<string> opts = new List<string>();
+            foreach (TtPolygon p in Polygons)
+            {
+                opts.Add(p.Name);
+            }
+
+            using (Selection form = new Selection("Polygons", opts, CNs.IndexOf(CurrentPolygon.CN)))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+
+                    SaveCurrentPolygon();
+
+                    _ignoreMakeDirty = true;
+
+                    int index = form.selection;
+
+                    if (index > -1 && index < Polygons.Count)
+                    {
+                        CurrentPolygon = Polygons[index];
+                        UpdatedPolygon = CurrentPolygon;
+                        AdjustNavControls(index);
+                        actionsControlPolygons.MiscButtonEnabled = true;
+                    }
+                    else
+                    {
+                        actionsControlPolygons.MiscButtonEnabled = false;
+                    }
+
+                    Lock(true);
+
+                    Kb.Hide(this);
+
+                    _ignoreMakeDirty = false;
+
+
+                    pointNavigationCtrl1.UpdateIndex(form.selection);
+                }
+            }
         }
     }
 }
